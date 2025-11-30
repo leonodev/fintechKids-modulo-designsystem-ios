@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import FHKDesignSystem
 
 @main
 struct FHKDesignSystemDemoApp: App {
+    init() {
+        // Registrar fuentes al iniciar la app
+        FontManager.registerFonts()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
