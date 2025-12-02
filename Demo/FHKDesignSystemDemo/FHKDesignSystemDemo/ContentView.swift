@@ -39,9 +39,7 @@ struct ContentView: View {
                 .colorInvert()
             
             // Bottom Libary
-            FHKButtonPrimary(mainTitle: "Primary Button",
-                             state: $state,
-                             style: .constant(.filled),
+            FHKButtonPrimary(title: "Primary Button",
                              action: {
                 
             })
@@ -203,16 +201,16 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    VStack {
-        ContentView()
-    }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background {
-        Image.background
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .ignoresSafeArea()
-    }
-    .ignoresSafeArea()
-}
+//#Preview {
+//    VStack {
+//        ContentView()
+//    }
+//    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//    .background {
+//        Image.background
+//            .resizable()
+//            .aspectRatio(contentMode: .fill)
+//            .ignoresSafeArea()
+//    }
+//    .ignoresSafeArea()
+//}

@@ -19,6 +19,9 @@ public extension Color {
     static let wine = Color("wine", bundle: .module)
     
     static let shadowColor = Color("shadow", bundle: .module)
+    static let textColorEnabled = Color("textColorEnabled", bundle: .module)
+    
+    
 }
 
 
