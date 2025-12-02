@@ -33,6 +33,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            
             //Slider
             Slider(value: $spacing, in: 0...80)
                 .padding()
@@ -201,16 +202,16 @@ struct ContentView: View {
     }
 }
 
-//#Preview {
-//    VStack {
-//        ContentView()
-//    }
-//    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//    .background {
-//        Image.background
-//            .resizable()
-//            .aspectRatio(contentMode: .fill)
-//            .ignoresSafeArea()
-//    }
-//    .ignoresSafeArea()
-//}
+#Preview {
+    VStack {
+        ContentView()
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background {
+        Image.background
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .ignoresSafeArea()
+    }
+    .ignoresSafeArea()
+}

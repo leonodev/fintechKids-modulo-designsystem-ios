@@ -50,4 +50,10 @@ public enum FHKButtonComponent {
             case regularWithInteractive
         }
     }
+    
+    public enum Size {
+        case small
+        case medium
+        case large
+    }
 }
