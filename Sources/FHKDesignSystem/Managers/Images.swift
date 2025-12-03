@@ -9,6 +9,7 @@ import SwiftUI
 
 public extension Image {
     public static let background = Image("bg", bundle: .module)
+    public static let backgroundDemo = Image("bg_demo", bundle: .module)
     
     public static let englandCircleFlag = Image("england-circle", bundle: .module)
     public static let franceCircleFlag = Image("france-circle", bundle: .module)

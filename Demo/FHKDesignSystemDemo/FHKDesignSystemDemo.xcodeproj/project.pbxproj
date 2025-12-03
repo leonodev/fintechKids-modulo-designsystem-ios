@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5D28A2102EC8EEA700AFF43A /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */; };
+		5D8AC88D2EDF2281003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88C2EDF2281003F06C1 /* InlineSnapshotTesting */; };
+		5D8AC88F2EDF2281003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88E2EDF2281003F06C1 /* SnapshotTesting */; };
+		5D8AC8912EDF2281003F06C1 /* SnapshotTestingCustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8902EDF2281003F06C1 /* SnapshotTestingCustomDump */; };
+		5D8AC8962EDF9651003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8952EDF9651003F06C1 /* InlineSnapshotTesting */; };
+		5D8AC8982EDF9651003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8972EDF9651003F06C1 /* SnapshotTesting */; };
+		5D8AC89A2EDF9651003F06C1 /* SnapshotTestingCustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8992EDF9651003F06C1 /* SnapshotTestingCustomDump */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8AC89A2EDF9651003F06C1 /* SnapshotTestingCustomDump in Frameworks */,
+				5D8AC8962EDF9651003F06C1 /* InlineSnapshotTesting in Frameworks */,
+				5D8AC8982EDF9651003F06C1 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +80,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8AC8912EDF2281003F06C1 /* SnapshotTestingCustomDump in Frameworks */,
+				5D8AC88D2EDF2281003F06C1 /* InlineSnapshotTesting in Frameworks */,
+				5D8AC88F2EDF2281003F06C1 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +153,9 @@
 			);
 			name = FHKDesignSystemDemoTests;
 			packageProductDependencies = (
+				5D8AC8952EDF9651003F06C1 /* InlineSnapshotTesting */,
+				5D8AC8972EDF9651003F06C1 /* SnapshotTesting */,
+				5D8AC8992EDF9651003F06C1 /* SnapshotTestingCustomDump */,
 			);
 			productName = FHKDesignSystemDemoTests;
 			productReference = 5D28A1F12EC8EE8000AFF43A /* FHKDesignSystemDemoTests.xctest */;
@@ -164,6 +179,9 @@
 			);
 			name = FHKDesignSystemDemoUITests;
 			packageProductDependencies = (
+				5D8AC88C2EDF2281003F06C1 /* InlineSnapshotTesting */,
+				5D8AC88E2EDF2281003F06C1 /* SnapshotTesting */,
+				5D8AC8902EDF2281003F06C1 /* SnapshotTestingCustomDump */,
 			);
 			productName = FHKDesignSystemDemoUITests;
 			productReference = 5D28A1FB2EC8EE8000AFF43A /* FHKDesignSystemDemoUITests.xctest */;
@@ -203,6 +221,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5D28A20E2EC8EEA700AFF43A /* XCLocalSwiftPackageReference "../../../FHKDesignSystem" */,
+				5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5D28A1E52EC8EE7D00AFF43A /* Products */;
@@ -595,10 +614,51 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FHKDesignSystem;
+		};
+		5D8AC88C2EDF2281003F06C1 /* InlineSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = InlineSnapshotTesting;
+		};
+		5D8AC88E2EDF2281003F06C1 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		5D8AC8902EDF2281003F06C1 /* SnapshotTestingCustomDump */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTestingCustomDump;
+		};
+		5D8AC8952EDF9651003F06C1 /* InlineSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = InlineSnapshotTesting;
+		};
+		5D8AC8972EDF9651003F06C1 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		5D8AC8992EDF9651003F06C1 /* SnapshotTestingCustomDump */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTestingCustomDump;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

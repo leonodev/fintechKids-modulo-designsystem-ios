@@ -15,6 +15,9 @@ let package = Package(
             targets: ["FHKDesignSystem"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.7")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
@@ -22,14 +25,17 @@ let package = Package(
             name: "FHKDesignSystem",
             dependencies: [],
             resources: [
-                .process("Resources/Fonts"),  // Esto incluye las fuentes
-                .process("Resources/Colors"),   // assets de colores
+                .process("Resources/Fonts"),
+                .process("Resources/Colors"),
                 .process("Resources/Images"),
             ]
         ),
         .testTarget(
             name: "FHKDesignSystemTests",
-            dependencies: ["FHKDesignSystem"]
+            dependencies: [
+                "FHKDesignSystem",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+            ]
         ),
     ]
 )

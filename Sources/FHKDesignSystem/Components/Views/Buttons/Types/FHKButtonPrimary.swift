@@ -13,7 +13,6 @@ public struct FHKButtonPrimary: FHKButtonProtocol {
     public var action: () -> Void
     
     public init(title: String,
-                type: FHKButtonComponent.Types = .primary,
                 style: FHKButtonComponent.Style = .filled,
                 state: FHKButtonComponent.State = .enabled,
                 variant: FHKButtonComponent.Variant = .simple,
@@ -22,7 +21,7 @@ public struct FHKButtonPrimary: FHKButtonProtocol {
                 action: @escaping () -> Void = {})
     {
         _title = State(initialValue: title)
-        appearance = FHKButtonAppearance(type: type,
+        appearance = FHKButtonAppearance(type: .primary,
                                          style: style,
                                          state: state,
                                          variant: variant,
@@ -36,22 +35,26 @@ public struct FHKButtonPrimary: FHKButtonProtocol {
     public var body: some View {
         Button(action: action) {
             if case .glass(let glassVariant) = appearance.mode {
+                
                 Text(title)
-                    .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
                     .font(appearance.font)
                     .foregroundColor(appearance.foregroundColor)
+                    .frame(maxWidth: appearance.maxWidth,
+                                       minHeight: appearance.maxHeight, // Forzamos el mínimo
+                                       maxHeight: appearance.maxHeight) // Y el máximo
                     .glassEffect(appearance.modeGlass(variant: glassVariant))
             }
             else {
                 Text(title)
-                    .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
                     .font(appearance.font)
                     .foregroundColor(appearance.foregroundColor)
                     .background(appearance.solidBackgroundColor())
                     .cornerRadius(30)
                     .shadow(radius: 4, y: 2)
+                    .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
             }
         }
+        .contentShape(Rectangle())
         .disabled(appearance.state != .enabled)
     }
 }

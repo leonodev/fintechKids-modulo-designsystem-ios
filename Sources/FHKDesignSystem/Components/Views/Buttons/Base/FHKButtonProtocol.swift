@@ -73,7 +73,7 @@ public struct FHKButtonAppearance {
             case .glass:
                 return .silver
             case .solid:
-                return .white
+                return .basicWhite
             }
             
         case .disabled:
