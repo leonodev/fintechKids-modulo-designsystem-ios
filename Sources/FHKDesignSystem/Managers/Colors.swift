@@ -17,6 +17,8 @@ public extension Color {
     static let stone = Color("stone", bundle: .module)
     static let ultraPurple = Color("ultraPurple", bundle: .module)
     static let wine = Color("wine", bundle: .module)
+    static let basicWhite = Color("basicWhite", bundle: .module)
+    static let basicBlack = Color("basicBlack", bundle: .module)
     
     static let shadowColor = Color("shadow", bundle: .module)
     static let textColorEnabled = Color("textColorEnabled", bundle: .module)

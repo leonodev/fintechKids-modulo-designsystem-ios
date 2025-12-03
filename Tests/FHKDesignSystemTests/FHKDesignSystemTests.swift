@@ -1,4 +1,5 @@
 import Testing
+import SnapshotTesting
 @testable import FHKDesignSystem
 
 @Test func example() async throws {
