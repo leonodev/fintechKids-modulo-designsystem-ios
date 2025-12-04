@@ -2,13 +2,10 @@ name: iOS Design System CI
 
 on:
   pull_request:
-    branches:
-      - develop
-    types: [opened, synchronize, reopened]
+    branches: [develop]
   push:
-    branches:
-      - develop
-  workflow_dispatch:  # Ejecución manual
+    branches: [develop]
+  workflow_dispatch:
 
 jobs:
   test-demo-app:
@@ -19,41 +16,35 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Para obtener todo el historial
+        fetch-depth: 0
     
     - name: Setup Xcode 16.4
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '16.4'
     
-    - name: Debug directory structure
+    - name: Resolve Swift Package dependencies FIRST
       run: |
-        echo "=== ESTRUCTURA ENCONTRADA ==="
-        echo "Directorio raíz: $(pwd)"
-        echo ""
-        echo "Verificando existencia del proyecto demo..."
-        if [ -d "Demo/FHKDesignSystemDemo/FHKDesignSystemDemo.xcodeproj" ]; then
-          echo "✅ PROYECTO ENCONTRADO: Demo/FHKDesignSystemDemo/FHKDesignSystemDemo.xcodeproj"
-        else
-          echo "❌ ERROR: No se encontró el proyecto"
-          find . -name "*.xcodeproj" -type d
-          exit 1
-        fi
+        echo "=== RESOLVIENDO DEPENDENCIAS DEL PAQUETE ==="
+        
+        # Primero, vamos al directorio del proyecto demo
+        cd Demo/FHKDesignSystemDemo
+        
+        # Resolvemos las dependencias con la ruta correcta
+        # El paquete está en ../.. (raíz del repositorio)
+        xcodebuild -project FHKDesignSystemDemo.xcodeproj \
+          -resolvePackageDependencies \
+          -clonedSourcePackagesDirPath ../.swiftpm
+        
+        echo "✅ Dependencias resueltas"
     
-    - name: Navigate and test
+    - name: Test Demo App
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
-        echo "=== EJECUTANDO DESDE: $(pwd) ==="
-        echo "Contenido:"
-        ls -la
-        echo ""
-        
-        echo "=== LISTANDO ESQUEMAS ==="
-        xcodebuild -project FHKDesignSystemDemo.xcodeproj -list
-        echo ""
-        
         echo "=== EJECUTANDO TESTS ==="
-        # Con verbose para ver qué está pasando
+        echo "Directorio: $(pwd)"
+        
+        # Opción A: Con xcodebuild normal
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
@@ -61,14 +52,7 @@ jobs:
           -derivedDataPath ./build \
           -enableCodeCoverage YES \
           CODE_SIGNING_ALLOWED=NO \
-          | xcpretty --color --report junit
+          -clonedSourcePackagesDirPath ../.swiftpm \
+          -skipPackageUpdates
         
-        echo "✅ TESTS COMPLETADOS EXITOSAMENTE"
-    
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: ./Demo/FHKDesignSystemDemo/build/**/*.xcresult
-        retention-days: 7
+        echo "✅ Tests completados"
