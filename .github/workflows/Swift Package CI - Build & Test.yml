@@ -1,59 +1,54 @@
-name: iOS CI - Stable
+name: Debug Test Failure
 
-on:
-  pull_request:
-    branches: [develop]
-  push:
-    branches: [develop]
+on: workflow_dispatch
 
 jobs:
-  test:
+  debug:
     runs-on: macos-latest
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Xcode 16.2
+    - name: Setup Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '16.2'
     
-    - name: Fix package path
-      run: |
-        mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
-        ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
-    
-    - name: List available simulators
-      run: xcrun simctl list devices available
-    
-    - name: Run tests with retry and better simulator handling
+    - name: Paso a paso
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
-        # Asegurarse de que el simulador esté apagado
-        xcrun simctl shutdown all || true
+        echo "1. Listar esquemas:"
+        xcodebuild -project FHKDesignSystemDemo.xcodeproj -list
         
-        # Usar un simulador más genérico y disponible
-        xcodebuild test \
+        echo ""
+        echo "2. Construir solo:"
+        if xcodebuild build \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
-          -destination 'platform=iOS Simulator,id=Booted' \
-          -destination-timeout 10 \
-          CODE_SIGNING_ALLOWED=NO \
-          -quiet
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          CODE_SIGNING_ALLOWED=NO; then
+          echo "✅ Build exitoso"
+        else
+          echo "❌ Build falló"
+          exit 1
+        fi
         
-        echo "✅ Tests passed!"
-      
-    - name: If tests fail, try with specific iPhone
-      if: failure()
-      working-directory: ./Demo/FHKDesignSystemDemo
-      run: |
-        echo "Trying with specific iPhone 15..."
+        echo ""
+        echo "3. Verificar tests disponibles:"
+        xcodebuild -project FHKDesignSystemDemo.xcodeproj \
+          -scheme FHKDesignSystemDemo \
+          -showTestPlan
+        
+        echo ""
+        echo "4. Ejecutar solo UNA clase de test (si existe):"
+        # Buscar nombres de clases de test
+        find . -name "*Test*.swift" -type f | head -5
+        
+        echo ""
+        echo "5. Intentar con un test específico:"
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
           -destination 'platform=iOS Simulator,name=iPhone 15' \
           CODE_SIGNING_ALLOWED=NO \
-          -retry-tests-on-failure \
-          -maximum-test-execution-time-allowance 30
-        
-        echo "✅ Tests passed on retry!"
+          -only-testing:FHKDesignSystemDemoTests 2>&1 | head -150
