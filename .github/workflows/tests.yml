@@ -1,9 +1,8 @@
-name: Debug Project Structure
+name: DEBUG - Find Project Structure
 
 on:
+  workflow_dispatch:  # Permite ejecutarlo manualmente
   push:
-    branches: [develop]
-  pull_request:
     branches: [develop]
 
 jobs:
@@ -13,27 +12,83 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Debug structure
+    - name: Complete Structure Analysis
       run: |
-        echo "=== Directorio actual ==="
-        pwd
+        echo "=============================================="
+        echo "ANÁLISIS COMPLETO DE ESTRUCTURA DEL PROYECTO"
+        echo "=============================================="
         echo ""
         
-        echo "=== Contenido del directorio ==="
+        echo "1. DIRECTORIO ACTUAL Y CONTENIDO:"
+        echo "----------------------------------"
+        pwd
+        echo ""
+        echo "Contenido del directorio raíz:"
         ls -la
         echo ""
         
-        echo "=== Buscando TODOS los .xcodeproj ==="
-        find . -name "*.xcodeproj" -type d | while read proj; do
-          echo "Proyecto: $proj"
-          echo "  Ruta relativa: $proj"
-          echo "  Ruta absoluta: $(pwd)/${proj#./}"
+        echo "2. BUSQUEDA ESPECÍFICA DE TU PROYECTO:"
+        echo "--------------------------------------"
+        echo "Buscando 'FHKDesignSystemDemo':"
+        find . -type d -name "*FHKDesignSystemDemo*" 2>/dev/null
+        echo ""
+        
+        echo "3. ARCHIVOS XCODEPROJ EN TODO EL REPO:"
+        echo "--------------------------------------"
+        find . -name "*.xcodeproj" -type d 2>/dev/null | while read proj; do
+          echo "• $proj"
+          echo "  Ubicación completa: $(pwd)/${proj#./}"
+          echo "  Directorio padre: $(dirname "$proj")"
           echo ""
         done
         
-        echo "=== Buscando .xcworkspace ==="
-        find . -name "*.xcworkspace" -type d
+        echo "4. CONTENIDO DE CADA XCODEPROJ ENCONTRADO:"
+        echo "------------------------------------------"
+        find . -name "*.xcodeproj" -type d 2>/dev/null | while read proj; do
+          echo "Analizando: $proj"
+          echo "Contenido:"
+          ls -la "$proj" || echo "  No se pudo listar"
+          echo ""
+        done
+        
+        echo "5. ESTRUCTURA DE DIRECTORIOS (3 niveles):"
+        echo "----------------------------------------"
+        find . -type d -maxdepth 3 | sort
         echo ""
         
-        echo "=== Estructura completa (primeros niveles) ==="
-        find . -type d -maxdepth 3 | sort
+        echo "6. ARCHIVOS DE CONFIGURACION:"
+        echo "-----------------------------"
+        for file in Package.swift Podfile .swiftpm; do
+          if [ -f "$file" ] || [ -d "$file" ]; then
+            echo "• $file encontrado"
+          fi
+        done
+        
+        echo ""
+        echo "7. PRUEBA DE XCODEBUILD DIRECTAMENTE:"
+        echo "------------------------------------"
+        echo "Listando proyectos disponibles:"
+        for proj in $(find . -name "*.xcodeproj" -type d 2>/dev/null); do
+          echo ""
+          echo "Intentando con: $proj"
+          cd "$(dirname "$proj")"
+          echo "En directorio: $(pwd)"
+          echo "Archivo .xcodeproj: $(basename "$proj")"
+          
+          # Intenta listar esquemas
+          if xcodebuild -project "$(basename "$proj")" -list 2>/dev/null | head -20; then
+            echo "✅ Proyecto válido encontrado!"
+            echo "RUTA CORRECTA: $(pwd)/$(basename "$proj")"
+            exit 0
+          else
+            echo "❌ No es un proyecto válido en este directorio"
+          fi
+          
+          # Regresa al directorio original
+          cd -
+        done
+        
+        echo ""
+        echo "=============================================="
+        echo "NO SE ENCONTRÓ PROYECTO VÁLIDO"
+        echo "=============================================="
