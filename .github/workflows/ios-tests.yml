@@ -1,4 +1,4 @@
-name: iOS Tests Simple
+name: iOS Design System CI
 
 on:
   pull_request:
@@ -18,20 +18,33 @@ jobs:
       with:
         xcode-version: '16.4'
     
-    - name: Test with resolved dependencies
+    - name: Create symbolic link to fix path issue
+      run: |
+        echo "=== CREANDO ENLACE SIMBÓLICO PARA SOLUCIONAR RUTA ==="
+        
+        # El proyecto busca en /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
+        # Pero el paquete está en /Users/runner/work/fintechKids-modulo-designsystem-ios/fintechKids-modulo-designsystem-ios/
+        
+        # Crear el directorio que Xcode espera
+        mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
+        
+        # Crear enlace simbólico al repositorio actual
+        ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
+        
+        echo "✅ Enlace simbólico creado"
+        echo "Ruta real: $(pwd)"
+        echo "Enlace: /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem"
+    
+    - name: Test Demo App
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
-        # Paso 1: Resolver dependencias explícitamente
-        echo "Resolviendo dependencias del paquete..."
-        xcodebuild -resolvePackageDependencies \
-          -project FHKDesignSystemDemo.xcodeproj \
-          -clonedSourcePackagesDirPath "$(pwd)/../.swiftpm"
+        echo "=== EJECUTANDO TESTS ==="
         
-        # Paso 2: Ejecutar tests
-        echo "Ejecutando tests..."
+        # Ahora debería funcionar
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
           -destination 'platform=iOS Simulator,name=iPhone 15' \
-          -clonedSourcePackagesDirPath "$(pwd)/../.swiftpm" \
           CODE_SIGNING_ALLOWED=NO
+        
+        echo "✅ Tests completados"
