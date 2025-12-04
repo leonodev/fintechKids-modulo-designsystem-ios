@@ -3,32 +3,53 @@ name: iOS Design System CI
 on:
   pull_request:
     branches: [develop]
+  push:
+    branches: [develop]
 
 jobs:
-  test:
+  test-swift-package:
+    name: Test Design System Package
     runs-on: macos-latest
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Xcode 16.2 (Swift 6.2)
+    - name: Setup Xcode 16.2
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.2'  # Esta versión incluye Swift 6.2
+        xcode-version: '16.2'
     
-    - name: Create symbolic link
+    - name: Run Swift Package Tests
       run: |
-        # Solución para la ruta absoluta
+        echo "=== TESTING SWIFT PACKAGE ==="
+        swift test --parallel --sanitize=thread
+        echo "✅ Design System Package tests passed"
+  
+  test-demo-app:
+    name: Test Demo Application
+    runs-on: macos-latest
+    needs: test-swift-package  # Solo ejecuta si los tests del paquete pasan
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Xcode 16.2
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '16.2'
+    
+    - name: Fix package path
+      run: |
         mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
         ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
     
-    - name: Test Demo App
+    - name: Run Demo Tests
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
+        echo "=== TESTING DEMO APP ==="
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
           -destination 'platform=iOS Simulator,name=iPhone 15' \
           CODE_SIGNING_ALLOWED=NO
-        
-        echo "✅ Tests completados"
+        echo "✅ Demo App tests passed"
