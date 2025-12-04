@@ -1,4 +1,4 @@
-name: CI Build and Test - Final Attempt (Running Tests)
+name: CI Build and Test - Final Stable
 
 on:
   push:
@@ -29,17 +29,12 @@ jobs:
         with:
           swift-version: '6.2'
           
-      # 3. Compilar el Paquete Swift (necesario para generar archivos temporales)
+      # 3. Compilar el Paquete Swift
       - name: Build Swift Package
-        run: swift build
-        
-      # 4. 🚀 Ejecutar las Pruebas Unitarias (Sintaxis Estricta de Xcodebuild)
-      - name: Run Unit Tests (Strict Xcodebuild)
-        run: |
-          # Usamos la sintaxis que apunta al Target y al destino del simulador.
-          # Esto resuelve el bug de "unable to find utility xctest" del toolchain 6.2.
-          xcodebuild test \
-            -target FHKDesignSystemTests \
-            -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=18.0" \
-            -enableCodeCoverage YES
+        # Forzamos la compilación para la plataforma iOS para establecer la ruta de salida
+        run: swift build --target FHKDesignSystem --destination "generic/platform=iOS Simulator"
+
+      # 4. 🚀 Ejecutar las Pruebas Unitarias (¡La última sintaxis limpia!)
+      - name: Run Unit Tests
+        # Usamos el comando más simple y nativo de SPM
+        run: swift test --enable-code-coverage --enable-test-discovery
