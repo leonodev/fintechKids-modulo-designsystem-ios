@@ -29,6 +29,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5D28A1F02EC8EE8000AFF43A"
+               BuildableName = "FHKDesignSystemDemoTests.xctest"
+               BlueprintName = "FHKDesignSystemDemoTests"
+               ReferencedContainer = "container:FHKDesignSystemDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5D28A1FA2EC8EE8000AFF43A"
+               BuildableName = "FHKDesignSystemDemoUITests.xctest"
+               BlueprintName = "FHKDesignSystemDemoUITests"
+               ReferencedContainer = "container:FHKDesignSystemDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
