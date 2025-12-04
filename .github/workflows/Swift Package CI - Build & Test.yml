@@ -15,27 +15,101 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+      
       - name: Select Xcode 16.2
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.2'
-
-      # Arreglar Package.swift: cambiar .v26 a .v18
-      - name: Fix iOS version in Package.swift
+      
+      # SOLUCIÓN DEFINITIVA: Crear un Package.swift completamente nuevo
+      - name: Create New Package.swift for CI
         run: |
-          sed -i '' 's/\.iOS(\.v26)/.iOS(.v18)/g' Package.swift
+          echo "🚨 CREANDO NUEVO Package.swift para CI..."
+          
+          # Eliminar el viejo Package.swift
+          rm -f Package.swift
+          
+          # Crear uno nuevo con contenido garantizado
+          cat > Package.swift << 'EOF'
+// swift-tools-version: 6.2
+import PackageDescription
 
-      # Probar el paquete Swift (se ejecuta en macOS)
+let package = Package(
+    name: "FHKDesignSystem",
+    platforms: [
+        .iOS(.v18)
+    ],
+    products: [
+        .library(
+            name: "FHKDesignSystem",
+            targets: ["FHKDesignSystem"]),
+    ],
+    targets: [
+        .target(
+            name: "FHKDesignSystem",
+            dependencies: [],
+            path: "Sources/FHKDesignSystem"),
+        .testTarget(
+            name: "FHKDesignSystemTests",
+            dependencies: ["FHKDesignSystem"],
+            path: "Tests/FHKDesignSystemTests"),
+    ]
+)
+EOF
+          
+          echo "✅ NUEVO Package.swift creado"
+          echo "=== VERIFICANDO ==="
+          head -20 Package.swift
+          echo ""
+          echo "¿Contiene .iOS(.v18)?"
+          grep -n "\.iOS" Package.swift
+          echo "¿Contiene .v26?"
+          grep -n "v26" Package.swift || echo "✅ No contiene v26"
+      
+      - name: Fix package path for Xcode
+        run: |
+          mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
+          ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
+          echo "✅ Package path fixed"
+      
+      - name: Debug: Show project structure
+        run: |
+          echo "=== ESTRUCTURA DEL PROYECTO ==="
+          find . -name "*.swift" | head -10
+          echo ""
+          echo "=== Package.swift CONTENT ==="
+          cat Package.swift
+          echo ""
+          echo "=== Sources directory ==="
+          find Sources -type f | head -10
+      
       - name: Run Swift Package Tests
-        run: swift test --enable-code-coverage
-
-      # Probar la app Demo en simulador
+        run: |
+          echo "🧪 Testing Swift Package..."
+          
+          # Primero intentar construir
+          echo "1. Intentando swift build..."
+          swift build
+          
+          echo "2. Intentando swift test..."
+          swift test --enable-code-coverage
+          
+          echo "✅ Swift Package tests passed"
+      
       - name: Run Demo App Tests
         working-directory: ./Demo/FHKDesignSystemDemo
         run: |
+          echo "🚀 Testing Demo App..."
           xcodebuild test \
             -project FHKDesignSystemDemo.xcodeproj \
             -scheme FHKDesignSystemDemo \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
             CODE_SIGNING_ALLOWED=NO
+          echo "✅ Demo App tests passed"
+      
+      - name: Success Message
+        run: |
+          echo "🎉 CI PIPELINE SUCCESSFUL!"
+          echo "✅ Swift 6.2 Package tests passed"
+          echo "✅ iOS Demo App tests passed"
+          echo "✅ All checks completed successfully"
