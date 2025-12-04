@@ -3,8 +3,6 @@ name: iOS Design System CI
 on:
   pull_request:
     branches: [develop]
-  push:
-    branches: [develop]
 
 jobs:
   test:
@@ -13,34 +11,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Xcode
+    - name: Setup Xcode 16.2 (Swift 6.2)
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.4'
+        xcode-version: '16.2'  # Esta versión incluye Swift 6.2
     
-    - name: Create symbolic link to fix path issue
+    - name: Create symbolic link
       run: |
-        echo "=== CREANDO ENLACE SIMBÓLICO PARA SOLUCIONAR RUTA ==="
-        
-        # El proyecto busca en /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
-        # Pero el paquete está en /Users/runner/work/fintechKids-modulo-designsystem-ios/fintechKids-modulo-designsystem-ios/
-        
-        # Crear el directorio que Xcode espera
+        # Solución para la ruta absoluta
         mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
-        
-        # Crear enlace simbólico al repositorio actual
         ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
-        
-        echo "✅ Enlace simbólico creado"
-        echo "Ruta real: $(pwd)"
-        echo "Enlace: /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem"
     
     - name: Test Demo App
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
-        echo "=== EJECUTANDO TESTS ==="
-        
-        # Ahora debería funcionar
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
