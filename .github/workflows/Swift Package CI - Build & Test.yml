@@ -1,4 +1,4 @@
-name: Swift Package CI - Build & Test (Swift 6.2 + iOS v26/18 SDK)
+name: Swift Package CI - Build & Test (Swift 6.2 + iOS v26 SDK)
 
 on:
   push:
@@ -13,28 +13,28 @@ jobs:
     runs-on: macos-14 
     
     steps:
+      
+      # ⚠️ Paso 1: FORZAR la selección del PATH de Xcode 16.2 manualmente
+      # Esto anula cualquier configuración previa y asegura que el toolchain de Swift 6.2
+      # se instale sobre un entorno que ya reconoce Xcode 16.2.
+      - name: Manual Select Xcode 16.2 Path
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+        
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      # 🚀 Paso 2: Seleccionar la última versión de Xcode 16 disponible (USANDO ACCIÓN VÁLIDA)
-      - name: Select latest Xcode 16
-        uses: maxim-lobanov/setup-xcode@v1 # <-- ¡ACCION CORREGIDA!
-        with:
-          # Selecciona la versión más reciente que comienza con 16 (p. ej., 16.0, 16.1)
-          xcode-version: '16' 
-          
-      # Paso 3: Configurar el Toolchain de Swift 6.2 (Obligatorio para .iOS(.v26))
-      # Esto permite que el compilador de Swift 6.2 evalúe correctamente .iOS(.v26)
+      # Paso 2: Configurar el Toolchain de Swift 6.2
+      # Necesario para que el compilador de SPM reconozca swift-tools-version: 6.2
       - name: Setup Swift 6.2 Toolchain
         uses: swift-actions/setup-swift@v2
         with:
           swift-version: '6.2'
           
-      # Paso 4: Compilar el Paquete Swift
-      # Ahora, con Xcode 16 activo y Swift 6.2, esto debería compilar.
+      # Paso 3: Compilar el Paquete Swift
+      # Esto verifica que el manifiesto se compile correctamente.
       - name: Build Swift Package
         run: swift build
         
-      # Paso 5: Ejecutar las Pruebas Unitarias (Usando el comando estándar para paquetes)
+      # Paso 4: Ejecutar las Pruebas Unitarias
       - name: Run Unit Tests
         run: swift test --enable-code-coverage
