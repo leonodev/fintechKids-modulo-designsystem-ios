@@ -29,17 +29,16 @@ jobs:
         with:
           swift-version: '6.2'
           
-      # 3. Compilar el Paquete Swift (necesario para generar el .xcodeproj temporal)
+      # 3. Compilar el Paquete Swift (necesario para generar archivos intermedios)
       - name: Build Swift Package
         run: swift build
         
-      # 4. 🚀 Ejecutar las Pruebas Unitarias (¡CORREGIDO el Scheme!)
-      - name: Run Unit Tests (via xcodebuild)
+      # 4. 🚀 Ejecutar las Pruebas Unitarias (¡CORREGIDO usando el TARGET!)
+      - name: Run Unit Tests (via xcodebuild, targeting the Test Target)
         run: |
-          # Usamos el nombre del PRODUCTO (FHKDesignSystem) como scheme.
-          # Esto le indica a xcodebuild que compile y pruebe el paquete principal.
+          # Usamos el target de prueba, que es lo que xcodebuild necesita.
           xcodebuild test \
-            -scheme FHKDesignSystem \
+            -target FHKDesignSystemTests \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=18.0" \
             -enableCodeCoverage YES
