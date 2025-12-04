@@ -1,0 +1,74 @@
+name: iOS Design System CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - develop
+  workflow_dispatch:  # Ejecución manual
+
+jobs:
+  test-demo-app:
+    name: Test Demo Application
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Para obtener todo el historial
+    
+    - name: Setup Xcode 16.4
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '16.4'
+    
+    - name: Debug directory structure
+      run: |
+        echo "=== ESTRUCTURA ENCONTRADA ==="
+        echo "Directorio raíz: $(pwd)"
+        echo ""
+        echo "Verificando existencia del proyecto demo..."
+        if [ -d "Demo/FHKDesignSystemDemo/FHKDesignSystemDemo.xcodeproj" ]; then
+          echo "✅ PROYECTO ENCONTRADO: Demo/FHKDesignSystemDemo/FHKDesignSystemDemo.xcodeproj"
+        else
+          echo "❌ ERROR: No se encontró el proyecto"
+          find . -name "*.xcodeproj" -type d
+          exit 1
+        fi
+    
+    - name: Navigate and test
+      working-directory: ./Demo/FHKDesignSystemDemo
+      run: |
+        echo "=== EJECUTANDO DESDE: $(pwd) ==="
+        echo "Contenido:"
+        ls -la
+        echo ""
+        
+        echo "=== LISTANDO ESQUEMAS ==="
+        xcodebuild -project FHKDesignSystemDemo.xcodeproj -list
+        echo ""
+        
+        echo "=== EJECUTANDO TESTS ==="
+        # Con verbose para ver qué está pasando
+        xcodebuild test \
+          -project FHKDesignSystemDemo.xcodeproj \
+          -scheme FHKDesignSystemDemo \
+          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+          -derivedDataPath ./build \
+          -enableCodeCoverage YES \
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty --color --report junit
+        
+        echo "✅ TESTS COMPLETADOS EXITOSAMENTE"
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: ./Demo/FHKDesignSystemDemo/build/**/*.xcresult
+        retention-days: 7
