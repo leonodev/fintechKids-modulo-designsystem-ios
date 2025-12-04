@@ -1,98 +1,39 @@
-name: iOS PR Validation
+name: Debug Project Structure
 
 on:
-  pull_request:
-    branches:
-      - develop
   push:
-    branches:
-      - develop
+    branches: [develop]
+  pull_request:
+    branches: [develop]
 
 jobs:
-  run-tests:
-    name: Run iOS Unit Tests
+  debug:
     runs-on: macos-latest
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
     
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '16.1'
-    
-    - name: Find project files
-      id: find-projects
+    - name: Debug structure
       run: |
-        echo "Buscando archivos de proyecto..."
-        
-        # Busca proyectos y workspaces
-        PROJECTS=$(find . -name "*.xcodeproj" -type d)
-        WORKSPACES=$(find . -name "*.xcworkspace" -type d)
-        
-        echo "Proyectos encontrados:"
-        echo "$PROJECTS"
+        echo "=== Directorio actual ==="
+        pwd
         echo ""
-        echo "Workspaces encontrados:"
-        echo "$WORKSPACES"
         
-        # Guarda en outputs para usar en otros steps
-        if [ -n "$PROJECTS" ]; then
-          echo "project_path=$(echo "$PROJECTS" | head -1)" >> $GITHUB_OUTPUT
-        fi
-        if [ -n "$WORKSPACES" ]; then
-          echo "workspace_path=$(echo "$WORKSPACES" | head -1)" >> $GITHUB_OUTPUT
-        fi
-    
-    - name: List schemes
-      run: |
-        if [ -n "${{ steps.find-projects.outputs.project_path }}" ]; then
-          echo "=== Esquemas del proyecto ==="
-          xcodebuild -project "${{ steps.find-projects.outputs.project_path }}" -list
-        fi
+        echo "=== Contenido del directorio ==="
+        ls -la
+        echo ""
         
-        if [ -n "${{ steps.find-projects.outputs.workspace_path }}" ]; then
-          echo "=== Esquemas del workspace ==="
-          xcodebuild -workspace "${{ steps.find-projects.outputs.workspace_path }}" -list
-        fi
-    
-    - name: Install dependencies if needed
-      run: |
-        # Si tienes Podfile
-        if [ -f "Podfile" ]; then
-          echo "Instalando CocoaPods..."
-          pod install
-        fi
+        echo "=== Buscando TODOS los .xcodeproj ==="
+        find . -name "*.xcodeproj" -type d | while read proj; do
+          echo "Proyecto: $proj"
+          echo "  Ruta relativa: $proj"
+          echo "  Ruta absoluta: $(pwd)/${proj#./}"
+          echo ""
+        done
         
-        # Si tienes Package.swift
-        if [ -f "Package.swift" ]; then
-          echo "Resolviendo Swift packages..."
-          xcodebuild -resolvePackageDependencies
-        fi
-    
-    - name: Run tests with workspace (si existe)
-      if: steps.find-projects.outputs.workspace_path != ''
-      run: |
-        xcodebuild test \
-          -workspace "${{ steps.find-projects.outputs.workspace_path }}" \
-          -scheme "FHKDesignSystemDemo" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
-          -derivedDataPath Build/ \
-          -enableCodeCoverage YES \
-          CODE_SIGNING_ALLOWED=NO
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_16.1.app
-    
-    - name: Run tests with project (si no hay workspace)
-      if: steps.find-projects.outputs.workspace_path == '' && steps.find-projects.outputs.project_path != ''
-      run: |
-        xcodebuild test \
-          -project "${{ steps.find-projects.outputs.project_path }}" \
-          -scheme "FHKDesignSystemDemo" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
-          -derivedDataPath Build/ \
-          -enableCodeCoverage YES \
-          CODE_SIGNING_ALLOWED=NO
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_16.1.app
+        echo "=== Buscando .xcworkspace ==="
+        find . -name "*.xcworkspace" -type d
+        echo ""
+        
+        echo "=== Estructura completa (primeros niveles) ==="
+        find . -type d -maxdepth 3 | sort
