@@ -29,30 +29,28 @@ jobs:
           echo ""
           echo "=== REPLACING .v26 with .v18 ==="
           # Método garantizado: crear un nuevo archivo
-          cat > Package.swift << 'EOF'
-// swift-tools-version: 6.2
-import PackageDescription
-
-let package = Package(
-    name: "FHKDesignSystem",
-    platforms: [
-        .iOS(.v18)
-    ],
-    products: [
-        .library(
-            name: "FHKDesignSystem",
-            targets: ["FHKDesignSystem"]),
-    ],
-    targets: [
-        .target(
-            name: "FHKDesignSystem",
-            dependencies: []),
-        .testTarget(
-            name: "FHKDesignSystemTests",
-            dependencies: ["FHKDesignSystem"]),
-    ]
-)
-EOF
+          echo '// swift-tools-version: 6.2' > Package.swift
+          echo 'import PackageDescription' >> Package.swift
+          echo '' >> Package.swift
+          echo 'let package = Package(' >> Package.swift
+          echo '    name: "FHKDesignSystem",' >> Package.swift
+          echo '    platforms: [' >> Package.swift
+          echo '        .iOS(.v18)' >> Package.swift
+          echo '    ],' >> Package.swift
+          echo '    products: [' >> Package.swift
+          echo '        .library(' >> Package.swift
+          echo '            name: "FHKDesignSystem",' >> Package.swift
+          echo '            targets: ["FHKDesignSystem"]),' >> Package.swift
+          echo '    ],' >> Package.swift
+          echo '    targets: [' >> Package.swift
+          echo '        .target(' >> Package.swift
+          echo '            name: "FHKDesignSystem",' >> Package.swift
+          echo '            dependencies: []),' >> Package.swift
+          echo '        .testTarget(' >> Package.swift
+          echo '            name: "FHKDesignSystemTests",' >> Package.swift
+          echo '            dependencies: ["FHKDesignSystem"]),' >> Package.swift
+          echo '    ]' >> Package.swift
+          echo ')' >> Package.swift
           
           echo ""
           echo "=== UPDATED Package.swift ==="
