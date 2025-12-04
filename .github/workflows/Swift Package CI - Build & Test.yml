@@ -1,53 +1,41 @@
-name: Swift Package CI - Build & Test
+name: Swift Package CI - Build & Test (Swift 6.2)
 
-# Define cuándo se ejecutará este workflow
 on:
-  # Se ejecuta cuando se suben cambios a la rama 'develop'
   push:
     branches: [ develop ]
-  # Se ejecuta cuando se abre o actualiza un Pull Request a la rama 'develop'
   pull_request:
     branches: [ develop ]
-  # Permite ejecutar el workflow manualmente desde la interfaz de GitHub
   workflow_dispatch:
 
-# Define los trabajos (jobs) que se ejecutarán
 jobs:
   build-and-test:
-    name: Build and Test on macOS
+    name: Build and Test on macOS (Swift 6.2)
     
-    # Los proyectos de Swift/iOS generalmente requieren un runner de macOS
-    runs-on: macos-latest
+    # macos-14 es la mejor opción para las últimas toolchains
+    runs-on: macos-14 
     
-    # Define los pasos que se ejecutarán en el job
     steps:
-    
       # Paso 1: Checkout del Código
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      # Paso 2: Configurar la versión de Xcode
-      # macOS runners vienen con varias versiones de Xcode preinstaladas. 
-      # Puedes especificar una versión si lo necesitas, pero 'latest' suele ser suficiente.
-      # Este paso garantiza que se use una versión compatible.
-      - name: Select Xcode 15 (Compatible with iOS 16)
-        run: sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
-        # Nota: La versión exacta de Xcode 15 puede variar en el runner, 
-        # pero Xcode 15 es necesario para el soporte de iOS 16.
-        
-      # Paso 3: Compilar el Paquete Swift
-      # Esto verifica que el paquete se compile correctamente en la plataforma de destino.
-      # Usamos `swift build` para construir la librería.
+      # 🚀 Paso 2: Configurar el Toolchain de Swift 6.2
+      # Usamos una acción para instalar la Toolchain que soporta swift-tools-version: 6.2
+      # Esta acción selecciona automáticamente la versión más reciente que soporta 6.2
+      - name: Setup Swift 6.2 Toolchain
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: '6.2'
+          
+      # Paso 3: Opcional - Verificar la versión de Swift
+      - name: Verify Swift Version
+        run: swift --version
+
+      # Paso 4: Compilar el Paquete Swift
+      # Ahora, 'swift build' usará el toolchain de Swift 6.2 recién instalado.
       - name: Build Swift Package
         run: swift build
         
-      # Paso 4: Ejecutar las Pruebas Unitarias
-      # Este es el paso clave para ejecutar los tests de tu Target "FHKDesignSystemTests"
-      # Usamos la opción '--enable-code-coverage' para generar datos de cobertura de código
+      # Paso 5: Ejecutar las Pruebas Unitarias
       - name: Run Unit Tests
         run: swift test --enable-code-coverage
-        
-      # Paso 5: Generar un Reporte de Cobertura (Opcional pero Recomendado)
-      # Puedes usar herramientas para generar un reporte de cobertura más detallado
-      # Por ejemplo, para usar **Codecov** o **Coveralls**, necesitarías un paso adicional
-      # y configurar un token. Para este ejemplo, solo se ejecutan.
