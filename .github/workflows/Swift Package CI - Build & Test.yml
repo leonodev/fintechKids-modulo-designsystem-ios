@@ -1,4 +1,4 @@
-name: Swift Package CI - Build & Test (Definitivo)
+name: Swift Package CI - Build & Test (Definitivo - Final Workaround)
 
 on:
   push:
@@ -29,16 +29,26 @@ jobs:
         with:
           swift-version: '6.2'
           
-      # 3. Compilar el Paquete Swift (necesario para generar archivos intermedios)
+      # 3. Compilar el Paquete Swift
       - name: Build Swift Package
         run: swift build
         
-      # 4. 🚀 Ejecutar las Pruebas Unitarias (¡CORREGIDO usando el TARGET!)
-      - name: Run Unit Tests (via xcodebuild, targeting the Test Target)
+      # 4. 🚀 Ejecutar las Pruebas Unitarias (¡ÚLTIMO INTENTO CON WORKAROUND!)
+      - name: Run Unit Tests (Final Swift Test Attempt)
+        # Usamos swift test directamente y le pasamos los flags necesarios 
+        # para que busque el toolchain y el SDK de iOS correctamente,
+        # lo que a menudo resuelve el fallo de "target not found".
         run: |
-          # Usamos el target de prueba, que es lo que xcodebuild necesita.
-          xcodebuild test \
-            -target FHKDesignSystemTests \
-            -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=18.0" \
-            -enableCodeCoverage YES
+          SWIFT_PATH=$(xcrun --find swift)
+          
+          # 1. Listar los schemes y targets generados para verificar
+          echo "Listing available schemes from the generated project:"
+          xcodebuild -list
+          
+          # 2. Ejecutar la prueba con flags explícitos para iOS
+          swift test \
+            --enable-code-coverage \
+            --enable-test-discovery \
+            -Xswiftc -target -Xswiftc "arm64-apple-ios18.0" \
+            -Xlinker -rpath -Xlinker "@executable_path/../Frameworks" \
+            --platform ios
