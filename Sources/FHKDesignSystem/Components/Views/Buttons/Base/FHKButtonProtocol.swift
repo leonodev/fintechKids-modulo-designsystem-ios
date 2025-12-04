@@ -88,6 +88,7 @@ public struct FHKButtonAppearance {
     }
     
     /// return mode glass variant calculate
+    @available(iOS 26.0, *)
     func modeGlass(variant: FHKButtonComponent.Mode.Style) -> Glass {
         switch variant {
         case .clear:
