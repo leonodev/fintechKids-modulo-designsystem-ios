@@ -1,4 +1,4 @@
-name: Swift Package CI - Build & Test (Swift 6.2 + iOS 18 SDK)
+name: Swift Package CI - Build & Test (Swift 6.2 + iOS v26/18 SDK)
 
 on:
   push:
@@ -9,42 +9,30 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Test with Xcode 16.0
-    
-    # macos-14 garantiza acceso a versiones recientes (incluyendo betas de Xcode 16)
+    name: Build and Test with Xcode 16
     runs-on: macos-14 
     
     steps:
-      # Paso 1: Checkout del Código
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      # 🚀 Paso 2: Seleccionar y activar Xcode 16.0 (Soporte para iOS 18 SDK)
-      # Esto debería proveer el SDK necesario para que .iOS(.v26) sea reconocido.
-      - name: Select Xcode 16.0
+      # 🚀 Paso 2: Seleccionar la última versión de Xcode 16 disponible (más seguro)
+      - name: Select latest Xcode 16
         uses: developer-tools/using-xcode@v1
         with:
-          version: '16.0' # Selecciona la versión que contiene el iOS SDK más reciente
+          version: '16' # Sin el '.0' para evitar errores de disponibilidad.
           
-      # Paso 3: Configurar el Toolchain de Swift 6.2
-      # Mantenemos esto para usar las últimas características de Swift 6
+      # Paso 3: Configurar el Toolchain de Swift 6.2 (Obligatorio para .iOS(.v26))
       - name: Setup Swift 6.2 Toolchain
         uses: swift-actions/setup-swift@v2
         with:
           swift-version: '6.2'
           
       # Paso 4: Compilar el Paquete Swift
-      # Esto verifica que el manifiesto y el código compilen con el SDK adecuado.
       - name: Build Swift Package
         run: swift build
         
-      # Paso 5: Ejecutar las Pruebas Unitarias
-      # Ejecuta las pruebas contra el SDK de iOS 18 proporcionado por Xcode 16
+      # Paso 5: Ejecutar las Pruebas Unitarias (swift test)
+      # Ahora que Xcode 16 está activo, swift test puede usar su SDK.
       - name: Run Unit Tests
-        # Usamos xcodebuild directamente ya que la combinación de toolchain de Swift 6.2 y Xcode 16
-        # a veces requiere un target de simulación explícito para los tests de paquetes iOS.
-        run: |
-          xcodebuild test \
-            -scheme FHKDesignSystem \
-            -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=18.0" \
-            -enableCodeCoverage YES
+        run: swift test --enable-code-coverage
