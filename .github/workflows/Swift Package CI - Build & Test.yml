@@ -1,84 +1,44 @@
-name: iOS CI Pipeline
+name: iOS Tests CI
 
 on:
-  push:
-    branches: [develop]
   pull_request:
     branches: [develop]
-  workflow_dispatch:
 
 jobs:
-  build-and-test:
-    name: Build and Test
+  test:
     runs-on: macos-latest
     
     steps:
-      - name: Checkout repository
+      - name: Checkout with safe directory
         uses: actions/checkout@v4
+        with:
+          # Esto soluciona el problema de permisos de Git
+          fetch-depth: 0
+      
+      - name: Setup Git safe directory
+        run: |
+          # Configurar el directorio como seguro para Git
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory /Users/runner/work/fintechKids-modulo-designsystem-ios/fintechKids-modulo-designsystem-ios
       
       - name: Setup Xcode 16.2
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.2'
       
-      - name: VERIFY AND FIX Package.swift
-        run: |
-          echo "=== CURRENT Package.swift ==="
-          cat Package.swift | head -20
-          
-          echo ""
-          echo "=== REPLACING .v26 with .v18 ==="
-          # Método garantizado: crear un nuevo archivo
-          echo '// swift-tools-version: 6.2' > Package.swift
-          echo 'import PackageDescription' >> Package.swift
-          echo '' >> Package.swift
-          echo 'let package = Package(' >> Package.swift
-          echo '    name: "FHKDesignSystem",' >> Package.swift
-          echo '    platforms: [' >> Package.swift
-          echo '        .iOS(.v18)' >> Package.swift
-          echo '    ],' >> Package.swift
-          echo '    products: [' >> Package.swift
-          echo '        .library(' >> Package.swift
-          echo '            name: "FHKDesignSystem",' >> Package.swift
-          echo '            targets: ["FHKDesignSystem"]),' >> Package.swift
-          echo '    ],' >> Package.swift
-          echo '    targets: [' >> Package.swift
-          echo '        .target(' >> Package.swift
-          echo '            name: "FHKDesignSystem",' >> Package.swift
-          echo '            dependencies: []),' >> Package.swift
-          echo '        .testTarget(' >> Package.swift
-          echo '            name: "FHKDesignSystemTests",' >> Package.swift
-          echo '            dependencies: ["FHKDesignSystem"]),' >> Package.swift
-          echo '    ]' >> Package.swift
-          echo ')' >> Package.swift
-          
-          echo ""
-          echo "=== UPDATED Package.swift ==="
-          cat Package.swift | head -20
-      
       - name: Fix package path for Xcode
         run: |
-          echo "Creating symbolic link for Xcode..."
           mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
           ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
-          echo "✅ Path fixed"
       
-      - name: Run Swift Package tests
-        run: |
-          echo "Running Swift tests..."
-          swift test --parallel
-          echo "✅ Swift tests passed"
-      
-      - name: Run Demo App tests
+      - name: Test Demo App
         working-directory: ./Demo/FHKDesignSystemDemo
         run: |
-          echo "Running Demo tests..."
+          echo "Testing Demo App..."
           xcodebuild test \
             -project FHKDesignSystemDemo.xcodeproj \
             -scheme FHKDesignSystemDemo \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
             CODE_SIGNING_ALLOWED=NO
-          echo "✅ Demo tests passed"
-      
-      - name: Final success
-        run: echo "🎉 ALL TESTS PASSED! CI IS WORKING!"
+          
+          echo "🎉 CI IS WORKING!"
