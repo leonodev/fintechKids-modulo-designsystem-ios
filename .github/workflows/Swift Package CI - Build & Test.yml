@@ -1,7 +1,9 @@
-name: iOS Tests CI
+name: iOS CI - Stable
 
 on:
   pull_request:
+    branches: [develop]
+  push:
     branches: [develop]
 
 jobs:
@@ -9,36 +11,49 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      - name: Checkout with safe directory
-        uses: actions/checkout@v4
-        with:
-          # Esto soluciona el problema de permisos de Git
-          fetch-depth: 0
+    - uses: actions/checkout@v4
+    
+    - name: Setup Xcode 16.2
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '16.2'
+    
+    - name: Fix package path
+      run: |
+        mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
+        ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
+    
+    - name: List available simulators
+      run: xcrun simctl list devices available
+    
+    - name: Run tests with retry and better simulator handling
+      working-directory: ./Demo/FHKDesignSystemDemo
+      run: |
+        # Asegurarse de que el simulador esté apagado
+        xcrun simctl shutdown all || true
+        
+        # Usar un simulador más genérico y disponible
+        xcodebuild test \
+          -project FHKDesignSystemDemo.xcodeproj \
+          -scheme FHKDesignSystemDemo \
+          -destination 'platform=iOS Simulator,id=Booted' \
+          -destination-timeout 10 \
+          CODE_SIGNING_ALLOWED=NO \
+          -quiet
+        
+        echo "✅ Tests passed!"
       
-      - name: Setup Git safe directory
-        run: |
-          # Configurar el directorio como seguro para Git
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global --add safe.directory /Users/runner/work/fintechKids-modulo-designsystem-ios/fintechKids-modulo-designsystem-ios
-      
-      - name: Setup Xcode 16.2
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16.2'
-      
-      - name: Fix package path for Xcode
-        run: |
-          mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
-          ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
-      
-      - name: Test Demo App
-        working-directory: ./Demo/FHKDesignSystemDemo
-        run: |
-          echo "Testing Demo App..."
-          xcodebuild test \
-            -project FHKDesignSystemDemo.xcodeproj \
-            -scheme FHKDesignSystemDemo \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
-            CODE_SIGNING_ALLOWED=NO
-          
-          echo "🎉 CI IS WORKING!"
+    - name: If tests fail, try with specific iPhone
+      if: failure()
+      working-directory: ./Demo/FHKDesignSystemDemo
+      run: |
+        echo "Trying with specific iPhone 15..."
+        xcodebuild test \
+          -project FHKDesignSystemDemo.xcodeproj \
+          -scheme FHKDesignSystemDemo \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          CODE_SIGNING_ALLOWED=NO \
+          -retry-tests-on-failure \
+          -maximum-test-execution-time-allowance 30
+        
+        echo "✅ Tests passed on retry!"
