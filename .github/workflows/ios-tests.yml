@@ -1,58 +1,37 @@
-name: iOS Design System CI
+name: iOS Tests Simple
 
 on:
   pull_request:
     branches: [develop]
   push:
     branches: [develop]
-  workflow_dispatch:
 
 jobs:
-  test-demo-app:
-    name: Test Demo Application
+  test:
     runs-on: macos-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+    - uses: actions/checkout@v4
     
-    - name: Setup Xcode 16.4
+    - name: Setup Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '16.4'
     
-    - name: Resolve Swift Package dependencies FIRST
-      run: |
-        echo "=== RESOLVIENDO DEPENDENCIAS DEL PAQUETE ==="
-        
-        # Primero, vamos al directorio del proyecto demo
-        cd Demo/FHKDesignSystemDemo
-        
-        # Resolvemos las dependencias con la ruta correcta
-        # El paquete está en ../.. (raíz del repositorio)
-        xcodebuild -project FHKDesignSystemDemo.xcodeproj \
-          -resolvePackageDependencies \
-          -clonedSourcePackagesDirPath ../.swiftpm
-        
-        echo "✅ Dependencias resueltas"
-    
-    - name: Test Demo App
+    - name: Test with resolved dependencies
       working-directory: ./Demo/FHKDesignSystemDemo
       run: |
-        echo "=== EJECUTANDO TESTS ==="
-        echo "Directorio: $(pwd)"
+        # Paso 1: Resolver dependencias explícitamente
+        echo "Resolviendo dependencias del paquete..."
+        xcodebuild -resolvePackageDependencies \
+          -project FHKDesignSystemDemo.xcodeproj \
+          -clonedSourcePackagesDirPath "$(pwd)/../.swiftpm"
         
-        # Opción A: Con xcodebuild normal
+        # Paso 2: Ejecutar tests
+        echo "Ejecutando tests..."
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
-          -derivedDataPath ./build \
-          -enableCodeCoverage YES \
-          CODE_SIGNING_ALLOWED=NO \
-          -clonedSourcePackagesDirPath ../.swiftpm \
-          -skipPackageUpdates
-        
-        echo "✅ Tests completados"
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -clonedSourcePackagesDirPath "$(pwd)/../.swiftpm" \
+          CODE_SIGNING_ALLOWED=NO
