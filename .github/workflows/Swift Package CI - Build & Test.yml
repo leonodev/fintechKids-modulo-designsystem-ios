@@ -17,16 +17,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      # 1. Seleccionar Xcode 16.2 (Necesario para el SDK de iOS 18/v26)
+      # 1. Seleccionar Xcode 16.2 (Garantiza el SDK de iOS 18/26 para el código)
       - name: Select Xcode 16.2
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.2'
           
-      # 2. Compilar el Paquete Swift (Usando la Toolchain estable de Xcode 16.2)
+      # 2. Compilar el Paquete Swift (Ahora con .iOS(.v17) en el manifiesto)
       - name: Build Swift Package
         run: swift build
         
-      # 3. Ejecutar las Pruebas Unitarias (Comando estable)
+      # 3. Ejecutar las Pruebas Unitarias (Comando estándar)
       - name: Run Unit Tests
         run: swift test --enable-code-coverage
