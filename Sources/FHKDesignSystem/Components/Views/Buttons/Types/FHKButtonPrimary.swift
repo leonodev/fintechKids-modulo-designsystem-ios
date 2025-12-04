@@ -36,11 +36,19 @@ public struct FHKButtonPrimary: FHKButtonProtocol {
     public var body: some View {
         Button(action: action) {
             if case .glass(let glassVariant) = appearance.mode {
-                Text(title)
-                    .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
-                    .font(appearance.font)
-                    .foregroundColor(appearance.foregroundColor)
-                    .glassEffect(appearance.modeGlass(variant: glassVariant))
+                if #available(iOS 26.0, *) {
+                    Text(title)
+                        .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
+                        .font(appearance.font)
+                        .foregroundColor(appearance.foregroundColor)
+                        .glassEffect(appearance.modeGlass(variant: glassVariant))
+                } else {
+                    // Fallback on earlier versions
+                    Text(title)
+                        .frame(maxWidth: appearance.maxWidth, maxHeight: appearance.maxHeight)
+                        .font(appearance.font)
+                        .foregroundColor(appearance.foregroundColor)
+                }
             }
             else {
                 Text(title)

@@ -35,14 +35,25 @@ public struct FHKButtonCircle: FHKButtonCircleProtocol {
     
     public var body: some View {
         if case .glass(let glassVariant) = appearance.mode {
-            logoImage
-                .resizable()
-                .font(.system(size: 36))
-                .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
-                .glassEffect(appearance.modeGlass(variant: glassVariant))
-                .onTapGesture {
-                    action()
-                }
+            if #available(iOS 26.0, *) {
+                logoImage
+                    .resizable()
+                    .font(.system(size: 36))
+                    .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
+                    .glassEffect(appearance.modeGlass(variant: glassVariant))
+                    .onTapGesture {
+                        action()
+                    }
+            } else {
+                // Fallback on earlier versions
+                logoImage
+                    .resizable()
+                    .font(.system(size: 36))
+                    .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
+                    .onTapGesture {
+                        action()
+                    }
+            }
         }
         else {
             logoImage
@@ -79,6 +90,7 @@ extension FFHKButtonCircleAppearance {
         }
     }
     
+    @available(iOS 26.0, *)
     func modeGlass(variant: FHKButtonComponent.Mode.Style) -> Glass {
         switch variant {
         case .clear:
