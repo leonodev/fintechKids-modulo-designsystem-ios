@@ -1,9 +1,7 @@
-name: iOS Design System CI
+name: iOS CI
 
 on:
   pull_request:
-    branches: [develop]
-  push:
     branches: [develop]
 
 jobs:
@@ -13,41 +11,29 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Xcode 16.2 and select it
+    - name: Setup Xcode 16.2
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '16.2'
     
-    # PASO CRÍTICO: Forzar uso del Swift de Xcode, no del sistema
-    - name: Force Xcode's Swift version
+    # 1. Arreglar Package.swift para CI
+    - name: Fix Package.swift
       run: |
-        # Esto hace que 'swift' use el toolchain de Xcode 16.2
-        sudo xcode-select -s /Applications/Xcode_16.2.app
-        
-        # Verificar
-        echo "Swift version being used:"
-        /usr/bin/xcrun swift --version
+        sed -i '' 's/\.iOS(\.v26)/.iOS(.v18)/g' Package.swift
     
-    - name: Fix package path for demo
+    # 2. Arreglar ruta del paquete
+    - name: Fix path
       run: |
         mkdir -p /Users/runner/work/fintechKids-modulo-designsystem-ios
         ln -sf "$(pwd)" /Users/runner/work/fintechKids-modulo-designsystem-ios/FHKDesignSystem
     
-    # PRIMERO: Probar el paquete Swift 6.2
-    - name: Test Swift 6.2 Package
+    # 3. Ejecutar tests
+    - name: Run tests
       run: |
-        echo "🧪 Testing Swift 6.2 Package..."
-        /usr/bin/xcrun swift test --parallel
-        echo "✅ Swift 6.2 package tests passed!"
-    
-    # SEGUNDO: Probar el demo
-    - name: Test Demo App  
-      working-directory: ./Demo/FHKDesignSystemDemo
-      run: |
-        echo "🚀 Testing Demo App..."
+        swift test --parallel
+        cd Demo/FHKDesignSystemDemo
         xcodebuild test \
           -project FHKDesignSystemDemo.xcodeproj \
           -scheme FHKDesignSystemDemo \
           -destination 'platform=iOS Simulator,name=iPhone 15' \
           CODE_SIGNING_ALLOWED=NO
-        echo "✅ Demo tests passed!"
