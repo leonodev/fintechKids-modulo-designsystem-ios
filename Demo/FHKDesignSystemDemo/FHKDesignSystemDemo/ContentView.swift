@@ -20,185 +20,285 @@ import FHKDesignSystem
 
 
 struct ContentView: View {
-    @State private var isPressed: Bool = false
-    @State private var state: FHKButtonComponent.State = .enabled
+    let items = ["Glass Style", "Solid Styles"]
+    
+    var body: some View {
+        
+        NavigationView {
+            ZStack {
+                // 1. Background primero
+                Image.backgroundDemo
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .ignoresSafeArea()
+                
+                // 2. List con transparencia
+                List(items, id: \.self) { item in
+                    NavigationLink(destination: GlassView(title: item)) {
+                        Text(item)
+                            .font(.body)
+                            .foregroundColor(.textColorEnabled)
+                    }
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+                .navigationTitle("Menú Principal")
+            }
+        }
+    }
+}
+    
+struct GlassView: View {
+    let title: String
+    let items = ["Bottoms", "Slider", "Images", "Containers"]
+    
+    var body: some View {
+        ZStack {
+            
+            Image.backgroundDemo
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
+            
+            
+            List(items, id: \.self) { item in
+     
+                NavigationLink {
+                    
+                    switch item {
+                    case "Bottoms":
+                        BottonsView(title: item)
+                        
+                    case "Slider":
+                        SliderView(title: item)
+                        
+                    case "Images":
+                        ImagesView(title: item)
+                        
+                    case "Containers":
+                        ContainersView(title: item)
+                        
+                    default:
+                        Text("Vista no encontrada para: \(item)")
+                    }
+                } label: {
+                    Text(item)
+                        .font(.body)
+                        .foregroundColor(.textColorEnabled)
+                }
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+            }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
+            .navigationTitle("Example Glass")
+        }
+    }
+}
+    
+struct BottonsView: View {
+    let title: String
+    
+    var body: some View {
+        VStack {
+            ScrollView {
+                FHKButtonPrimary(title: "Button Primary",
+                                 state: .enabled,
+                                 mode: .glass(.clear),
+                                 action: {
+                    
+                })
+                .padding()
+                
+                //------------------------------
+                Button {
+                
+                } label: {
+                Image(systemName: "applelogo")
+                .font(.system(size: 36))
+                .frame(width: 180, height: 80)
+                }
+                .buttonStyle(.plain)
+                .glassEffect(.clear.interactive())
+                
+                
+            }
+            .applyBackgroundDemoModifier()
+            .navigationTitle("Buttons")
+        }
+    }
+}
+
+struct SliderView: View {
+    let title: String
     @State private var spacing = 0.0
+    
+    var body: some View {
+        VStack {
+            ScrollView {
+                Slider(value: $spacing, in: 0...80)
+                .padding()
+            }
+            .applyBackgroundDemoModifier()
+            .navigationTitle("Sliders")
+        }
+    }
+}
+
+struct ImagesView: View {
+    let title: String
+    
+    var body: some View {
+        VStack {
+            ScrollView {
+                //Image Glass
+                Image(systemName: "applelogo")
+                .font(.system(size: 36))
+                .frame(width: 80, height: 80)
+                .glassEffect(.clear)
+                
+                
+                Image(systemName: "applelogo")
+                .font(.system(size: 36))
+                .frame(width: 80, height: 80)
+                .glassEffect(.regular.interactive())
+            }
+            .applyBackgroundDemoModifier()
+            .navigationTitle("Images")
+        }
+    }
+}
+
+struct ContainersView: View {
     @Namespace var nameSpace
     @Namespace var nameSpace2
     @Namespace var nameSpaceMenu
     
-    @State private var name = ""
+    let title: String
     
     @State private var isExpanded = false
+    @State private var name = ""
     
     var body: some View {
         VStack {
-            
-            //Slider
-            Slider(value: $spacing, in: 0...80)
-                .padding()
-                .colorInvert()
-            
-            // Bottom Libary
-            FHKButtonPrimary(title: "Primary Button",
-                             action: {
-                
-            })
-            .padding()
-            
-            //Image Glass
-            Image(systemName: "applelogo")
-                .font(.system(size: 36))
-                .frame(width: 80, height: 80)
-                .glassEffect(.clear)
-            
-            //Image Regular Interactive
-            Image(systemName: "applelogo")
-                .font(.system(size: 36))
-                .frame(width: 80, height: 80)
-                .glassEffect(.regular.interactive())
-            
-            // Bottom Glass Interactive
-            Button {
-                
-            } label: {
-                Image(systemName: "applelogo")
-                    .font(.system(size: 36))
-                    .frame(width: 180, height: 80)
-            }
-            .buttonStyle(.plain)
-            .glassEffect(.clear.interactive())
-            
-            
-            // Bottom Glass size custom Interactive
-            Button {
-                
-            } label: {
-                Text("Button Glass")
-                    .font(.system(size: 28))
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: 48)
-            }
-            .buttonStyle(.plain)
-            .glassEffect(.clear.interactive())
-            .padding()
-            
-            //Group
-            GlassEffectContainer {
-                HStack {
+            ScrollView {
+                //Image Glass
+                GlassEffectContainer {
                     
-                    Image(systemName: "cloud.bolt.rain.fill")
-                        .font(.system(size: 36))
-                        .frame(width: 80, height: 80)
-                        .glassEffect()
-                        .glassEffectUnion(id: 1, namespace: nameSpace)
-                    
-                    Image(systemName: "sun.rain.fill")
-                        .font(.system(size: 36))
-                        .frame(width: 80, height: 80)
-                        .glassEffect()
-                        .glassEffectUnion(id: 1, namespace: nameSpace)
-                    
-                    Image(systemName: "cloud.bolt.rain.fill")
-                        .font(.system(size: 36))
-                        .frame(width: 80, height: 80)
-                        .glassEffect()
-                        .glassEffectUnion(id: 2, namespace: nameSpace)
-                    
-                    Image(systemName: "sun.rain.fill")
-                        .font(.system(size: 36))
-                        .frame(width: 80, height: 80)
-                        .glassEffect()
-                        .glassEffectUnion(id: 2, namespace: nameSpace)
-                    
-                    // tambien se podria agrupar asi:
-                    /*
-                     Group {
-                     Image(systemName: "cloud.bolt.rain.fill")
-                     .font(.system(size: 36))
-                     .frame(width: 80, height: 80)
-                     .glassEffect()
-                     
-                     
-                     Image(systemName: "sun.rain.fill")
-                     .font(.system(size: 36))
-                     .frame(width: 80, height: 80)
-                     .glassEffect()
-                     
-                     }
-                     .glassEffectUnion(id: 2, namespace: nameSpace)
-                     */
-                }
-            }
-                
-                // Menu Interactivo And TextField
-            GlassEffectContainer {
-                HStack {
-                    Image(systemName: "photo")
-                        .font(.system(size: 36))
-                        .frame(width: 80, height: 80)
-                        .glassEffect(.regular.tint(.teal.opacity(0.4)).interactive())
-                        .glassEffectID("photo", in: nameSpaceMenu)
-                        .onTapGesture {
-                            withAnimation(.linear(duration: 0.5)) {
-                                isExpanded .toggle()
-                            }
-                        }
-                    
-                    if isExpanded {
-                        Group {
-                            Image(systemName: "building.2")
-                                .font(.system(size: 36))
-                                .frame(width: 80, height: 80)
-                                .glassEffectID("building", in: nameSpaceMenu)
-                            
-                            Image(systemName: "fish")
-                                .font(.system(size: 36))
-                                .frame(width: 80, height: 80)
-                                .glassEffectID("fish", in: nameSpaceMenu)
-                            
-                        }
-                        .glassEffect()
-                        .glassEffectUnion(id: 1, namespace: nameSpaceMenu)
-                        .glassEffectTransition(.matchedGeometry)
-                    }
-                }
-                
-                // TextField
-                HStack {
-                    
-                    if isExpanded {
-                        TextField("Name", text: $name)
-                            .padding()
-                            .glassEffect()
-                            .glassEffectID("text", in: nameSpaceMenu)
-                            .glassEffectTransition(.matchedGeometry)
-                    }
-                    
+                    VStack {
                         
-                    Image(systemName: isExpanded ? "checkmark" : "plus")
-                        .font(.system(size: 36))
-                        .frame(width: 70, height: 70)
-                        .glassEffect(.regular.interactive())
-                        .glassEffectID("plus", in: nameSpaceMenu)
-                        .contentTransition(.symbolEffect(.replace.magic(fallback: .replace))) // Efecto de animacion del icono
-                        .onTapGesture {
-                            withAnimation {
-                                isExpanded.toggle()
-                            }
+                        HStack {
+                        Image(systemName: "cloud.bolt.rain.fill")
+                            .font(.system(size: 36))
+                            .frame(width: 80, height: 80)
+                            .glassEffect()
+                            .glassEffectUnion(id: 1, namespace: nameSpace)
+                        
+                        Image(systemName: "sun.rain.fill")
+                            .font(.system(size: 36))
+                            .frame(width: 80, height: 80)
+                            .glassEffect()
+                            .glassEffectUnion(id: 1, namespace: nameSpace)
+                        
+                        Image(systemName: "cloud.bolt.rain.fill")
+                            .font(.system(size: 36))
+                            .frame(width: 80, height: 80)
+                            .glassEffect()
+                            .glassEffectUnion(id: 2, namespace: nameSpace)
+                        
+                        Image(systemName: "sun.rain.fill")
+                            .font(.system(size: 36))
+                            .frame(width: 80, height: 80)
+                            .glassEffect()
+                            .glassEffectUnion(id: 2, namespace: nameSpace)
                         }
+                        
+                        HStack {
+                            Group {
+                                Image(systemName: "cloud.bolt.rain.fill")
+                                    .font(.system(size: 36))
+                                    .frame(width: 80, height: 80)
+                                    .glassEffect()
+                                    .glassEffectUnion(id: 3, namespace: nameSpace2)
+                                
+                                
+                                Image(systemName: "sun.rain.fill")
+                                    .font(.system(size: 36))
+                                    .frame(width: 80, height: 80)
+                                    .glassEffect()
+                                    .glassEffectUnion(id: 3, namespace: nameSpace2)
+                                
+                            }
+                            
+                        }
+                    }
                 }
-                .padding()
+                
+                
+                GlassEffectContainer {
+                    HStack {
+                        Image(systemName: "photo")
+                            .font(.system(size: 36))
+                            .frame(width: 80, height: 80)
+                            .glassEffect(.regular.tint(.teal.opacity(0.4)).interactive())
+                            .glassEffectID("photo", in: nameSpaceMenu)
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.5)) {
+                                    isExpanded .toggle()
+                                }
+                            }
+                        
+                        if isExpanded {
+                            Group {
+                                Image(systemName: "building.2")
+                                    .font(.system(size: 36))
+                                    .frame(width: 80, height: 80)
+                                    .glassEffectID("building", in: nameSpaceMenu)
+                                
+                                Image(systemName: "fish")
+                                    .font(.system(size: 36))
+                                    .frame(width: 80, height: 80)
+                                    .glassEffectID("fish", in: nameSpaceMenu)
+                                
+                            }
+                            .glassEffect()
+                            .glassEffectUnion(id: 1, namespace: nameSpaceMenu)
+                            .glassEffectTransition(.matchedGeometry)
+                        }
+                    }
+                    
+                    // TextField
+                    HStack {
+                        
+                        if isExpanded {
+                            TextField("Name", text: $name)
+                                .padding()
+                                .glassEffect()
+                                .glassEffectID("text", in: nameSpaceMenu)
+                                .glassEffectTransition(.matchedGeometry)
+                        }
+                        
+                        
+                        Image(systemName: isExpanded ? "checkmark" : "plus")
+                            .font(.system(size: 36))
+                            .frame(width: 70, height: 70)
+                            .glassEffect(.regular.interactive())
+                            .glassEffectID("plus", in: nameSpaceMenu)
+                            .contentTransition(.symbolEffect(.replace.magic(fallback: .replace))) // Efecto de animacion del icono
+                            .onTapGesture {
+                                withAnimation {
+                                    isExpanded.toggle()
+                                }
+                            }
+                    }
+                    .padding()
+                }
             }
+            .applyBackgroundDemoModifier()
+            .navigationTitle("Images")
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background {
-            Image.background
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
-        }
-        .ignoresSafeArea()
     }
 }
 
@@ -206,12 +306,5 @@ struct ContentView: View {
     VStack {
         ContentView()
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background {
-        Image.background
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .ignoresSafeArea()
-    }
-    .ignoresSafeArea()
+    .applyBackgroundDemoModifier()
 }
