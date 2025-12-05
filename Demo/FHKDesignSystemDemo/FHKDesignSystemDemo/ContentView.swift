@@ -37,7 +37,7 @@ struct ContentView: View {
                     NavigationLink(destination: GlassView(title: item)) {
                         Text(item)
                             .font(.body)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.textColorEnabled)
                     }
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
@@ -86,7 +86,7 @@ struct GlassView: View {
                 } label: {
                     Text(item)
                         .font(.body)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textColorEnabled)
                 }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
