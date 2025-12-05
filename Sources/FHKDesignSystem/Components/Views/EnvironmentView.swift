@@ -20,9 +20,9 @@ struct ContentView: View {
     }
 }
 
-struct EnvironmentView: View {
+public struct EnvironmentView: View {
     
-    var body: some View {
+    public var body: some View {
         VStack {
         #if DEBUG
             Text("Develop")
