@@ -22,6 +22,8 @@ struct ContentView: View {
 
 public struct EnvironmentView: View {
     
+    public init() {}
+    
     public var body: some View {
         VStack {
         #if DEBUG
