@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D03F59A2EE9E72B001FB7F9 /* FHKDesignSystem .icon in Resources */ = {isa = PBXBuildFile; fileRef = 5D03F5992EE9E72B001FB7F9 /* FHKDesignSystem .icon */; };
 		5D28A2102EC8EEA700AFF43A /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */; };
 		5D8AC88D2EDF2281003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88C2EDF2281003F06C1 /* InlineSnapshotTesting */; };
 		5D8AC88F2EDF2281003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88E2EDF2281003F06C1 /* SnapshotTesting */; };
@@ -34,14 +35,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D03F5992EE9E72B001FB7F9 /* FHKDesignSystem .icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "FHKDesignSystem .icon"; sourceTree = "<group>"; };
 		5D28A1E42EC8EE7D00AFF43A /* FHKDesignSystemDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHKDesignSystemDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D28A1F12EC8EE8000AFF43A /* FHKDesignSystemDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHKDesignSystemDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D28A1FB2EC8EE8000AFF43A /* FHKDesignSystemDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHKDesignSystemDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5D03F59C2EE9E73D001FB7F9 /* Exceptions for "FHKDesignSystemDemo" folder in "FHKDesignSystemDemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5D28A1E32EC8EE7D00AFF43A /* FHKDesignSystemDemo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5D28A1E62EC8EE7D00AFF43A /* FHKDesignSystemDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5D03F59C2EE9E73D001FB7F9 /* Exceptions for "FHKDesignSystemDemo" folder in "FHKDesignSystemDemo" target */,
+			);
 			path = FHKDesignSystemDemo;
 			sourceTree = "<group>";
 		};
@@ -92,6 +107,7 @@
 		5D28A1DB2EC8EE7D00AFF43A = {
 			isa = PBXGroup;
 			children = (
+				5D03F5992EE9E72B001FB7F9 /* FHKDesignSystem .icon */,
 				5D28A1E62EC8EE7D00AFF43A /* FHKDesignSystemDemo */,
 				5D28A1F42EC8EE8000AFF43A /* FHKDesignSystemDemoTests */,
 				5D28A1FE2EC8EE8000AFF43A /* FHKDesignSystemDemoUITests */,
@@ -240,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D03F59A2EE9E72B001FB7F9 /* FHKDesignSystem .icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,13 +438,14 @@
 		5D28A2062EC8EE8000AFF43A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "FHKDesignSystem ";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TZ6ZTCG253;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FHKDesignSystemDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -453,13 +471,14 @@
 		5D28A2072EC8EE8000AFF43A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "FHKDesignSystem ";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TZ6ZTCG253;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FHKDesignSystemDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
