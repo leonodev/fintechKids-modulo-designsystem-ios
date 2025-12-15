@@ -23,7 +23,7 @@ public extension Color {
     static let shadowColor = Color("shadow", bundle: .module)
     static let textColorEnabled = Color("textColorEnabled", bundle: .module)
     
-    
+    static let backgroundPrimary = Color("backgroundPrimary", bundle: .module)
 }
 
 

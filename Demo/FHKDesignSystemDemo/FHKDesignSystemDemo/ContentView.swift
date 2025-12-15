@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FHKDesignSystem
+internal import Lottie
 
 /* GlassEffectContainer: Cuando se tiene un grupo de botones o iconos con el efecto Liquid Glass (ej. en una barra de herramientas o un menú de acciones flotante) y se quiere que sus formas se fusionen en un solo sitio de vidrio al estar quietos, o se separen/morfoseen durante las transiciones (como al aparecer o desaparecer) */
 
@@ -20,7 +21,7 @@ import FHKDesignSystem
 
 
 struct ContentView: View {
-    let items = ["Glass Style", "Solid Styles"]
+    let items = ["Glass Style", "Solid Styles", "Lotties"]
     
     var body: some View {
         
@@ -34,13 +35,38 @@ struct ContentView: View {
                 
                 // 2. List con transparencia
                 List(items, id: \.self) { item in
-                    NavigationLink(destination: GlassView(title: item)) {
-                        Text(item)
-                            .font(.body)
-                            .foregroundColor(.textColorEnabled)
+                    
+                    switch item {
+                    case items[0]:
+                        NavigationLink(destination: GlassView(title: item)) {
+                            Text(item)
+                                .font(.body)
+                                .foregroundColor(.textColorEnabled)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        
+                    case items[1]:
+                        NavigationLink(destination: EmptyView()) {
+                            Text(item)
+                                .font(.body)
+                                .foregroundColor(.textColorEnabled)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        
+                    case items[2]:
+                        NavigationLink(destination: LottiesView()) {
+                            Text(item)
+                                .font(.body)
+                                .foregroundColor(.textColorEnabled)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        
+                    default:
+                        EmptyView()
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
@@ -302,9 +328,21 @@ struct ContainersView: View {
     }
 }
 
+struct LottiesView: View {
+    
+    var body: some View {
+        VStack {
+            LottieView(animationName: Lotties.camera,
+                        loopMode: .loop,
+                        contentMode: .scaleAspectFit)
+            .frame(height: 198)
+        }
+    }
+}
+
 #Preview {
     VStack {
-        ContentView()
+        LottiesView()
     }
     .applyBackgroundDemoModifier()
 }
