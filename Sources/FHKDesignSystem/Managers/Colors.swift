@@ -7,87 +7,134 @@
 
 import SwiftUI
 
-// MARK: - Solución definitiva para SPM con asset catalog
+// MARK: - Design System Color Extension
 public extension Color {
-    // Bundle dinámico que encuentra el recurso correctamente
-    private static var designSystemBundle: Bundle {
-        // Opción 1: Bundle.module (debería funcionar)
-        let moduleBundle = Bundle.module
-        
-        // Verificamos si el asset catalog existe
-        #if DEBUG
-        print("📦 Bundle.module path: \(moduleBundle.bundlePath)")
-        
-        // Listar contenido del bundle para debug
-        if let contents = try? FileManager.default.contentsOfDirectory(atPath: moduleBundle.bundlePath) {
-            print("📁 Contenido del bundle:")
-            contents.forEach { print("  • \($0)") }
-        }
-        #endif
-        
-        return moduleBundle
-    }
     
-    // MARK: - Colores principales
+    // MARK: - Bundle Configuration
+    /// Static bundle reference for the Design System module resources
+    private static let designSystemBundle: Bundle = {
+        let bundle = Bundle.module
+        #if DEBUG
+        logBundleDetails(bundle)
+        #endif
+        return bundle
+    }()
+    
+    // MARK: - Color Definitions
+    /// Fuchsia Pink color from the asset catalog
     static let fuchsiaPink = Color("FuchsiaPink", bundle: designSystemBundle)
+    
+    /// Gray color from the asset catalog
     static let gray = Color("Gray", bundle: designSystemBundle)
+    
+    /// Lunar Sand color from the asset catalog
     static let lunarSand = Color("LunarSand", bundle: designSystemBundle)
+    
+    /// Pastel Pink color from the asset catalog
     static let pastelPink = Color("PastelPink", bundle: designSystemBundle)
+    
+    /// Silver color from the asset catalog
     static let silver = Color("Silver", bundle: designSystemBundle)
+    
+    /// Stone color from the asset catalog
     static let stone = Color("Stone", bundle: designSystemBundle)
+    
+    /// Ultra Purple color from the asset catalog
     static let ultraPurple = Color("UltraPurple", bundle: designSystemBundle)
+    
+    /// Wine color from the asset catalog
     static let wine = Color("Wine", bundle: designSystemBundle)
+    
+    /// Basic White color from the asset catalog
     static let basicWhite = Color("basicWhite", bundle: designSystemBundle)
+    
+    /// Basic Black color from the asset catalog
     static let basicBlack = Color("basicBlack", bundle: designSystemBundle)
+    
+    /// Shadow color from the asset catalog
     static let shadowColor = Color("shadow", bundle: designSystemBundle)
+    
+    /// Text color for enabled state from the asset catalog
     static let textColorEnabled = Color("textColorEnabled", bundle: designSystemBundle)
+    
+    /// Primary background color from the asset catalog
     static let backgroundPrimary = Color("backgroundPrimary", bundle: designSystemBundle)
 }
 
-// MARK: - Función de diagnóstico
+// MARK: - Bundle Diagnostics
 public extension Color {
-    static func diagnoseBundleIssue() {
-        print("\n🔍 DIAGNÓSTICO DE BUNDLE Y ASSETS")
+    
+    /// Performs comprehensive diagnostics on the Design System bundle and assets
+    static func performBundleDiagnostics() {
+        print("\n🎨 DESIGN SYSTEM BUNDLE DIAGNOSTICS")
         print("=====================================")
         
         let bundle = Bundle.module
         
-        // 1. Información del bundle
-        print("\n📦 Bundle Information:")
-        print("   - Path: \(bundle.bundlePath)")
-        print("   - Identifier: \(bundle.bundleIdentifier ?? "nil")")
+        // Bundle Information
+        print("\n📦 BUNDLE INFORMATION:")
+        print("   • Path: \(bundle.bundlePath)")
+        print("   • Identifier: \(bundle.bundleIdentifier ?? "Not available")")
         
-        // 2. Buscar asset catalog
-        print("\n🔍 Buscando Asset Catalogs:")
+        // Asset Catalog Discovery
+        print("\n🔍 ASSET CATALOG SEARCH:")
+        discoverAssetCatalogs(in: bundle)
         
-        // Buscar todos los archivos .xcassets
-        if let enumerator = FileManager.default.enumerator(atPath: bundle.bundlePath) {
-            for case let file as String in enumerator {
-                if file.hasSuffix(".xcassets") || file.hasSuffix(".car") {
-                    print("   • \(file)")
-                }
+        // Color Asset Verification
+        print("\n🎯 COLOR ASSET VERIFICATION:")
+        verifyColorAssets(in: bundle)
+    }
+    
+    // MARK: - Private Helper Methods
+    private static func logBundleDetails(_ bundle: Bundle) {
+        print("🔄 DesignSystem Bundle Loaded")
+        print("   Path: \(bundle.bundlePath)")
+        
+        if let contents = try? FileManager.default.contentsOfDirectory(atPath: bundle.bundlePath) {
+            print("   Contents: \(contents.joined(separator: ", "))")
+        }
+    }
+    
+    private static func discoverAssetCatalogs(in bundle: Bundle) {
+        guard let enumerator = FileManager.default.enumerator(atPath: bundle.bundlePath) else {
+            print("   Unable to enumerate bundle contents")
+            return
+        }
+        
+        var foundCatalogs: [String] = []
+        for case let file as String in enumerator {
+            if file.hasSuffix(".xcassets") || file.hasSuffix(".car") {
+                foundCatalogs.append(file)
             }
         }
         
-        // 3. Verificar colores específicos
-        print("\n🎨 Verificando colores en el asset catalog:")
-        let colorNames = [
-            "FuchsiaPink", "Gray", "LunarSand", "PastelPink",
-            "Silver", "Stone", "UltraPurple", "Wine",
-            "basicWhite", "basicBlack", "shadow",
-            "textColorEnabled", "backgroundPrimary"
+        if foundCatalogs.isEmpty {
+            print("   No asset catalogs found")
+        } else {
+            foundCatalogs.forEach { print("   • \($0)") }
+        }
+    }
+    
+    private static func verifyColorAssets(in bundle: Bundle) {
+        let colorAssets = [
+            ("FuchsiaPink", "Fuchsia Pink"),
+            ("Gray", "Gray"),
+            ("LunarSand", "Lunar Sand"),
+            ("PastelPink", "Pastel Pink"),
+            ("Silver", "Silver"),
+            ("Stone", "Stone"),
+            ("UltraPurple", "Ultra Purple"),
+            ("Wine", "Wine"),
+            ("basicWhite", "Basic White"),
+            ("basicBlack", "Basic Black"),
+            ("shadow", "Shadow"),
+            ("textColorEnabled", "Text Color Enabled"),
+            ("backgroundPrimary", "Background Primary")
         ]
         
-        for colorName in colorNames {
-            // Intentar crear el color
-            let color = Color(colorName, bundle: bundle)
-            print("   - \(colorName): \(color)")
-            
-            // Verificar en UIKit (si está disponible)
-            #if canImport(UIKit)
-            let uiColor = UIColor(named: colorName, in: bundle, compatibleWith: nil)
-            print("     UIKit: \(uiColor != nil ? "✅ Encontrado" : "❌ No encontrado")")
-            #endif
+        for (assetName, displayName) in colorAssets {
+            let color = Color(assetName, bundle: bundle)
+            print("   • \(displayName): \(color)")
         }
     }
 }
