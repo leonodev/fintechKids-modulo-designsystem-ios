@@ -30,7 +30,7 @@ let package = Package(
             ],
             resources: [
                 .process("Resources/Fonts"),
-                .process("Resources/Colors"),
+                .process("Resources/Colors/Colors.xcassets"),
                 .process("Resources/Images"),
                 .process("Resources/Lotties")
             ]
