@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FHKDesignSystem
-internal import Lottie
 
 /* GlassEffectContainer: Cuando se tiene un grupo de botones o iconos con el efecto Liquid Glass (ej. en una barra de herramientas o un menú de acciones flotante) y se quiere que sus formas se fusionen en un solo sitio de vidrio al estar quietos, o se separen/morfoseen durante las transiciones (como al aparecer o desaparecer) */
 
