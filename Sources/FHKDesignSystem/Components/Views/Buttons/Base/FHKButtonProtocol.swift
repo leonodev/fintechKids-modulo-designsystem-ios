@@ -55,11 +55,11 @@ public struct FHKButtonAppearance {
     var font: Font {
         switch type {
         case .primary:
-            return .PangramSans.bold(FHKSize.size24)
-        case .secondary:
             return .PangramSans.bold(FHKSize.size20)
-        case .terciary:
+        case .secondary:
             return .PangramSans.bold(FHKSize.size16)
+        case .terciary:
+            return .PangramSans.bold(FHKSize.size12)
         }
         
     }
@@ -103,7 +103,7 @@ public struct FHKButtonAppearance {
         switch (state, type) {
         case (.enabled, .primary):
             return LinearGradient(
-                gradient: Gradient(colors: [.fuchsiaPink, .ultraPurple]),
+                gradient: Gradient(colors: [.ultraPurple, .fuchsiaPink]),
                 startPoint: .top,
                 endPoint: .bottom
             )
