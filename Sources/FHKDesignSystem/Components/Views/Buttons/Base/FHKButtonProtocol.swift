@@ -68,14 +68,6 @@ public struct FHKButtonAppearance {
     var foregroundColor: Color {
         switch state {
      
-        case .enabled :
-            switch mode {
-            case .glass:
-                return .silver
-            case .solid:
-                return .basicWhite
-            }
-            
         case .disabled:
             return .pastelPink
             
@@ -83,7 +75,7 @@ public struct FHKButtonAppearance {
             return .clear
             
         default:
-            return .silver
+            return .basicWhite
         }
     }
     
