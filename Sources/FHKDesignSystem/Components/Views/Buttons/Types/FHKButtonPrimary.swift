@@ -99,28 +99,23 @@ public struct FHKButtonPrimary: View {
             Text(title)
                 .font(appearance.font)
                 .foregroundColor(appearance.foregroundColor)
-                // 1. Forzamos que el contenido del botón sea ancho infinito
                 .frame(maxWidth: .infinity)
                 .frame(height: appearance.maxHeight)
-                // 2. Aplicamos el fondo a ese contenedor ya expandido
                 .background(backgroundView)
-                //.cornerRadius(30)
-                //.shadow(radius: 4, y: 2)
+                .cornerRadius(30)
+                .shadow(radius: 4, y: 2)
         }
         .disabled(appearance.state != .enabled)
-        // 3. Importante: evitar que el estilo nativo del botón reduzca el ancho
         .buttonStyle(.plain)
     }
 
     @ViewBuilder
     private var backgroundView: some View {
         if case .glass(let glassVariant) = appearance.mode {
-            // Manejo de disponibilidad para evitar el error de compilación
-            if #available(iOS 26.0, *) { // O la versión real que soporte glassEffect
+            if #available(iOS 26.0, *) {
                  Color.clear
                     .glassEffect(appearance.modeGlass(variant: glassVariant))
             } else {
-                // Fallback para versiones anteriores: un fondo traslúcido
                 Color.white.opacity(0.2)
                     .background(.ultraThinMaterial)
             }
