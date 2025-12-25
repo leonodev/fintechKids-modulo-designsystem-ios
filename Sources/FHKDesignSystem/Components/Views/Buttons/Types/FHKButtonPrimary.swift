@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct FHKButtonPrimary: View {
-    @State public var title: String
+    public let title: String
     public var appearance: FHKButtonAppearance
     public var action: () -> Void
     
@@ -19,13 +19,15 @@ public struct FHKButtonPrimary: View {
                 position: FHKButtonComponent.Position = .none,
                 mode: FHKButtonComponent.Mode = .glass(.clear),
                 action: @escaping () -> Void = {}) {
-        _title = State(initialValue: title)
-        appearance = FHKButtonAppearance(type: .primary,
-                                         style: style,
-                                         state: state,
-                                         variant: variant,
-                                         position: position,
-                                         mode: mode)
+        self.title = title
+        appearance = FHKButtonAppearance(
+            type: .primary,
+            style: style,
+            state: state,
+            variant: variant,
+            position: position,
+            mode: mode
+        )
         self.action = action
     }
 
