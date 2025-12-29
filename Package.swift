@@ -20,10 +20,7 @@ let package = Package(
                  from: "1.18.7"),
         
         .package(url: "https://github.com/airbnb/lottie-spm.git",
-                 from: "4.5.2"),
-        
-        .package(url: "https://github.com/leonodev/fintechKids-modulo-injections-ios.git",
-                 branch: "main")
+                 from: "4.5.2")
      
     ],
     targets: [
@@ -31,8 +28,6 @@ let package = Package(
             name: "FHKDesignSystem",
             dependencies: [
                 .product(name: "Lottie", package: "lottie-spm"),
-                // Modules FHK
-                .product(name: "FHKInjections", package: "fintechKids-modulo-injections-ios")
             ],
             resources: [
                 .process("Resources/Fonts"),
