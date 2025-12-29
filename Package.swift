@@ -16,17 +16,23 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.7"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
+                 from: "1.18.7"),
         
-        .package(url: "https://github.com/airbnb/lottie-spm.git", from: "4.5.2")
+        .package(url: "https://github.com/airbnb/lottie-spm.git",
+                 from: "4.5.2"),
+        
+        .package(url: "https://github.com/leonodev/fintechKids-modulo-injections-ios.git",
+                 branch: "main")
+     
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "FHKDesignSystem",
             dependencies: [
                 .product(name: "Lottie", package: "lottie-spm"),
+                // Modules FHK
+                .product(name: "FHKInjections", package: "fintechKids-modulo-injections-ios")
             ],
             resources: [
                 .process("Resources/Fonts"),
