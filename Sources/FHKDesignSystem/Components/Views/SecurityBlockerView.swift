@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct SecurityBlockerView: View {
+public struct SecurityBlockerView: View {
     let title: String
     let msn: String
     let titleBtn: String
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 24) {
             Image(systemName: "lock.shield.fill")
                 .font(.PangramSans.bold(FHKSize.size80))
