@@ -12,6 +12,12 @@ public struct SecurityBlockerView: View {
     let msn: String
     let titleBtn: String
     
+    public init(title: String, msn: String, titleBtn: String) {
+        self.title = title
+        self.msn = msn
+        self.titleBtn = titleBtn
+    }
+    
     public var body: some View {
         VStack(spacing: 24) {
             Image(systemName: "lock.shield.fill")
