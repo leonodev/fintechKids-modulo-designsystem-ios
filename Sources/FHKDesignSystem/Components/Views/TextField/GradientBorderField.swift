@@ -12,6 +12,12 @@ public struct GradientBorderField: View {
     var placeholder: String
     var isSecure: Bool = false
     
+    public init(text: Binding<String>, placeholder: String, isSecure: Bool = false) {
+        self._text = text
+        self.placeholder = placeholder
+        self.isSecure = isSecure
+    }
+    
     let accentGradient = LinearGradient(
         gradient: Gradient(colors: [Color.blue, Color.purple]),
         startPoint: .topLeading,
