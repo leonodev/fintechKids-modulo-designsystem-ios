@@ -22,43 +22,43 @@ public extension Color {
     
     // MARK: - Color Definitions
     /// Fuchsia Pink color from the asset catalog
-    static let fuchsiaPink = Color("FuchsiaPink", bundle: designSystemBundle)
+    public static let fuchsiaPink = Color("FuchsiaPink", bundle: designSystemBundle)
     
     /// Gray color from the asset catalog
-    static let gray = Color("Gray", bundle: designSystemBundle)
+    public static let gray = Color("Gray", bundle: designSystemBundle)
     
     /// Lunar Sand color from the asset catalog
-    static let lunarSand = Color("LunarSand", bundle: designSystemBundle)
+    public static let lunarSand = Color("LunarSand", bundle: designSystemBundle)
     
     /// Pastel Pink color from the asset catalog
-    static let pastelPink = Color("PastelPink", bundle: designSystemBundle)
+    public static let pastelPink = Color("PastelPink", bundle: designSystemBundle)
     
     /// Silver color from the asset catalog
-    static let silver = Color("Silver", bundle: designSystemBundle)
+    public static let silver = Color("Silver", bundle: designSystemBundle)
     
     /// Stone color from the asset catalog
-    static let stone = Color("Stone", bundle: designSystemBundle)
+    public static let stone = Color("Stone", bundle: designSystemBundle)
     
     /// Ultra Purple color from the asset catalog
-    static let ultraPurple = Color("UltraPurple", bundle: designSystemBundle)
+    public static let ultraPurple = Color("UltraPurple", bundle: designSystemBundle)
     
     /// Wine color from the asset catalog
-    static let wine = Color("Wine", bundle: designSystemBundle)
+    public static let wine = Color("Wine", bundle: designSystemBundle)
     
     /// Basic White color from the asset catalog
-    static let basicWhite = Color("basicWhite", bundle: designSystemBundle)
+    public static let basicWhite = Color("basicWhite", bundle: designSystemBundle)
     
     /// Basic Black color from the asset catalog
-    static let basicBlack = Color("basicBlack", bundle: designSystemBundle)
+    public static let basicBlack = Color("basicBlack", bundle: designSystemBundle)
     
     /// Shadow color from the asset catalog
-    static let shadowColor = Color("shadow", bundle: designSystemBundle)
+    public static let shadowColor = Color("shadow", bundle: designSystemBundle)
     
     /// Text color for enabled state from the asset catalog
-    static let textColorEnabled = Color("textColorEnabled", bundle: designSystemBundle)
+    public static let textColorEnabled = Color("textColorEnabled", bundle: designSystemBundle)
     
     /// Primary background color from the asset catalog
-    static let backgroundPrimary = Color("backgroundPrimary", bundle: designSystemBundle)
+    public static let backgroundPrimary = Color("backgroundPrimary", bundle: designSystemBundle)
 }
 
 // MARK: - Bundle Diagnostics
