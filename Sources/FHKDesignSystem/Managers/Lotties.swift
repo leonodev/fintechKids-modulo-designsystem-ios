@@ -16,6 +16,7 @@ public enum Lotties {
     public static let errorUser: String = "error_user"
     public static let language: String = "language"
     public static let loadingWear: String = "loading_wear"
+    public static let loading: String = "loading"
     public static let login: String = "login"
     public static let paySuccess: String = "pay_success"
     public static let operationsBoard: String = "operations_board"
