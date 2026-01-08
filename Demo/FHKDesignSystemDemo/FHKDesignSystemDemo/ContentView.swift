@@ -40,7 +40,7 @@ struct ContentView: View {
                         NavigationLink(destination: GlassView(title: item)) {
                             Text(item)
                                 .font(.body)
-                                .foregroundColor(.textColorEnabled)
+                                .foregroundColor(FHKColor.textColorEnabled)
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -49,7 +49,7 @@ struct ContentView: View {
                         NavigationLink(destination: EmptyView()) {
                             Text(item)
                                 .font(.body)
-                                .foregroundColor(.textColorEnabled)
+                                .foregroundColor(FHKColor.textColorEnabled)
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -58,7 +58,7 @@ struct ContentView: View {
                         NavigationLink(destination: LottiesView()) {
                             Text(item)
                                 .font(.body)
-                                .foregroundColor(.textColorEnabled)
+                                .foregroundColor(FHKColor.textColorEnabled)
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -111,7 +111,7 @@ struct GlassView: View {
                 } label: {
                     Text(item)
                         .font(.body)
-                        .foregroundColor(.textColorEnabled)
+                        .foregroundColor(FHKColor.textColorEnabled)
                 }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)

@@ -28,12 +28,12 @@ public struct ErrorView: View {
     public var body: some View {
         VStack {
             Text(title)
-                .foregroundStyle(Color.fuchsiaPink)
+                .foregroundStyle(FHKColor.fuchsiaPink)
                 .font(Font.PangramSans.bold(FHKSize.size32))
                 .padding(.bottom, FHKSize.size20)
             
             Text(msnError)
-                .foregroundStyle(Color.basicBlack)
+                .foregroundStyle(FHKColor.basicBlack)
                 .font(Font.PangramSans.light(FHKSize.size20))
                 .padding(.bottom, FHKSize.size20)
             
@@ -45,7 +45,7 @@ public struct ErrorView: View {
             
             
             FHKButtonPrimary(title: titleBtn,
-                             textColor: .fuchsiaPink,
+                             textColor: FHKColor.fuchsiaPink,
                              state: .enabled,
                              mode: .glass(.clear),
                              action: {

@@ -39,7 +39,7 @@ public struct SecurityBlockerView: View {
                     .padding()
                     .background(Color.primary)
                     .cornerRadius(FHKSize.size12)
-                    .foregroundColor(Color.backgroundPrimary)
+                    .foregroundColor(FHKColor.backgroundPrimary)
             }
             .padding(.horizontal, FHKSize.size40)
         }

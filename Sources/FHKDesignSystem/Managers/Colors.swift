@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: - Design System Color Extension
-public extension Color {
+public struct FHKColor {
     
     // MARK: - Bundle Configuration
     /// Static bundle reference for the Design System module resources
@@ -59,82 +59,13 @@ public extension Color {
     
     /// Primary background color from the asset catalog
     public static let backgroundPrimary = Color("backgroundPrimary", bundle: designSystemBundle)
-}
-
-// MARK: - Bundle Diagnostics
-public extension Color {
     
-    /// Performs comprehensive diagnostics on the Design System bundle and assets
-    static func performBundleDiagnostics() {
-        print("\n🎨 DESIGN SYSTEM BUNDLE DIAGNOSTICS")
-        print("=====================================")
-        
-        let bundle = Bundle.module
-        
-        // Bundle Information
-        print("\n📦 BUNDLE INFORMATION:")
-        print("   • Path: \(bundle.bundlePath)")
-        print("   • Identifier: \(bundle.bundleIdentifier ?? "Not available")")
-        
-        // Asset Catalog Discovery
-        print("\n🔍 ASSET CATALOG SEARCH:")
-        discoverAssetCatalogs(in: bundle)
-        
-        // Color Asset Verification
-        print("\n🎯 COLOR ASSET VERIFICATION:")
-        verifyColorAssets(in: bundle)
-    }
-    
-    // MARK: - Private Helper Methods
     private static func logBundleDetails(_ bundle: Bundle) {
         print("🔄 DesignSystem Bundle Loaded")
         print("   Path: \(bundle.bundlePath)")
         
         if let contents = try? FileManager.default.contentsOfDirectory(atPath: bundle.bundlePath) {
             print("   Contents: \(contents.joined(separator: ", "))")
-        }
-    }
-    
-    private static func discoverAssetCatalogs(in bundle: Bundle) {
-        guard let enumerator = FileManager.default.enumerator(atPath: bundle.bundlePath) else {
-            print("   Unable to enumerate bundle contents")
-            return
-        }
-        
-        var foundCatalogs: [String] = []
-        for case let file as String in enumerator {
-            if file.hasSuffix(".xcassets") || file.hasSuffix(".car") {
-                foundCatalogs.append(file)
-            }
-        }
-        
-        if foundCatalogs.isEmpty {
-            print("   No asset catalogs found")
-        } else {
-            foundCatalogs.forEach { print("   • \($0)") }
-        }
-    }
-    
-    private static func verifyColorAssets(in bundle: Bundle) {
-        let colorAssets = [
-            ("FuchsiaPink", "Fuchsia Pink"),
-            ("Gray", "Gray"),
-            ("LunarSand", "Lunar Sand"),
-            ("PastelPink", "Pastel Pink"),
-            ("Silver", "Silver"),
-            ("Stone", "Stone"),
-            ("UltraPurple", "Ultra Purple"),
-            ("Wine", "Wine"),
-            ("basicWhite", "Basic White"),
-            ("basicBlack", "Basic Black"),
-            ("shadow", "Shadow"),
-            ("textColorEnabled", "Text Color Enabled"),
-            ("backgroundPrimary", "Background Primary")
-        ]
-        
-        for (assetName, displayName) in colorAssets {
-            let color = Color(assetName, bundle: bundle)
-            print("   • \(displayName): \(color)")
         }
     }
 }

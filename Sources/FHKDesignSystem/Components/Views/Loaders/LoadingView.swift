@@ -23,7 +23,7 @@ public struct LoadingView: View {
             .padding(.bottom, FHKSize.size20)
             
             Text(msn)
-                .foregroundStyle(Color.pastelPink)
+                .foregroundStyle(FHKColor.pastelPink)
                 .font(Font.PangramSans.semibold(FHKSize.size20))
                 .padding(.bottom, FHKSize.size20)
         }
