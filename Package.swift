@@ -33,8 +33,7 @@ let package = Package(
                 .process("Resources/Fonts"),
                 .process("Resources/Colors/Colors.xcassets"),
                 .process("Resources/Images"),
-                .process("Resources/Lotties"),
-                .process("Resources")
+                .process("Resources/Lotties")
             ]
         ),
         .testTarget(
