@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+public extension Bundle {
+    /// Referencia pública al bundle del sistema de diseño
+    static var designSystem: Bundle {
+        return .module
+    }
+}
+
 // MARK: - Design System Color Extension
 public struct FHKColor {
     
@@ -22,14 +29,10 @@ public struct FHKColor {
     
     private final class BundleToken {}
 
-        private static let designSystemBundle: Bundle = {
-            #if SWIFT_PACKAGE
-            return Bundle.module
-            #else
-            // Fallback para otros sistemas de build o contextos de test
+        public static var designSystemBundle: Bundle {
+            // Esto garantiza que siempre apunte al módulo FHKDesignSystem
             return Bundle(for: BundleToken.self)
-            #endif
-        }()
+        }
     
     // MARK: - Color Definitions
     /// Fuchsia Pink color from the asset catalog
