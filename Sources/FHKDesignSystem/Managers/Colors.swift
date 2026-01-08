@@ -29,14 +29,15 @@ public struct FHKColor {
     
     private final class BundleToken {}
 
-        public static var designSystemBundle: Bundle {
-            // Esto garantiza que siempre apunte al módulo FHKDesignSystem
-            return Bundle(for: BundleToken.self)
+    public static var designSystemBundle: Bundle {
+            return Bundle.module // En SPM, .module es lo más fiable si el Package está bien
         }
     
     // MARK: - Color Definitions
     /// Fuchsia Pink color from the asset catalog
-    public static let fuchsiaPink = Color("fuchsiaPink", bundle: designSystemBundle)
+    public static var fuchsiaPink: Color {
+            Color("fuchsiaPink", bundle: designSystemBundle)
+        }
     
     /// Gray color from the asset catalog
     public static let gray = Color("gray", bundle: designSystemBundle)

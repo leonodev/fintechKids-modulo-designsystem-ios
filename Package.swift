@@ -30,10 +30,7 @@ let package = Package(
                 .product(name: "Lottie", package: "lottie-spm"),
             ],
             resources: [
-                .process("Resources/Fonts"),
-                .process("Resources/Colors/Colors.xcassets"),
-                .process("Resources/Images"),
-                .process("Resources/Lotties")
+                .process("Resources")
             ]
         ),
         .testTarget(
