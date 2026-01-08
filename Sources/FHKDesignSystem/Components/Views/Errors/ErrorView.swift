@@ -14,6 +14,17 @@ public struct ErrorView: View {
     var titleBtn: String
     var onActionPressed: (() -> Void)
     
+    public init(title: String,
+                msnError: String,
+                titleBtn: String,
+                onActionPressed: @escaping () -> Void
+    ) {
+        self.title = title
+        self.msnError = msnError
+        self.titleBtn = titleBtn
+        self.onActionPressed = onActionPressed
+    }
+    
     public var body: some View {
         VStack {
             Text(title)

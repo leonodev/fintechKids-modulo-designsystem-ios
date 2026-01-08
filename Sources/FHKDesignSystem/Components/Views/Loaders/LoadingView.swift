@@ -10,6 +10,10 @@ import SwiftUI
 public struct LoadingView: View {
     var msn: String
     
+    public init(msn: String) {
+        self.msn = msn
+    }
+    
     public var body: some View {
         VStack {
             LottieView(animationName: Lotties.loading,
