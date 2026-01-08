@@ -9,10 +9,12 @@ import SwiftUI
 
 public struct FHKButtonPrimary: View {
     public let title: String
+    public var textColor: Color?
     public var appearance: FHKButtonAppearance
     public var action: () -> Void
     
     public init(title: String,
+                textColor: Color? = nil,
                 style: FHKButtonComponent.Style = .filled,
                 state: FHKButtonComponent.State = .enabled,
                 variant: FHKButtonComponent.Variant = .simple,
@@ -20,6 +22,7 @@ public struct FHKButtonPrimary: View {
                 mode: FHKButtonComponent.Mode = .glass(.clear),
                 action: @escaping () -> Void = {}) {
         self.title = title
+        self.textColor = textColor
         appearance = FHKButtonAppearance(
             type: .primary,
             style: style,
@@ -35,7 +38,7 @@ public struct FHKButtonPrimary: View {
         Button(action: action) {
             Text(title)
                 .font(appearance.font)
-                .foregroundColor(appearance.foregroundColor)
+                .foregroundColor(textColor ?? appearance.foregroundColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: appearance.maxHeight)
                 .background(backgroundView)
@@ -66,6 +69,7 @@ public struct FHKButtonPrimary: View {
 #Preview {
     VStack {
         FHKButtonPrimary(title: "Button Primary",
+                         textColor: nil,
                          state: .enabled,
                          mode: .glass(.clear),
                          action: {

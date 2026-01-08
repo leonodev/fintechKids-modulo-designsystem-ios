@@ -22,28 +22,28 @@ public extension Color {
     
     // MARK: - Color Definitions
     /// Fuchsia Pink color from the asset catalog
-    public static let fuchsiaPink = Color("FuchsiaPink", bundle: designSystemBundle)
+    public static let fuchsiaPink = Color("fuchsiaPink", bundle: designSystemBundle)
     
     /// Gray color from the asset catalog
-    public static let gray = Color("Gray", bundle: designSystemBundle)
+    public static let gray = Color("gray", bundle: designSystemBundle)
     
     /// Lunar Sand color from the asset catalog
-    public static let lunarSand = Color("LunarSand", bundle: designSystemBundle)
+    public static let lunarSand = Color("lunarSand", bundle: designSystemBundle)
     
     /// Pastel Pink color from the asset catalog
-    public static let pastelPink = Color("PastelPink", bundle: designSystemBundle)
+    public static let pastelPink = Color("pastelPink", bundle: designSystemBundle)
     
     /// Silver color from the asset catalog
-    public static let silver = Color("Silver", bundle: designSystemBundle)
+    public static let silver = Color("silver", bundle: designSystemBundle)
     
     /// Stone color from the asset catalog
-    public static let stone = Color("Stone", bundle: designSystemBundle)
+    public static let stone = Color("stone", bundle: designSystemBundle)
     
     /// Ultra Purple color from the asset catalog
-    public static let ultraPurple = Color("UltraPurple", bundle: designSystemBundle)
+    public static let ultraPurple = Color("ultraPurple", bundle: designSystemBundle)
     
     /// Wine color from the asset catalog
-    public static let wine = Color("Wine", bundle: designSystemBundle)
+    public static let wine = Color("wine", bundle: designSystemBundle)
     
     /// Basic White color from the asset catalog
     public static let basicWhite = Color("basicWhite", bundle: designSystemBundle)
