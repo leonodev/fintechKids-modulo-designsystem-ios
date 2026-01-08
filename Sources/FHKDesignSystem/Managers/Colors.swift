@@ -12,13 +12,24 @@ public struct FHKColor {
     
     // MARK: - Bundle Configuration
     /// Static bundle reference for the Design System module resources
-    private static let designSystemBundle: Bundle = {
-        let bundle = Bundle.module
-        #if DEBUG
-        logBundleDetails(bundle)
-        #endif
-        return bundle
-    }()
+//    private static let designSystemBundle: Bundle = {
+//        let bundle = Bundle.module
+//        #if DEBUG
+//        logBundleDetails(bundle)
+//        #endif
+//        return bundle
+//    }()
+    
+    private final class BundleToken {}
+
+        private static let designSystemBundle: Bundle = {
+            #if SWIFT_PACKAGE
+            return Bundle.module
+            #else
+            // Fallback para otros sistemas de build o contextos de test
+            return Bundle(for: BundleToken.self)
+            #endif
+        }()
     
     // MARK: - Color Definitions
     /// Fuchsia Pink color from the asset catalog
