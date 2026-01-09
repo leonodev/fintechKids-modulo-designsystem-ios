@@ -54,20 +54,23 @@ public struct GradientBorderField: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .background(FHKColor.basicWhite)
+            .padding(.horizontal, FHKSize.size16)
             .cornerRadius(10)
             .padding(2)
         }
-        .frame(height: 56)
+        .frame(height: FHKSize.size56)
     }
 }
 
 #Preview {
-    GradientBorderField(
-        text: .constant("password"),
-        placeholder: "Introduce tu contraseña",
-        isSecure: true
-    )
+    VStack {
+        GradientBorderField(
+            text: .constant("password"),
+            placeholder: "Introduce tu contraseña",
+            isSecure: true
+        )
+    }
+    .background(Color.blue)
+    
 }
 
