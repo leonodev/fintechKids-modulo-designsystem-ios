@@ -8,7 +8,6 @@
 import SwiftUI
 
 public extension Bundle {
-    /// Referencia pública al bundle del sistema de diseño
     static var designSystem: Bundle {
         return .module
     }
@@ -16,69 +15,69 @@ public extension Bundle {
 
 // MARK: - Design System Color Extension
 public struct FHKColor {
-    
-    // MARK: - Bundle Configuration
-    /// Static bundle reference for the Design System module resources
-//    private static let designSystemBundle: Bundle = {
-//        let bundle = Bundle.module
-//        #if DEBUG
-//        logBundleDetails(bundle)
-//        #endif
-//        return bundle
-//    }()
-    
-    private final class BundleToken {}
-        
-        public static var designSystemBundle: Bundle {
-            return Bundle(for: BundleToken.self)
-        }
 
+    /// FuchsiaPink color from the asset catalog
     public static var fuchsiaPink: Color {
-            Color("fuchsiaPink", bundle: .designSystem)
-        }
+        Color("fuchsiaPink", bundle: .designSystem)
+    }
     
     /// Gray color from the asset catalog
-    public static let gray = Color("gray", bundle: designSystemBundle)
+    public static var gray: Color {
+        Color("gray", bundle: .designSystem)
+    }
     
     /// Lunar Sand color from the asset catalog
-    public static let lunarSand = Color("lunarSand", bundle: designSystemBundle)
+    public static var lunarSand: Color {
+        Color("lunarSand", bundle: .designSystem)
+    }
     
     /// Pastel Pink color from the asset catalog
-    public static let pastelPink = Color("pastelPink", bundle: designSystemBundle)
+    public static var pastelPink: Color {
+        Color("pastelPink", bundle: .designSystem)
+    }
     
     /// Silver color from the asset catalog
-    public static let silver = Color("silver", bundle: designSystemBundle)
+    public static var silver: Color {
+        Color("silver", bundle: .designSystem)
+    }
     
     /// Stone color from the asset catalog
-    public static let stone = Color("stone", bundle: designSystemBundle)
+    public static var stone: Color {
+        Color("stone", bundle: .designSystem)
+    }
     
     /// Ultra Purple color from the asset catalog
-    public static let ultraPurple = Color("ultraPurple", bundle: designSystemBundle)
+    public static var ultraPurple: Color {
+        Color("ultraPurple", bundle: .designSystem)
+    }
     
     /// Wine color from the asset catalog
-    public static let wine = Color("wine", bundle: designSystemBundle)
+    public static var wine: Color {
+        Color("wine", bundle: .designSystem)
+    }
     
     /// Basic White color from the asset catalog
-    public static let basicWhite = Color("basicWhite", bundle: designSystemBundle)
+    public static var basicWhite: Color {
+        Color("basicWhite", bundle: .designSystem)
+    }
     
     /// Basic Black color from the asset catalog
-    public static let basicBlack = Color("basicBlack", bundle: designSystemBundle)
+    public static var basicBlack: Color {
+        Color("basicBlack", bundle: .designSystem)
+    }
     
     /// Shadow color from the asset catalog
-    public static let shadowColor = Color("shadow", bundle: designSystemBundle)
+    public static var shadowColor: Color {
+        Color("shadow", bundle: .designSystem)
+    }
     
     /// Text color for enabled state from the asset catalog
-    public static let textColorEnabled = Color("textColorEnabled", bundle: designSystemBundle)
+    public static var textColorEnabled: Color {
+        Color("textColorEnabled", bundle: .designSystem)
+    }
     
     /// Primary background color from the asset catalog
-    public static let backgroundPrimary = Color("backgroundPrimary", bundle: designSystemBundle)
-    
-    private static func logBundleDetails(_ bundle: Bundle) {
-        print("🔄 DesignSystem Bundle Loaded")
-        print("   Path: \(bundle.bundlePath)")
-        
-        if let contents = try? FileManager.default.contentsOfDirectory(atPath: bundle.bundlePath) {
-            print("   Contents: \(contents.joined(separator: ", "))")
-        }
+    public static var backgroundPrimary: Color {
+        Color("backgroundPrimary", bundle: .designSystem)
     }
 }

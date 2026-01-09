@@ -341,12 +341,7 @@ struct LottiesView: View {
 
 #Preview {
     VStack {
-        //LottiesView()
-        Text("PRUEBA DIRECTA")
-            .foregroundColor(Color("fuchsiaPink", bundle: .designSystem))
-        
-        Text("PRUEBA STRUCT")
-            .foregroundColor(FHKColor.fuchsiaPink)
+        LottiesView()
     }
     .applyBackgroundDemoModifier()
 }
