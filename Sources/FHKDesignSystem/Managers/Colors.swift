@@ -33,13 +33,8 @@ public struct FHKColor {
             return Bundle(for: BundleToken.self)
         }
 
-        public static var fuchsiaPink: Color {
-            // Intentamos cargar via UIColor primero (es más robusto en el lookup de Bundles)
-            if let uiColor = UIColor(named: "fuchsiaPink", in: designSystemBundle, compatibleWith: nil) {
-                return Color(uiColor)
-            }
-            // Si falla, devolvemos un color de "debug" para que SEPAS que no lo encontró
-            return Color.orange // Si ves naranja en la App, es que el asset no está en el bundle
+    public static var fuchsiaPink: Color {
+            Color("fuchsiaPink", bundle: .designSystem)
         }
     
     /// Gray color from the asset catalog
