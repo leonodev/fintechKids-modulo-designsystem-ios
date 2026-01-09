@@ -28,15 +28,18 @@ public struct FHKColor {
 //    }()
     
     private final class BundleToken {}
-
-    public static var designSystemBundle: Bundle {
-            return Bundle.module // En SPM, .module es lo más fiable si el Package está bien
+        
+        public static var designSystemBundle: Bundle {
+            return Bundle(for: BundleToken.self)
         }
-    
-    // MARK: - Color Definitions
-    /// Fuchsia Pink color from the asset catalog
-    public static var fuchsiaPink: Color {
-            Color("fuchsiaPink", bundle: designSystemBundle)
+
+        public static var fuchsiaPink: Color {
+            // Intentamos cargar via UIColor primero (es más robusto en el lookup de Bundles)
+            if let uiColor = UIColor(named: "fuchsiaPink", in: designSystemBundle, compatibleWith: nil) {
+                return Color(uiColor)
+            }
+            // Si falla, devolvemos un color de "debug" para que SEPAS que no lo encontró
+            return Color.orange // Si ves naranja en la App, es que el asset no está en el bundle
         }
     
     /// Gray color from the asset catalog
