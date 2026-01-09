@@ -10,37 +10,64 @@ import SwiftUI
 public struct GradientBorderField: View {
     @Binding var text: String
     var placeholder: String
-    var isSecure: Bool = false
+    var isSecure: Bool
+    
+    @State private var isTextVisible: Bool = false
     
     public init(text: Binding<String>, placeholder: String, isSecure: Bool = false) {
         self._text = text
         self.placeholder = placeholder
         self.isSecure = isSecure
+        self._isTextVisible = State(initialValue: !isSecure)
     }
-    
-    let accentGradient = LinearGradient(
-        gradient: Gradient(colors: [Color.blue, Color.purple]),
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
+   
+    private var accentGradient: LinearGradient {
+        LinearGradient(
+            gradient: Gradient(colors: [FHKColor.ultraPurple, FHKColor.fuchsiaPink]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
 
     public var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(accentGradient, lineWidth: 3)
-            Group {
+                .stroke(accentGradient, lineWidth: 2)
+            
+            HStack(spacing: 12) {
+                Group {
+                    if isTextVisible {
+                        TextField(placeholder, text: $text)
+                            .autocapitalization(.none)
+                    } else {
+                        SecureField(placeholder, text: $text)
+                    }
+                }
+                .foregroundColor(FHKColor.basicBlack)
+                
+                
                 if isSecure {
-                    SecureField(placeholder, text: $text)
-                } else {
-                    TextField(placeholder, text: $text)
+                    Button(action: { isTextVisible.toggle() }) {
+                        Image(systemName: isTextVisible ? "eye.slash.fill" : "eye.fill")
+                            .foregroundColor(FHKColor.gray)
+                            .font(.system(size: 18))
+                    }
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(Color.white)
+            .background(FHKColor.basicWhite)
             .cornerRadius(10)
-            .padding(4)
+            .padding(2)
         }
-        .frame(height: 50)
+        .frame(height: 56)
     }
 }
+
+#Preview {
+    GradientBorderField(
+        text: .constant("password"),
+        placeholder: "Introduce tu contraseña",
+        isSecure: true
+    )
+}
+
