@@ -14,6 +14,10 @@ public struct PermissionRequestView: View {
     // Feedback háptico para mejorar la UX
     private let haptic = UIImpactFeedbackGenerator(style: .medium)
     
+    init(provider: any PermissionProtocol) {
+        self.provider = provider
+    }
+    
     public var body: some View {
         VStack(spacing: 30) {
             headerSection
