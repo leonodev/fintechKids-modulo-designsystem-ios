@@ -84,8 +84,8 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
  
             if isVisible {
                 content
-                .font(fontText)
-                .foregroundColor(getTextColor())
+//                .font(fontText)
+//                .foregroundColor(getTextColor())
                 .padding(.horizontal, 16)
                 .background(getBackgroundColor())
                 .cornerRadius(cornerRadius)
@@ -207,34 +207,31 @@ public struct ToastView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             if isVisible {
                 HStack(spacing: 15) {
                     if info.hasIcon {
                         Image(systemName: iconSystemName)
-                            .renderingMode(.template)
                             .resizable()
+                            .renderingMode(.template) // Clave para que el color funcione
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 22, height: 22)
-                            .foregroundColor(.white)
+                            .foregroundColor(.white) // Color explícito
                     }
                     
                     Text(info.message)
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white)
-                        .fixedSize(horizontal: false, vertical: true)
+                        .foregroundColor(.white) // Color explícito
                     
                     Spacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
-                // Usa tu estilo original aquí, ahora que sabemos que el HStack está bien
+                // Aplicamos el estilo que ahora solo pone el fondo verde
                 .setToastStyle(isVisible: $isVisible, info: info)
                 .padding(.horizontal)
-                .edgesIgnoringSafeArea(.top)
-                
-                Spacer()
+                // No pongas más Spacers aquí si el modifier ya tiene lógica de posición
             }
         }
     }
