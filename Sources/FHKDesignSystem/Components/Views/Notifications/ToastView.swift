@@ -209,35 +209,27 @@ public struct ToastView: View {
     public var body: some View {
         VStack(spacing: 0) {
             if isVisible {
-                HStack(spacing: 20) {
-                    if info.hasIcon {
-                        Image(systemName: "star.fill")
-                            .resizable()
-                            .renderingMode(.template) // Fuerza a que se comporte como máscara de color
-                            .foregroundColor(.white)
-                            .frame(width: 25, height: 25)
-                            //.setToastIconStyle(type: info.type)
-                    }
+                HStack(spacing: 15) {
+                    // PRUEBA: Cambia Image por un Circle para ver si se ve algo
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 25, height: 25)
                     
                     Text(info.message)
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
                     
                     Spacer()
                 }
-                // Padding interno para separar el contenido de los bordes del fondo verde
                 .padding(.horizontal, 20)
                 .padding(.vertical, 15)
-                // Forzamos el ancho completo en el HStack
                 .frame(maxWidth: .infinity)
-                // Aplicamos el estilo (fondo verde) directamente al contenido
-                .setToastStyle(isVisible: $isVisible, info: info)
-                // Ignoramos el área segura aquí para que el fondo llegue hasta arriba
+                // COMENTA TU ESTILO Y USA ESTO:
+                .background(Color.green)
+                .cornerRadius(12)
+                .padding(.horizontal)
                 .edgesIgnoringSafeArea(.top)
                 
-                // Este Spacer es fundamental para mantener el Toast arriba
                 Spacer()
             }
         }
