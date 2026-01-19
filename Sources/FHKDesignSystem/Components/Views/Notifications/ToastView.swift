@@ -216,7 +216,8 @@ public struct ToastView: View {
                             .aspectRatio(contentMode: .fit)
                             // Definimos el tamaño ANTES del estilo para asegurar visibilidad
                             .frame(width: 25, height: 25)
-                            .setToastIconStyle(type: info.type)
+                            .foregroundColor(.white)
+                            //.setToastIconStyle(type: info.type)
                     }
                     
                     Text(info.message)
