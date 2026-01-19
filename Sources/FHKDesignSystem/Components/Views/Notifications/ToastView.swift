@@ -79,45 +79,34 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     @Binding var isVisible: Bool
     let info: ToastInfo?
     
+    
     func body(content: Content) -> some View {
-        // Si isVisible es false, no renderizamos nada para no ocupar espacio
-        if isVisible {
-            content
+        ZStack(alignment: .top) {
+ 
+            if isVisible {
+                content
+                .font(fontText)
+                .foregroundColor(getTextColor())
+                .padding(.horizontal, 16)
                 .background(getBackgroundColor())
-                .cornerRadius(12)
-            // PRUEBA: Elimina todos los offsets y paddings extras aquí
-            // para ver el Toast flotando "crudo" en la pantalla.
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .cornerRadius(cornerRadius)
+                .shadow(radius: shadow)
+                .padding(.top, safeAreaPadding())
+                .transition(.move(edge: .top))
+                .offset(y: isVisible ? paddingOffset() : -UIScreen.main.bounds.height)
+                .animation(.easeInOut(duration: 2), value: isVisible)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation {
+                            isVisible = false
+                        }
+                    }
+                }
+                .padding()
+                Spacer()
+            }
         }
     }
-   
-//    func body(content: Content) -> some View {
-//        ZStack(alignment: .top) {
-// 
-//            if isVisible {
-//                content
-////                .font(fontText)
-////                .foregroundColor(getTextColor())
-//                .padding(.horizontal, 16)
-//                .background(getBackgroundColor())
-//                .cornerRadius(cornerRadius)
-//                .shadow(radius: shadow)
-//                .padding(.top, safeAreaPadding())
-//                .transition(.move(edge: .top))
-//                .offset(y: isVisible ? paddingOffset() : -UIScreen.main.bounds.height)
-//                .animation(.easeInOut(duration: 2), value: isVisible)
-//                .onAppear {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                        withAnimation {
-//                            isVisible = false
-//                        }
-//                    }
-//                }
-//                .padding()
-//                Spacer()
-//            }
-//        }
-//    }
     
     private func getBackgroundColor() -> Color {
         switch info?.type {
@@ -173,11 +162,11 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     private var iconSystemName: String {
         switch info?.type {
         case .success:
-            return "checkmark.circle"
+            return "checkmark.circle.fill"
         case .error:
-            return "xmark.circle"
+            return "xmark.circle.fill"
         case .alert:
-            return "exclamationmark.circle"
+            return "exclamationmark.circle.fill"
         case .undefined, .none:
             return ""
         }
@@ -219,45 +208,39 @@ public struct ToastView: View {
     }
     
     public var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            // Usamos un Frame fijo de fondo para el icono
-            ZStack {
-                if info.hasIcon {
-                    Image(systemName: iconSystemName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 22, height: 22)
-                        .foregroundColor(.white)
-                }
+        // Quitamos el if de aquí, dejamos que el MODIFIER controle la visibilidad
+        HStack(spacing: 15) {
+            if info.hasIcon {
+                Image(systemName: iconSystemName)
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: FHKSize.size24, height: FHKSize.size24)
+                    .foregroundColor(.white)
             }
-            .frame(width: 30, height: 30) // ESPACIO RESERVADO FIJO
             
             Text(info.message)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.white)
-                .multilineTextAlignment(.leading)
-                // Esto evita que el texto empuje al icono fuera
-                .layoutPriority(1)
             
             Spacer()
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.horizontal, FHKSize.size20)
+        .padding(.vertical, FHKSize.size16)
         .frame(maxWidth: .infinity)
-        // APLICAMOS EL ESTILO
         .setToastStyle(isVisible: $isVisible, info: info)
     }
     
     private var iconSystemName: String {
         switch info.type {
         case .success:
-            return "checkmark.circle"
+            return "checkmark.circle.fill"
         case .error:
-            return "xmark.circle"
+            return "xmark.circle.fill"
         case .alert:
-            return "exclamationmark.circle"
+            return "exclamationmark.circle.fill"
         case .undefined:
-            return "exclamationmark.circle"
+            return ""
         }
     }
 }
