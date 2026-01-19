@@ -209,26 +209,60 @@ public struct ToastView: View {
     public var body: some View {
         
         VStack {
-            if isVisible {
-                
-                HStack(spacing: 20) {
-                    if info.hasIcon {
-                        Image(systemName: iconSystemName)
-                            .resizable()
-                            .setToastIconStyle(type: info.type)
+                if isVisible {
+                    HStack(spacing: 20) {
+                        if info.hasIcon {
+                            Image(systemName: iconSystemName)
+                                .resizable()
+                                .setToastIconStyle(type: info.type)
+                                // Fuerza un tamaño para asegurar que no colapse a 0
+                                .frame(width: 25, height: 25)
+                        }
+                        
+                        Text(info.message)
+                            .foregroundColor(.white)
+                            // Importante: asegura que el texto no se oculte
+                            .fixedSize(horizontal: false, vertical: true)
+                        
+                        Spacer()
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 15)
+                    // 1. El frame máximo va en el contenido
+                    .frame(maxWidth: .infinity)
+                    // 2. El estilo va directamente en el HStack
+                    .setToastStyle(isVisible: $isVisible, info: info)
+                    // 3. El ignore va aquí para que el color verde suba,
+                    // pero el HStack interno ya tiene su padding
+                    .edgesIgnoringSafeArea(.top)
                     
-                    Text(info.message)
-                        .foregroundColor(.white)
-                    
+                    // 4. Este Spacer es vital para que el Toast no se estire
+                    // hacia abajo ocupando toda la pantalla
                     Spacer()
                 }
-                .padding(.vertical)
             }
-        }
-        .frame(maxWidth: .infinity)
-        .edgesIgnoringSafeArea(.top)
-        .setToastStyle(isVisible: $isVisible, info: info)
+        
+//        VStack {
+//            if isVisible {
+//                
+//                HStack(spacing: 20) {
+//                    if info.hasIcon {
+//                        Image(systemName: iconSystemName)
+//                            .resizable()
+//                            .setToastIconStyle(type: info.type)
+//                    }
+//                    
+//                    Text(info.message)
+//                        .foregroundColor(.white)
+//                    
+//                    Spacer()
+//                }
+//                .padding(.vertical)
+//            }
+//        }
+//        .frame(maxWidth: .infinity)
+//        .edgesIgnoringSafeArea(.top)
+//        .setToastStyle(isVisible: $isVisible, info: info)
     }
     
     private var iconSystemName: String {
