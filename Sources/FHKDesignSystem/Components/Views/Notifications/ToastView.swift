@@ -201,6 +201,11 @@ public struct ToastView: View {
     public var info: ToastInfo
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
+    public init(isVisible: Binding<Bool>, info: ToastInfo) {
+        self._isVisible = isVisible
+        self.info = info
+    }
+    
     public var body: some View {
         
         VStack {
