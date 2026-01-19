@@ -82,17 +82,19 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     func body(content: Content) -> some View {
         // Si isVisible es false, no renderizamos nada para no ocupar espacio
         if isVisible {
-            content
-                .background(getBackgroundColor())
-                .cornerRadius(12)
-                .padding(.horizontal, 16) // Padding respecto a los bordes del iPhone
-                // PRUEBA: Comenta el .offset y el .padding(.top) temporalmente
-                // para ver si el icono aparece en el centro de la pantalla
-                // .padding(.top, safeAreaPadding())
-                // .offset(y: isVisible ? 0 : -100)
-                .transition(.move(edge: .top).combined(with: .opacity))
-                .animation(.snappy, value: isVisible)
-        }
+                // En lugar de aplicar el fondo al contenido,
+                // pon el contenido ENCIMA del fondo en un ZStack explícito.
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(getBackgroundColor() ?? .green) // Fondo
+                    
+                    content // Icono y Texto
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 60) // Altura fija para prueba
+                .padding(.horizontal, 16)
+                .transition(.move(edge: .top))
+            }
     }
    
 //    func body(content: Content) -> some View {
@@ -226,12 +228,13 @@ public struct ToastView: View {
         // Quitamos el if de aquí, dejamos que el MODIFIER controle la visibilidad
         HStack(spacing: 15) {
             if info.hasIcon {
-                // Label con título escondido suele ser más robusto para SF Symbols en módulos
-                Text("✓") // O usa un emoji "✅"
-                        .font(.system(size: 22))
-                        .foregroundColor(.white)
-                        .frame(width: 25, height: 25)
-                
+                // USAMOS UN ICONO FIJO PARA DESCARTAR QUE iconSystemName ESTÉ VACÍO
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 22, height: 22)
+                    .foregroundColor(.white)
             }
             
             Text(info.message)
