@@ -227,16 +227,11 @@ public struct ToastView: View {
         HStack(spacing: 15) {
             if info.hasIcon {
                 // Label con título escondido suele ser más robusto para SF Symbols en módulos
-                Label {
-                    Text("") // Título vacío
-                        .frame(width: 0, height: 0)
-                } icon: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 22, height: 22)
-                }
-                .foregroundColor(.white) // El color se aplica a la Label
+                Text("✓") // O usa un emoji "✅"
+                        .font(.system(size: 22))
+                        .foregroundColor(.white)
+                        .frame(width: 25, height: 25)
+                
             }
             
             Text(info.message)
