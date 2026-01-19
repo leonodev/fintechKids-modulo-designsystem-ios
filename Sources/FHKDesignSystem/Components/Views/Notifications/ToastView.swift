@@ -22,7 +22,7 @@ public class ToastInfo {
     public var message: String
     public var hasIcon: Bool
     
-    init(type: ToastType = .success, message: String = "", hasIcon: Bool = false) {
+    public init(type: ToastType = .success, message: String = "", hasIcon: Bool = false) {
         self.type = type
         self.message = message
         self.hasIcon = hasIcon
