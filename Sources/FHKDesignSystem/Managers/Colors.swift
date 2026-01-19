@@ -80,4 +80,19 @@ public struct FHKColor {
     public static var backgroundPrimary: Color {
         Color("backgroundPrimary", bundle: .designSystem)
     }
+    
+    /// Primary background color from the asset catalog
+    public static var success: Color {
+        Color("success", bundle: .designSystem)
+    }
+    
+    /// Primary background color from the asset catalog
+    public static var warning: Color {
+        Color("warning", bundle: .designSystem)
+    }
+    
+    /// Primary background color from the asset catalog
+    public static var error: Color {
+        Color("error", bundle: .designSystem)
+    }
 }
