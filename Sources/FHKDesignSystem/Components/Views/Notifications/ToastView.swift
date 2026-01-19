@@ -228,7 +228,7 @@ public struct ToastView: View {
         }
         .frame(maxWidth: .infinity)
         .edgesIgnoringSafeArea(.top)
-//        .setToastStyle(isVisible: $isVisible, info: info)
+        .setToastStyle(isVisible: $isVisible, info: info)
     }
     
     private var iconSystemName: String {
