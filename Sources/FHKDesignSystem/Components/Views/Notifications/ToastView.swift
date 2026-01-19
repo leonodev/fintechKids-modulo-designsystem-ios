@@ -82,19 +82,13 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     func body(content: Content) -> some View {
         // Si isVisible es false, no renderizamos nada para no ocupar espacio
         if isVisible {
-                // En lugar de aplicar el fondo al contenido,
-                // pon el contenido ENCIMA del fondo en un ZStack explícito.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(getBackgroundColor() ?? .green) // Fondo
-                    
-                    content // Icono y Texto
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 60) // Altura fija para prueba
-                .padding(.horizontal, 16)
-                .transition(.move(edge: .top))
-            }
+            content
+                .background(getBackgroundColor())
+                .cornerRadius(12)
+            // PRUEBA: Elimina todos los offsets y paddings extras aquí
+            // para ver el Toast flotando "crudo" en la pantalla.
+                .transition(.move(edge: .top).combined(with: .opacity))
+        }
     }
    
 //    func body(content: Content) -> some View {
@@ -225,28 +219,32 @@ public struct ToastView: View {
     }
     
     public var body: some View {
-        // Quitamos el if de aquí, dejamos que el MODIFIER controle la visibilidad
-        HStack(spacing: 15) {
-            if info.hasIcon {
-                // USAMOS UN ICONO FIJO PARA DESCARTAR QUE iconSystemName ESTÉ VACÍO
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 22, height: 22)
-                    .foregroundColor(.white)
+        HStack(alignment: .center, spacing: 12) {
+            // Usamos un Frame fijo de fondo para el icono
+            ZStack {
+                if info.hasIcon {
+                    Image(systemName: iconSystemName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 22, height: 22)
+                        .foregroundColor(.white)
+                }
             }
+            .frame(width: 30, height: 30) // ESPACIO RESERVADO FIJO
             
             Text(info.message)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.white)
+                .multilineTextAlignment(.leading)
+                // Esto evita que el texto empuje al icono fuera
+                .layoutPriority(1)
             
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 14)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
-        // El modificador se encarga de TODO el envoltorio (fondo, visibilidad, offset)
+        // APLICAMOS EL ESTILO
         .setToastStyle(isVisible: $isVisible, info: info)
     }
     
