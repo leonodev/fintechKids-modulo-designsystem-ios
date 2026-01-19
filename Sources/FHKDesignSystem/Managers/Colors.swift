@@ -95,4 +95,8 @@ public struct FHKColor {
     public static var error: Color {
         Color("error", bundle: .designSystem)
     }
+    
+    public static var indigo: Color {
+        Color("indigo", bundle: .designSystem)
+    }
 }
