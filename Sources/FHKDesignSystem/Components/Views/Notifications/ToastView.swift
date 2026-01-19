@@ -210,23 +210,27 @@ public struct ToastView: View {
         VStack(spacing: 0) {
             if isVisible {
                 HStack(spacing: 15) {
-                    // PRUEBA: Cambia Image por un Circle para ver si se ve algo
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 25, height: 25)
+                    if info.hasIcon {
+                        Image(systemName: iconSystemName)
+                            .renderingMode(.template)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 22, height: 22)
+                            .foregroundColor(.white)
+                    }
                     
                     Text(info.message)
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.white)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Spacer()
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 15)
+                .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
-                // COMENTA TU ESTILO Y USA ESTO:
-                .background(Color.green)
-                .cornerRadius(12)
+                // Usa tu estilo original aquí, ahora que sabemos que el HStack está bien
+                .setToastStyle(isVisible: $isVisible, info: info)
                 .padding(.horizontal)
                 .edgesIgnoringSafeArea(.top)
                 
