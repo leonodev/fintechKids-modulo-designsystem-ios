@@ -211,12 +211,11 @@ public struct ToastView: View {
             if isVisible {
                 HStack(spacing: 20) {
                     if info.hasIcon {
-                        Image(systemName: iconSystemName)
+                        Image(systemName: "star.fill")
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            // Definimos el tamaño ANTES del estilo para asegurar visibilidad
-                            .frame(width: 25, height: 25)
+                            .renderingMode(.template) // Fuerza a que se comporte como máscara de color
                             .foregroundColor(.white)
+                            .frame(width: 25, height: 25)
                             //.setToastIconStyle(type: info.type)
                     }
                     
