@@ -17,10 +17,10 @@ public enum ToastType {
     case undefined
 }
 
-class ToastInfo {
-    var type: ToastType
-    var message: String
-    var hasIcon: Bool
+public class ToastInfo {
+    public var type: ToastType
+    public var message: String
+    public var hasIcon: Bool
     
     init(type: ToastType = .success, message: String = "", hasIcon: Bool = false) {
         self.type = type
@@ -197,8 +197,8 @@ fileprivate struct ToastIconModifier: ViewModifier {
 }
 
 public struct ToastView: View {
-    @Binding var isVisible: Bool
-    var info: ToastInfo
+    @Binding public var isVisible: Bool
+    public var info: ToastInfo
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
     public var body: some View {
