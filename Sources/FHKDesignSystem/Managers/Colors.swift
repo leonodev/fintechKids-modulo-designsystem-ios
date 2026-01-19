@@ -99,4 +99,8 @@ public struct FHKColor {
     public static var indigo: Color {
         Color("indigo", bundle: .designSystem)
     }
+    
+    public static var yellow: Color {
+        Color("yellow", bundle: .designSystem)
+    }
 }
