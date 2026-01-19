@@ -27,13 +27,13 @@ public class ToastInfo {
     }
 }
 
-extension View {
+public extension View {
     func setToastStyle(isVisible: Binding<Bool>, info: ToastInfo) -> some View {
         modifier(ToastModifier(isVisible: isVisible, info: info))
     }
 }
 
-protocol ToastAppareanceProtocol {
+public protocol ToastAppareanceProtocol {
     var borderColor: Color { get }
     var fontText: Font { get }
     var cornerRadius: CGFloat { get }
@@ -42,7 +42,7 @@ protocol ToastAppareanceProtocol {
 }
 
 
-extension ToastAppareanceProtocol {
+public extension ToastAppareanceProtocol {
     var borderColor: Color {
         return FHKColor.gray
     }
