@@ -207,62 +207,40 @@ public struct ToastView: View {
     }
     
     public var body: some View {
-        
-        VStack {
-                if isVisible {
-                    HStack(spacing: 20) {
-                        if info.hasIcon {
-                            Image(systemName: iconSystemName)
-                                .resizable()
-                                .setToastIconStyle(type: info.type)
-                                // Fuerza un tamaño para asegurar que no colapse a 0
-                                .frame(width: 25, height: 25)
-                        }
-                        
-                        Text(info.message)
-                            .foregroundColor(.white)
-                            // Importante: asegura que el texto no se oculte
-                            .fixedSize(horizontal: false, vertical: true)
-                        
-                        Spacer()
+        VStack(spacing: 0) {
+            if isVisible {
+                HStack(spacing: 20) {
+                    if info.hasIcon {
+                        Image(systemName: iconSystemName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            // Definimos el tamaño ANTES del estilo para asegurar visibilidad
+                            .frame(width: 25, height: 25)
+                            .setToastIconStyle(type: info.type)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 15)
-                    // 1. El frame máximo va en el contenido
-                    .frame(maxWidth: .infinity)
-                    // 2. El estilo va directamente en el HStack
-                    .setToastStyle(isVisible: $isVisible, info: info)
-                    // 3. El ignore va aquí para que el color verde suba,
-                    // pero el HStack interno ya tiene su padding
-                    .edgesIgnoringSafeArea(.top)
                     
-                    // 4. Este Spacer es vital para que el Toast no se estire
-                    // hacia abajo ocupando toda la pantalla
+                    Text(info.message)
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
                     Spacer()
                 }
+                // Padding interno para separar el contenido de los bordes del fondo verde
+                .padding(.horizontal, 20)
+                .padding(.vertical, 15)
+                // Forzamos el ancho completo en el HStack
+                .frame(maxWidth: .infinity)
+                // Aplicamos el estilo (fondo verde) directamente al contenido
+                .setToastStyle(isVisible: $isVisible, info: info)
+                // Ignoramos el área segura aquí para que el fondo llegue hasta arriba
+                .edgesIgnoringSafeArea(.top)
+                
+                // Este Spacer es fundamental para mantener el Toast arriba
+                Spacer()
             }
-        
-//        VStack {
-//            if isVisible {
-//                
-//                HStack(spacing: 20) {
-//                    if info.hasIcon {
-//                        Image(systemName: iconSystemName)
-//                            .resizable()
-//                            .setToastIconStyle(type: info.type)
-//                    }
-//                    
-//                    Text(info.message)
-//                        .foregroundColor(.white)
-//                    
-//                    Spacer()
-//                }
-//                .padding(.vertical)
-//            }
-//        }
-//        .frame(maxWidth: .infinity)
-//        .edgesIgnoringSafeArea(.top)
-//        .setToastStyle(isVisible: $isVisible, info: info)
+        }
     }
     
     private var iconSystemName: String {
