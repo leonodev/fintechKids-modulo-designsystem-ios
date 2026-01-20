@@ -9,7 +9,7 @@ import SwiftUI
 import Algorithms
 
 public struct FloatMenu: View {
-    struct Option {
+    public struct Option {
         var image: Image
         var color: Color
     }
@@ -19,6 +19,15 @@ public struct FloatMenu: View {
     let options: [FloatMenu.Option]
     @State var isOpen = false
     let callback: (Int) -> Void
+    
+    public init(options: [FloatMenu.Option],
+                isOpen: Bool = false,
+                callback: @escaping (Int) -> Void
+    ) {
+        self.options = options
+        self.isOpen = isOpen
+        self.callback = callback
+    }
     
     public var body: some View {
         ZStack {
