@@ -26,6 +26,7 @@ struct ContentView: View {
         
         NavigationView {
             ZStack {
+                
                 // 1. Background primero
                 Image.backgroundDemo
                     .resizable()
