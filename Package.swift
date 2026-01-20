@@ -20,7 +20,10 @@ let package = Package(
                  from: "1.18.7"),
         
         .package(url: "https://github.com/airbnb/lottie-spm.git",
-                 from: "4.5.2")
+                 from: "4.5.2"),
+        
+        .package(url: "https://github.com/apple/swift-algorithms.git",
+                from: "1.2.1")
      
     ],
     targets: [
@@ -28,6 +31,7 @@ let package = Package(
             name: "FHKDesignSystem",
             dependencies: [
                 .product(name: "Lottie", package: "lottie-spm"),
+                .product(name: "Algorithms", package: "swift-algorithms")
             ],
             resources: [
                 .process("Resources")
