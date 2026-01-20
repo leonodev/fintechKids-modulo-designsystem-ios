@@ -12,6 +12,11 @@ public struct FloatMenu: View {
     public struct Option {
         var image: Image
         var color: Color
+        
+        public init(image: Image, color: Color) {
+            self.image = image
+            self.color = color
+        }
     }
     
     let iconDiameter: Double = 70
