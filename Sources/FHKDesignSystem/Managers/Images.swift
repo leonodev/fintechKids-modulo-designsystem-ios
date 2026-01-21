@@ -34,4 +34,5 @@ public extension Image {
     public static let avatarBoy_6 = Image("boy_6", bundle: .module)
     public static let avatarBoy_7 = Image("boy_7", bundle: .module)
     public static let avatarBoy_8 = Image("boy_8", bundle: .module)
+    public static let avatarBoy_9 = Image("boy_9", bundle: .module)
 }
