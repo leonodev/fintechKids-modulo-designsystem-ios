@@ -26,7 +26,7 @@ public enum AvatarType: String, CaseIterable {
     case girl8 = "girl_8"
     case girl9 = "girl_9"
     
-    var image: Image {
+    public var image: Image {
         Image(self.rawValue)
     }
     
