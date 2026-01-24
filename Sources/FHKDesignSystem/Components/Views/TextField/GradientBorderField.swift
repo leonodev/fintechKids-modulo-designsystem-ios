@@ -39,17 +39,21 @@ public struct GradientBorderField: View {
                     if isTextVisible {
                         TextField(placeholder, text: $text)
                             .autocapitalization(.none)
+                            .font(.PangramSans.bold(FHKSize.size20))
+                            .foregroundColor(FHKColor.lunarSand)
                     } else {
                         SecureField(placeholder, text: $text)
+                            .font(.PangramSans.bold(FHKSize.size20))
+                            .foregroundColor(FHKColor.lunarSand.opacity(0.3))
                     }
                 }
-                .foregroundColor(FHKColor.basicBlack)
+                .foregroundColor(FHKColor.lunarSand)
                 
                 
                 if isSecure {
                     Button(action: { isTextVisible.toggle() }) {
                         Image(systemName: isTextVisible ? "eye.slash.fill" : "eye.fill")
-                            .foregroundColor(FHKColor.gray)
+                            .foregroundColor(FHKColor.lunarSand.opacity(0.7))
                             .font(.system(size: 18))
                     }
                 }
@@ -70,7 +74,7 @@ public struct GradientBorderField: View {
             isSecure: true
         )
     }
-    .background(Color.blue)
+    .background(FHKColor.indigo)
     
 }
 
