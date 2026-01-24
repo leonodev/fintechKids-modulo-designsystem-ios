@@ -33,6 +33,6 @@ public struct AvatarView: View {
 
 #Preview {
     VStack {
-        AvatarView(imageName: Image.avatarGirl1)
+        AvatarView(imageName: Image("boy_1"))
     }
 }
