@@ -33,9 +33,5 @@ public enum AvatarType: String, CaseIterable {
     public var name: String {
         self.rawValue
     }
-    
-    public func getAvatar(name: String) -> Image {
-        Image(name, bundle: .module)
-    }
 }
 
