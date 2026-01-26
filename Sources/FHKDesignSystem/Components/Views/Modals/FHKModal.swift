@@ -1,5 +1,5 @@
 //
-//  FHKModalManager.swift
+//  FHKModal.swift
 //  FHKDesignSystem
 //
 //  Created by Fredy Leon on 26/1/26.
