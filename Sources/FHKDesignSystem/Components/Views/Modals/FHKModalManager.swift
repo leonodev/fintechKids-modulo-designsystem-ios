@@ -1,0 +1,38 @@
+//
+//  FHKModalManager.swift
+//  FHKDesignSystem
+//
+//  Created by Fredy Leon on 26/1/26.
+//
+
+import SwiftUI
+import Observation
+
+public protocol FHKModalProtocol {
+    var isPresented: Bool { get set }
+    var content: AnyView? { get set }
+    func show<V: View>(@ViewBuilder _ content: () -> V)
+    func dismiss()
+}
+
+@Observable
+public class FHKModal: FHKModalProtocol {
+    public var isPresented: Bool = false
+    public var content: AnyView?
+    public var config: FHKPopupConfig?
+
+    public init() {}
+
+    public func show<V: View>(@ViewBuilder _ content: () -> V) {
+        self.content = AnyView(content())
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            self.isPresented = true
+        }
+    }
+
+    public func dismiss() {
+        withAnimation(.easeIn(duration: 0.2)) {
+            self.isPresented = false
+        }
+    }
+}
