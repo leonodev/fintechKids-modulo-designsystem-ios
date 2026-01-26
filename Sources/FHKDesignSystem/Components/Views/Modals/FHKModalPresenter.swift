@@ -9,6 +9,10 @@ import SwiftUI
 
 public struct FHKModalPresenter: ViewModifier {
     var manager: FHKModalProtocol
+    
+    public init(manager: FHKModalProtocol) {
+        self.manager = manager
+    }
 
     public func body(content: Content) -> some View {
         content
