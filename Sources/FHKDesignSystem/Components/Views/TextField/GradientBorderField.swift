@@ -44,7 +44,7 @@ public struct GradientBorderField: View {
                     } else {
                         SecureField(placeholder, text: $text)
                             .font(.PangramSans.bold(FHKSize.size20))
-                            .foregroundColor(FHKColor.lunarSand.opacity(0.3))
+                            .foregroundColor(FHKColor.lunarSand)
                     }
                 }
                 .foregroundColor(FHKColor.lunarSand)
