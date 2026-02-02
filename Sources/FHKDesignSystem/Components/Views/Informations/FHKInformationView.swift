@@ -1,41 +1,73 @@
 //
-//  FHKConfirmationView.swift
+//  FHKInformationView.swift
 //  FHKDesignSystem
 //
-//  Created by Fredy Leon on 29/1/26.
+//  Created by Fredy Leon on 2/2/26.
 //
 
 import SwiftUI
 
-public struct FHKConfirmationView: View {
+public struct FHKInformationView: View {
+    
+    public enum ResultType {
+        case success
+        case error
+        
+        var colorBackground: Color {
+            switch self {
+            case .success:
+                return FHKColor.success
+                
+            case .error:
+                return FHKColor.error
+            }
+        }
+        
+        var image: Image {
+            switch self {
+            case .success:
+                return Image(systemName: "checkmark.circle")
+                
+            case .error:
+                return Image(systemName: "xmark.circle")
+            }
+        }
+    }
+    
+    
     let title: String
     let message: String
+    let type: ResultType
     let confirmButtonText: String
-    let cancelButtonText: String
     let confirmAction: () -> Void
-    let cancelAction: () -> Void
     
     public init(title: String,
-                message: String, confirmButtonText: String,
-                cancelButtonText: String,
-                confirmAction: @escaping () -> Void,
-                cancelAction: @escaping () -> Void
+                message: String,
+                type: ResultType,
+                confirmButtonText: String,
+                confirmAction: @escaping () -> Void
     ) {
         self.title = title
         self.message = message
+        self.type = type
         self.confirmButtonText = confirmButtonText
-        self.cancelButtonText = cancelButtonText
         self.confirmAction = confirmAction
-        self.cancelAction = cancelAction
     }
 
     public var body: some View {
         VStack(spacing: FHKSpace.space24) {
             
             VStack(spacing: 8) {
+                type.image
+                    .resizable()
+                    .frame(width: FHKSize.size72, height: FHKSize.size72)
+                    .foregroundStyle(type.colorBackground)
+                    .padding(.bottom, FHKSpace.space32)
+                
                 Text(title)
                     .font(.PangramSans.bold(20))
                     .foregroundColor(.white)
+                    .padding(.bottom, FHKSpace.space08)
                 
                 Text(message)
                     .font(.PangramSans.medium(18))
@@ -44,27 +76,18 @@ public struct FHKConfirmationView: View {
                     .lineSpacing(4)
             }
             .padding(.horizontal, FHKSpace.space12)
+            .padding(.bottom, FHKSpace.space32)
 
             // actions button
             HStack(spacing: FHKSpace.space12) {
-                // Botón secundario (Cancel)
-                Button(action: cancelAction) {
-                    Text(cancelButtonText)
-                        .font(.PangramSans.bold(16))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, FHKSpace.space16)
-                        .background(Color.white.opacity(0.1))
-                        .foregroundColor(.white)
-                        .cornerRadius(FHKSize.size12)
-                }
-
+            
                 // Primary button (Confirm)
                 Button(action: confirmAction) {
                     Text(confirmButtonText)
                         .font(.PangramSans.bold(16))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, FHKSize.size16)
-                        .background(FHKColor.fuchsiaPink)
+                        .background(type.colorBackground)
                         .foregroundColor(FHKColor.basicWhite)
                         .cornerRadius(FHKSize.size12)
                         .shadow(color: .purple.opacity(0.3), radius: 10, x: 0, y: 5)
@@ -78,14 +101,11 @@ public struct FHKConfirmationView: View {
 #Preview {
     VStack {
         Spacer()
-        FHKConfirmationView(title: "Eliminar miembro",
+        FHKInformationView(title: "Eliminar miembro",
                             message: "Desea eliminar este miembro de su falimia?",
+                            type: .success,
                             confirmButtonText: "Eliminar",
-                            cancelButtonText: "Cancelar",
                             confirmAction: {
-            
-        },
-                            cancelAction: {
             
         })
         Spacer()
