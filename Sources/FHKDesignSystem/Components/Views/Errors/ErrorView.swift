@@ -28,24 +28,24 @@ public struct ErrorView: View {
     public var body: some View {
         VStack {
             Text(title)
-                .foregroundStyle(FHKColor.fuchsiaPink)
+                .foregroundStyle(FHKColor.lunarSand)
                 .font(Font.PangramSans.bold(FHKSize.size32))
                 .padding(.bottom, FHKSize.size20)
             
             Text(msnError)
-                .foregroundStyle(FHKColor.basicBlack)
+                .foregroundStyle(FHKColor.lunarSand.opacity(0.5))
                 .font(Font.PangramSans.light(FHKSize.size20))
                 .padding(.bottom, FHKSize.size20)
             
             LottieView(animationName: Lotties.errorUser,
                        loopMode: .loop,
                        contentMode: .scaleAspectFit)
-            .frame(height: 200)
+            .frame(height: 150)
             .padding(.bottom, FHKSize.size40)
             
             
             FHKButtonPrimary(title: titleBtn,
-                             textColor: FHKColor.fuchsiaPink,
+                             textColor: FHKColor.lunarSand.opacity(0.8),
                              state: .enabled,
                              mode: .glass(.clear),
                              action: {
@@ -58,10 +58,13 @@ public struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView(title: "Opppss...",
-              msnError: "Algo ha ido mal, inténtalo más tarde.",
-              titleBtn: "Entendido".uppercased(),
-              onActionPressed: {
-        
-    })
+    VStack {
+        ErrorView(title: "Opppss...",
+                  msnError: "Algo ha ido mal, inténtalo más tarde.",
+                  titleBtn: "Entendido".uppercased(),
+                  onActionPressed: {
+            
+        })
+    }
+    .background(FHKColor.indigo)
 }
