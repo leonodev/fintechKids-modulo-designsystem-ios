@@ -89,6 +89,7 @@ public struct GradientBorderField: View {
         )
         Spacer()
     }
+    .padding()
     .background(FHKColor.indigo)
     
 }
