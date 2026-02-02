@@ -44,10 +44,16 @@ public struct GradientBorderField: View {
             Text(placeholder)
                 .font(.PangramSans.bold(isFloating ? FHKSize.size12 : FHKSize.size20))
                 .foregroundColor(FHKColor.lunarSand.opacity(isFloating ? 1.0 : 0.4))
-                .padding(.horizontal, isFloating ? 4 : 0)
-                .background(isFloating ? FHKColor.indigo : Color.clear) // Fondo para "tapar" el borde si sube mucho
-                .offset(x: isFloating ? 12 : 16, y: isFloating ? -28 : 0) // Se mueve hacia arriba
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isFloating)
+                .padding(.horizontal, isFloating ? 8 : 0) // Añadimos un poco de "aire" a los lados
+                .background {
+                    if isFloating {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(FHKColor.ultraPurple)
+                    }
+                }
+                .offset(x: isFloating ? 12 : 16, y: isFloating ? -28 : 0) // Volvemos a -28 para que "pise" la línea
+                .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isFloating)
+                .allowsHitTesting(false)
             
             // Campo de texto e icono
             HStack(spacing: 12) {
@@ -90,7 +96,7 @@ public struct GradientBorderField: View {
         Spacer()
     }
     .padding()
-    .background(FHKColor.indigo)
+    .background(FHKColor.indigo.opacity(0.9))
     
 }
 
