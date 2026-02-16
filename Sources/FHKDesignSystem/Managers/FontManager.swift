@@ -26,15 +26,10 @@ public final class FontManager {
             return
         }
         
-        print("🔍 Buscando fuentes en el bundle...")
-        
         if let resourceURLs = Bundle.module.urls(forResourcesWithExtension: "otf", subdirectory: nil) {
             for url in resourceURLs {
-                print("📄 Archivo encontrado: \(url.lastPathComponent)")
                 
                 let fontName = url.deletingPathExtension().lastPathComponent
-                print("   🏷️ Intentando registrar como: \(fontName)")
-                
                 registerFont(fontName: fontName, fontExtension: "otf")
             }
         } else {
@@ -66,10 +61,9 @@ public final class FontManager {
         
         var error: Unmanaged<CFError>?
         if CTFontManagerRegisterGraphicsFont(font, &error) {
-            print("   ✅ Fuente registrada exitosamente: \(fontName)")
             
             if let postScriptName = font.postScriptName as String? {
-                print("   🏷️ Nombre PostScript real: \(postScriptName)")
+               // print("   🏷️ Nombre PostScript real: \(postScriptName)")
             }
         } else {
             let errorDescription = error?.takeUnretainedValue().localizedDescription ?? "Error desconocido"
