@@ -332,7 +332,7 @@ struct LottiesView: View {
     
     var body: some View {
         VStack {
-            LottieView(animationName: Lotties.loading,
+            LottieView(animationName: Lotties.register,
                         loopMode: .loop,
                         contentMode: .scaleAspectFit)
             .frame(height: 198)
