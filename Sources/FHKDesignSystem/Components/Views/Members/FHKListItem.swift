@@ -15,7 +15,7 @@ public struct FHKListItem: View {
     var action: () -> Void
     
     public init(name: String,
-                amount: String,
+                amount: String = "0,00",
                 avatarName: String,
                 iconName: String,
                 action: @escaping () -> Void) {
@@ -63,7 +63,6 @@ public struct FHKListItem: View {
         
         Group {
             FHKListItem(name: "Pepito Perez",
-                        amount: "0,00",
                         avatarName: "boy_3",
                         iconName: "trash",
                         action: {
