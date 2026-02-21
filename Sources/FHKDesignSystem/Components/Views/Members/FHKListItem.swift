@@ -63,8 +63,8 @@ public struct FHKListItem: View {
         
         Group {
             FHKListItem(name: "Pepito Perez",
-                        avatarName: "boy_3",
-                        iconName: "trash",
+                        avatarName: AvatarType.boy_3.name,
+                        iconName: ImageSystem.trash.name,
                         action: {
                 
             })

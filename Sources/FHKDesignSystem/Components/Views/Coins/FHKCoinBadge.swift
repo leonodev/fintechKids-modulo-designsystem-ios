@@ -18,7 +18,7 @@ public struct FHKCoinBadge: View {
     
     public var body: some View {
         HStack(spacing: size) {
-            Image(systemName: "star.fill")
+            Image(systemName: ImageSystem.star_fill.name)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: size, height: size)
