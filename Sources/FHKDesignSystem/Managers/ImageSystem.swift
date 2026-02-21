@@ -11,7 +11,7 @@ public enum ImageSystem: String {
     case trash = "trash"
     case star_fill = "star.fill"
     
-    var name: String {
+    public var name: String {
         return self.rawValue
     }
 }
