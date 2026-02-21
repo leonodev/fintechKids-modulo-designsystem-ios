@@ -16,6 +16,7 @@ public enum AvatarType: String, CaseIterable {
     case boy_6
     case boy_7
     case boy_8
+    case boy_9
     case girl_1
     case girl_2
     case girl_3
