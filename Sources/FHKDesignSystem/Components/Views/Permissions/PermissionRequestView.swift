@@ -9,12 +9,12 @@ import SwiftUI
 
 public struct PermissionRequestView: View {
     @Environment(\.dismiss) var dismiss
-    let provider: any PermissionProtocol
+    let provider: any FHKPermissionProtocol
     
     // Feedback háptico para mejorar la UX
     private let haptic = UIImpactFeedbackGenerator(style: .medium)
     
-    public init(provider: any PermissionProtocol) {
+    public init(provider: any FHKPermissionProtocol) {
         self.provider = provider
     }
     
@@ -102,7 +102,7 @@ public struct PermissionRequestView: View {
     PermissionRequestView(provider: PermissionPreView())
 }
 
-class PermissionPreView: PermissionProtocol {
+class PermissionPreView: FHKPermissionProtocol {
 
     var title: String = "Permisos de camara."
     var message: String = "Necesitamos acceso a la cámara para que puedas escanear tus recibos y documentos."
