@@ -9,7 +9,7 @@ public enum PermissionStatus {
     case notDetermined, authorized, denied
 }
 
-public protocol PermissionProtocol {
+public protocol FHKPermissionProtocol {
     var title: String { get }
     var message: String { get }
     var status: PermissionStatus { get }
