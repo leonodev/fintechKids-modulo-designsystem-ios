@@ -6,3 +6,4 @@ DerivedData/
 .swiftpm/configuration/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
+Demo/FHKDesignSystemDemo/FHKDesignSystemDemo.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved

@@ -23,7 +23,10 @@ let package = Package(
                  from: "4.5.2"),
         
         .package(url: "https://github.com/apple/swift-algorithms.git",
-                from: "1.2.1")
+                from: "1.2.1"),
+        
+        .package(url: "https://github.com/leonodev/fintechKids-modulo-domain-ios.git",
+                    branch: "main")
      
     ],
     targets: [
@@ -31,7 +34,10 @@ let package = Package(
             name: "FHKDesignSystem",
             dependencies: [
                 .product(name: "Lottie", package: "lottie-spm"),
-                .product(name: "Algorithms", package: "swift-algorithms")
+                .product(name: "Algorithms", package: "swift-algorithms"),
+                
+                // Modules FHK
+                .product(name: "FHKDomain", package: "fintechKids-modulo-domain-ios")
             ],
             resources: [
                 .process("Resources")

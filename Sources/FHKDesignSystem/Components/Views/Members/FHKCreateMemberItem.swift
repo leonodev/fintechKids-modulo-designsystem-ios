@@ -1,5 +1,5 @@
 //
-//  NewMemberContentView.swift
+//  FHKCreateMemberItem.swift
 //  FHKDesignSystem
 //
 //  Created by Fredy Leon on 29/1/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct FHKListItem: View {
+public struct FHKCreateMemberItem: View {
     let name: String
     let amount: String
     let avatarName: String
@@ -62,7 +62,7 @@ public struct FHKListItem: View {
     PreviewContainer {
         
         Group {
-            FHKListItem(name: "Pepito Perez",
+            FHKCreateMemberItem(name: "Pepito Perez",
                         avatarName: AvatarType.boy_3.name,
                         iconName: ImageSystem.trash.name,
                         action: {
