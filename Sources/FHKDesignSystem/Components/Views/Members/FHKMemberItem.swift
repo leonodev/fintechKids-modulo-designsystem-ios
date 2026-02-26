@@ -6,32 +6,37 @@
 //
 
 import SwiftUI
-import FHKDomain
 import FHKUtils
 
 public struct FHKMemberItem: View {
-    let member: FamilyMember
-    var action: (FamilyMember) -> Void
+    let id: String
+    let avatarName: String
+    let nameMember: String
+    var action: (String) -> Void
     
-    public init(member: FamilyMember,
-                action: @escaping (FamilyMember) -> Void
+    public init(id: String,
+                avatarName: String,
+                nameMember: String,
+                action: @escaping (String) -> Void
     ) {
-        self.member = member
+        self.id = id
+        self.avatarName = avatarName
+        self.nameMember = nameMember
         self.action = action
     }
     
     public var body: some View {
         VStack(spacing: FHKSpace.space12) {
 
-            AvatarView(imageName: member.avatar_name.getAvatar,
+            AvatarView(imageName: avatarName.getAvatar,
                        size: FHKSize.size68)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.yellow.opacity(0.9), lineWidth: 2))
                 .onTapGesture {
-                    action(member)
+                    action(id)
                 }
 
-            Text(member.member_name.capitalizingFirstLetter())
+            Text(nameMember.capitalizingFirstLetter())
                 .font(.PangramSans.medium(16))
                 .foregroundColor(.white)
                 .padding(.leading, 04)
@@ -43,12 +48,10 @@ public struct FHKMemberItem: View {
     PreviewContainer {
         
         Group {
-            FHKMemberItem(member: FamilyMember(id: nil,
-                                               email: "user@gmail.com",
-                                               memberName: "Juan",
-                                               avatarImage: AvatarType.boy_2.name),
+            FHKMemberItem(id: "345DFD",
+                          avatarName: AvatarType.boy_1.name,
+                          nameMember: "Juan",
                           action: { _ in })
         }
     }
-    
 }

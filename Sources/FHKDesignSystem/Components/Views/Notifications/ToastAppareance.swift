@@ -7,12 +7,19 @@
 
 import Foundation
 import SwiftUI
-import FHKDomain
 
 public extension View {
     func setToastStyle(isVisible: Binding<Bool>, info: ToastInfo) -> some View {
         modifier(ToastModifier(isVisible: isVisible, info: info))
     }
+}
+
+public protocol ToastAppareanceProtocol {
+    var borderColor: Color { get }
+    var fontText: Font { get }
+    var cornerRadius: CGFloat { get }
+    var borderWidth: CGFloat { get }
+    var shadow: CGFloat { get }
 }
 
 public extension ToastAppareanceProtocol {
