@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FHKDomain
 
 public struct PermissionRequestView: View {
     @Environment(\.dismiss) var dismiss
@@ -102,13 +103,13 @@ public struct PermissionRequestView: View {
     PermissionRequestView(provider: PermissionPreView())
 }
 
-class PermissionPreView: FHKPermissionProtocol {
+final class PermissionPreView: FHKPermissionProtocol {
 
-    var title: String = "Permisos de camara."
-    var message: String = "Necesitamos acceso a la cámara para que puedas escanear tus recibos y documentos."
-    var status: PermissionStatus = .authorized
-    var titleButtonSetting: String = "Ir a Ajustes"
-    var titleButtonLater: String = "Quizás mas tarde"
+    let title: String = "Permisos de camara."
+    let message: String = "Necesitamos acceso a la cámara para que puedas escanear tus recibos y documentos."
+    let status: PermissionStatus = .authorized
+    let titleButtonSetting: String = "Ir a Ajustes"
+    let titleButtonLater: String = "Quizás mas tarde"
     func requestPermission(completion: @escaping (PermissionStatus) -> Void) {
         
     }
