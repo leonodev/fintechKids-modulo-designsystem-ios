@@ -20,17 +20,17 @@ public struct FHKMemberItem: View {
     }
     
     public var body: some View {
-        VStack(spacing: FHKSpace.space08) {
+        VStack(spacing: FHKSpace.space16) {
 
             AvatarView(imageName: member.avatar_name.getAvatar,
-                       size: FHKSize.size44)
+                       size: FHKSize.size68)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.yellow.opacity(0.9), lineWidth: 2))
                 .onTapGesture {
                     action(member)
                 }
 
-            Text(member.avatar_name)
+            Text(member.member_name)
                 .font(.PangramSans.medium(16))
                 .foregroundColor(.white)
                 .padding(.leading, 04)
