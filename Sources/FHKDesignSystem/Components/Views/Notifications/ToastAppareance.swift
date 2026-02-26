@@ -7,40 +7,13 @@
 
 import Foundation
 import SwiftUI
-
-public enum ToastType {
-    case success
-    case error
-    case warning
-    case notification
-}
-
-public class ToastInfo {
-    public var type: ToastType
-    public var message: String
-    public var hasIcon: Bool
-    
-    public init(type: ToastType = .success, message: String = "", hasIcon: Bool = false) {
-        self.type = type
-        self.message = message
-        self.hasIcon = hasIcon
-    }
-}
+import FHKDomain
 
 public extension View {
     func setToastStyle(isVisible: Binding<Bool>, info: ToastInfo) -> some View {
         modifier(ToastModifier(isVisible: isVisible, info: info))
     }
 }
-
-public protocol ToastAppareanceProtocol {
-    var borderColor: Color { get }
-    var fontText: Font { get }
-    var cornerRadius: CGFloat { get }
-    var borderWidth: CGFloat { get }
-    var shadow: CGFloat { get }
-}
-
 
 public extension ToastAppareanceProtocol {
     var borderColor: Color {

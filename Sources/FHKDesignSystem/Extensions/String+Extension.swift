@@ -9,7 +9,7 @@ import SwiftUI
 
 public extension String {
     
-    public var getAvatar: Image {
+    var getAvatar: Image {
         Image(self, bundle: .module)
     }
 }

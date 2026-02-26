@@ -62,9 +62,9 @@ public final class FontManager {
         var error: Unmanaged<CFError>?
         if CTFontManagerRegisterGraphicsFont(font, &error) {
             
-            if let postScriptName = font.postScriptName as String? {
+            // if let postScriptName = font.postScriptName as String? {
                // print("   🏷️ Nombre PostScript real: \(postScriptName)")
-            }
+           // }
         } else {
             let errorDescription = error?.takeUnretainedValue().localizedDescription ?? "Error desconocido"
             print("   ❌ Error registrando fuente \(fontName): \(errorDescription)")

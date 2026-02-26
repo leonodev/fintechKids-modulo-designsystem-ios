@@ -104,8 +104,6 @@ extension FFHKButtonCircleAppearance {
             
         case .regularWithInteractive:
                 .regular.interactive()
-        default:
-                .clear
         }
     }
 }

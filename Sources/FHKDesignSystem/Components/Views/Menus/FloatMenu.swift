@@ -99,7 +99,7 @@ public extension FloatMenu {
 }
 
 #Preview {
-    var options: [FloatMenu.Option] = [
+    let options: [FloatMenu.Option] = [
         .init(image: .init(systemName: "person.crop.circle.badge.plus"), color: .purple),
         .init(image: .init(systemName: "note.text.badge.plus"), color: .pink),
         .init(image: .init(systemName: "questionmark.circle.dashed"), color: .gray),

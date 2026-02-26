@@ -94,8 +94,6 @@ public struct FHKButtonAppearance {
             
         case .regularWithInteractive:
                 .regular.interactive()
-        default:
-                .clear
         }
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 // Minimalist
 public extension Font {
     
-    public struct Minimalist {
+    struct Minimalist {
         
         @MainActor
         static func simpleRegular(_ size: CGFloat = FHKSize.size16) -> Font {
@@ -31,7 +31,7 @@ public extension Font {
 public extension Font {
     
     
-    public struct PangramSans {
+    struct PangramSans {
         
         public struct Narrow {
             
