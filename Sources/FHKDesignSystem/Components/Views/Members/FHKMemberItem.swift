@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FHKDomain
+import FHKUtils
 
 public struct FHKMemberItem: View {
     let member: FamilyMember
@@ -20,7 +21,7 @@ public struct FHKMemberItem: View {
     }
     
     public var body: some View {
-        VStack(spacing: FHKSpace.space16) {
+        VStack(spacing: FHKSpace.space12) {
 
             AvatarView(imageName: member.avatar_name.getAvatar,
                        size: FHKSize.size68)
@@ -30,7 +31,7 @@ public struct FHKMemberItem: View {
                     action(member)
                 }
 
-            Text(member.member_name)
+            Text(member.member_name.capitalizingFirstLetter())
                 .font(.PangramSans.medium(16))
                 .foregroundColor(.white)
                 .padding(.leading, 04)
