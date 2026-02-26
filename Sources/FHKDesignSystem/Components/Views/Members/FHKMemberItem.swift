@@ -8,11 +8,11 @@
 import SwiftUI
 import FHKDomain
 
-struct FHKMemberItem: View {
+public struct FHKMemberItem: View {
     let member: FamilyMember
     var action: (FamilyMember) -> Void
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: FHKSpace.space08) {
 
             AvatarView(imageName: member.avatar_name.getAvatar,
