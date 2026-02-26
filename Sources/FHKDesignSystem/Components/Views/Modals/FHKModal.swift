@@ -7,13 +7,7 @@
 
 import SwiftUI
 import Observation
-
-public protocol FHKModalProtocol {
-    var isPresented: Bool { get set }
-    var content: AnyView? { get set }
-    func show<V: View>(@ViewBuilder _ content: () -> V)
-    func dismiss()
-}
+import FHKDomain
 
 @Observable
 public class FHKModal: FHKModalProtocol {
