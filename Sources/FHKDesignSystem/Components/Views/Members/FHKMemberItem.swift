@@ -12,6 +12,13 @@ public struct FHKMemberItem: View {
     let member: FamilyMember
     var action: (FamilyMember) -> Void
     
+    public init(member: FamilyMember,
+                action: @escaping (FamilyMember) -> Void
+    ) {
+        self.member = member
+        self.action = action
+    }
+    
     public var body: some View {
         VStack(spacing: FHKSpace.space08) {
 
