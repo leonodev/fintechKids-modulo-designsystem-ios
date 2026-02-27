@@ -9,15 +9,15 @@ import SwiftUI
 import FHKUtils
 
 public struct FHKMemberItem: View {
-    let id: String
+    let id: UUID
     let avatarName: String
     let nameMember: String
-    var action: (String) -> Void
+    var action: (UUID) -> Void
     
-    public init(id: String,
+    public init(id: UUID,
                 avatarName: String,
                 nameMember: String,
-                action: @escaping (String) -> Void
+                action: @escaping (UUID) -> Void
     ) {
         self.id = id
         self.avatarName = avatarName
@@ -48,7 +48,7 @@ public struct FHKMemberItem: View {
     PreviewContainer {
         
         Group {
-            FHKMemberItem(id: "345DFD",
+            FHKMemberItem(id: UUID(),
                           avatarName: AvatarType.boy_1.name,
                           nameMember: "Juan",
                           action: { _ in })
