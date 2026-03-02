@@ -7,10 +7,11 @@
 
 import Foundation
 import SwiftUI
+import FHKUtils
 
 public extension View {
-    func setToastStyle(isVisible: Binding<Bool>, type: ToastType) -> some View {
-        modifier(ToastModifier(isVisible: isVisible, type: type))
+    func setToastStyle(isVisible: Binding<Bool>, info: ToastInfo) -> some View {
+        modifier(ToastModifier(isVisible: isVisible, info: info))
     }
 }
 
@@ -47,7 +48,7 @@ public extension ToastAppareanceProtocol {
 
 fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     @Binding var isVisible: Bool
-    let type: ToastType
+    let info: ToastInfo
     
     func body(content: Content) -> some View {
         ZStack(alignment: .top) {
@@ -78,7 +79,7 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     }
     
     private func getBackgroundColor() -> Color {
-        switch type {
+        switch info.type {
         case .success:
             return FHKColor.success
         case .error:
@@ -93,7 +94,7 @@ fileprivate struct ToastModifier: ViewModifier, ToastAppareanceProtocol {
     }
     
     private func getTextColor() -> Color {
-        switch type {
+        switch info.type {
         case .success, .error, .notification:
             return FHKColor.basicWhite
         case .warning:
