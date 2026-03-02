@@ -18,10 +18,10 @@ public enum ToastType {
 
 public struct ToastView: View {
     @Binding public var isVisible: Bool
-    public var info: ToastInfo
+    public var info: FHKToastInfo
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
-    public init(isVisible: Binding<Bool>,info: ToastInfo) {
+    public init(isVisible: Binding<Bool>,info: FHKToastInfo) {
         self._isVisible = isVisible
         self.info = info
     }
@@ -66,9 +66,9 @@ public struct ToastView: View {
 #Preview {
     VStack {
         ToastView(isVisible: .constant(true),
-                  info: ToastInfo(type: .success,
-                                  message: "Prueba de notificacion si incluso a doble linea o mas ...",
-                                  hasIcon: true))
+                  info: FHKToastInfo(type: .success,
+                                     message: "Prueba de notificacion si incluso a doble linea o mas ...",
+                                     hasIcon: true))
     }
     .frame(width: .infinity)
 }

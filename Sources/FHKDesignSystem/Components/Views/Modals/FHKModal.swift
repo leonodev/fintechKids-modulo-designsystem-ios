@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Observation
+import FHKUtils
 
 public protocol FHKModalProtocol: AnyObject, Sendable {
     var isPresented: Bool { get set }
