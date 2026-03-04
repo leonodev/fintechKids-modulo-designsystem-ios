@@ -13,7 +13,7 @@ public struct FHKMemberItem: View {
     let avatarName: String
     let nameMember: String
     let nameMemberError: String
-    let state: StarCoinState
+    let state: ComponentState
     var action: (UUID) -> Void
     
     @State private var isPulsing = false
@@ -22,7 +22,7 @@ public struct FHKMemberItem: View {
                 avatarName: String = "",
                 nameMember: String = "",
                 nameMemberError: String = "",
-                state: StarCoinState = .loaded,
+                state: ComponentState = .loaded,
                 action: @escaping (UUID) -> Void
     ) {
         self.id = id

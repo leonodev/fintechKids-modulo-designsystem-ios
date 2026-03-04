@@ -6,25 +6,17 @@
 //
 import SwiftUI
 
-import SwiftUI
-
-public enum StarCoinState {
-    case skeleton
-    case error
-    case loaded
-}
-
 public struct StarCoinView: View {
     var text: String
     var textError: String
     var balance: String
-    var state: StarCoinState
+    var state: ComponentState
     @State private var isPulsing = false
 
     public init(text: String,
                 textError: String,
                 balance: String,
-                state: StarCoinState = .loaded
+                state: ComponentState = .loaded
     ) {
         self.text = text
         self.textError = textError
