@@ -27,6 +27,8 @@ public struct ErrorView: View {
     
     public var body: some View {
         VStack {
+            Spacer()
+            
             Text(title)
                 .foregroundStyle(FHKColor.lunarSand)
                 .font(Font.PangramSans.bold(FHKSize.size32))
