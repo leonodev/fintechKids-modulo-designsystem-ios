@@ -40,7 +40,7 @@ public struct FHKCreateMemberItem: View {
  
             Spacer()
             
-            AvatarView(imageName: avatarName.getAvatar, size: FHKSize.size44)
+            AvatarView(image: avatarName.getAvatar, size: FHKSize.size44)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white.opacity(0.2), lineWidth: 1))
             

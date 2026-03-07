@@ -57,7 +57,7 @@ private extension FHKMemberItem {
     
     var loadedView: some View {
         VStack(spacing: FHKSpace.space12) {
-            AvatarView(imageName: avatarName.getAvatar,
+            AvatarView(image: avatarName.getAvatar,
                        size: FHKSize.size68)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.yellow.opacity(0.9), lineWidth: 2))
