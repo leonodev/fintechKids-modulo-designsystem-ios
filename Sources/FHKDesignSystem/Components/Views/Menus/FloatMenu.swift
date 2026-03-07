@@ -55,6 +55,9 @@ public struct FloatMenu: View {
         let radious = menuDiameter / 2
         
         return Button(action: {
+            withAnimation(.spring()) {
+                isOpen = false // close menu
+            }
             callback(index)
         }) {
             ZStack {
