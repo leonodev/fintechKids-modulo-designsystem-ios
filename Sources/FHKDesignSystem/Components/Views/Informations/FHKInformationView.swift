@@ -35,19 +35,16 @@ public struct FHKInformationView: View {
     }
     
     
-    let title: String
     let message: String
     let type: ResultType
     let confirmButtonText: String
     let confirmAction: () -> Void
     
-    public init(title: String,
-                message: String,
+    public init(message: String,
                 type: ResultType,
                 confirmButtonText: String,
                 confirmAction: @escaping () -> Void
     ) {
-        self.title = title
         self.message = message
         self.type = type
         self.confirmButtonText = confirmButtonText
@@ -63,11 +60,6 @@ public struct FHKInformationView: View {
                     .frame(width: FHKSize.size72, height: FHKSize.size72)
                     .foregroundStyle(type.colorBackground)
                     .padding(.bottom, FHKSpace.space32)
-                
-                Text(title)
-                    .font(.PangramSans.bold(20))
-                    .foregroundColor(.white)
-                    .padding(.bottom, FHKSpace.space08)
                 
                 Text(message)
                     .font(.PangramSans.medium(18))
@@ -101,8 +93,7 @@ public struct FHKInformationView: View {
 #Preview {
     VStack {
         Spacer()
-        FHKInformationView(title: "Eliminar miembro",
-                            message: "Desea eliminar este miembro de su falimia?",
+        FHKInformationView(message: "Desea eliminar este miembro de su falimia?",
                             type: .success,
                             confirmButtonText: "Eliminar",
                             confirmAction: {
