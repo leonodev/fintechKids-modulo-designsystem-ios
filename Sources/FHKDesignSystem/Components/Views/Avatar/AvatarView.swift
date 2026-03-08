@@ -38,7 +38,7 @@ public struct AvatarView: View {
             .clipShape(Circle())
             .overlay(
                 Circle()
-                    .stroke(Color.purple.opacity(0.8), lineWidth: 3)
+                    .stroke(FHKColor.lunarSand.opacity(0.8), lineWidth: 3)
             )
             .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
@@ -52,10 +52,10 @@ public struct AvatarView: View {
                 .scaledToFill()
         case .text(let initials):
             ZStack {
-                Color.purple.opacity(0.2)
+                Color.purple.opacity(0.3)
                 Text(initials)
                     .font(.system(size: size * 0.4, weight: .bold, design: .rounded))
-                    .foregroundColor(.purple)
+                    .foregroundColor(FHKColor.lunarSand)
             }
         }
     }
@@ -63,8 +63,10 @@ public struct AvatarView: View {
 
 
 #Preview {
-    VStack {
-        AvatarView(image: AvatarType.boy_1.image)
-        AvatarView(name: "Fredy Leon")
+    PreviewContainer {
+        VStack {
+            AvatarView(image: AvatarType.boy_1.image)
+            AvatarView(name: "Fredy Leon")
+        }
     }
 }
