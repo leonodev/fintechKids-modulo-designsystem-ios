@@ -8,20 +8,17 @@
 import SwiftUI
 
 public struct FHKConfirmationView: View {
-    let title: String
     let message: String
     let confirmButtonText: String
     let cancelButtonText: String
     let confirmAction: () -> Void
     let cancelAction: () -> Void
     
-    public init(title: String,
-                message: String, confirmButtonText: String,
+    public init(message: String, confirmButtonText: String,
                 cancelButtonText: String,
                 confirmAction: @escaping () -> Void,
                 cancelAction: @escaping () -> Void
     ) {
-        self.title = title
         self.message = message
         self.confirmButtonText = confirmButtonText
         self.cancelButtonText = cancelButtonText
@@ -33,10 +30,7 @@ public struct FHKConfirmationView: View {
         VStack(spacing: FHKSpace.space24) {
             
             VStack(spacing: 8) {
-                Text(title)
-                    .font(.PangramSans.bold(20))
-                    .foregroundColor(.white)
-                
+               
                 Text(message)
                     .font(.PangramSans.medium(18))
                     .foregroundColor(.white.opacity(0.7))
@@ -78,8 +72,7 @@ public struct FHKConfirmationView: View {
 #Preview {
     VStack {
         Spacer()
-        FHKConfirmationView(title: "Eliminar miembro",
-                            message: "Desea eliminar este miembro de su falimia?",
+        FHKConfirmationView(message: "Desea eliminar este miembro de su falimia?",
                             confirmButtonText: "Eliminar",
                             cancelButtonText: "Cancelar",
                             confirmAction: {
