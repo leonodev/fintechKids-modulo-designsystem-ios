@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct CardView<Content: View, T>: View {
+public struct FHKCardView<Content: View, T>: View {
     let content: Content
     let data: T?
     let action: (T?) -> Void
     let isSelected: Bool
 
-    init(data: T,
-         isSelected: Bool = false,
-         action: @escaping (T?) -> Void,
-         @ViewBuilder content: () -> Content
+    public init(data: T,
+                isSelected: Bool = false,
+                action: @escaping (T?) -> Void,
+                @ViewBuilder content: () -> Content
     ) {
         self.data = data
         self.isSelected = isSelected
@@ -24,9 +24,9 @@ struct CardView<Content: View, T>: View {
         self.content = content()
     }
 
-    init(isSelected: Bool = false,
-         action: @escaping (T?) -> Void,
-         @ViewBuilder content: () -> Content
+    public init(isSelected: Bool = false,
+                action: @escaping (T?) -> Void,
+                @ViewBuilder content: () -> Content
     ) where T == Any {
         self.data = nil
         self.isSelected = isSelected
@@ -34,7 +34,7 @@ struct CardView<Content: View, T>: View {
         self.content = content()
     }
 
-    var body: some View {
+    public var body: some View {
         VStack {
             content
         }
@@ -56,7 +56,7 @@ struct CardView<Content: View, T>: View {
 
 #Preview {
     PreviewContainer {
-        CardView { _ in
+        FHKCardView { _ in
             print("Navegando al perfil del usuario: ")
         } content: {
             VStack(alignment: .leading, spacing: 15) {
