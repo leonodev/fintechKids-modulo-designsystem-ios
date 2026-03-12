@@ -9,15 +9,24 @@ import SwiftUI
 import Algorithms
 
 public struct FloatMenu: View {
+    public enum OptionType {
+        case members
+        case tasks
+        case goals
+        case rewards
+    }
+    
     public struct Option {
         var title: String
         var image: Image
         var color: Color
+        var menuType: OptionType
         
-        public init(title: String, image: Image, color: Color) {
+        public init(title: String, image: Image, color: Color, menuType: OptionType) {
             self.title = title
             self.image = image
             self.color = color
+            self.menuType = menuType
         }
     }
     
@@ -25,11 +34,11 @@ public struct FloatMenu: View {
     let menuDiameter: Double = 200
     let options: [FloatMenu.Option]
     @State var isOpen = false
-    let callback: (Int) -> Void
+    let callback: (OptionType) -> Void
     
     public init(options: [FloatMenu.Option],
                 isOpen: Bool = false,
-                callback: @escaping (Int) -> Void
+                callback: @escaping (OptionType) -> Void
     ) {
         self.options = options
         self.isOpen = isOpen
@@ -60,7 +69,7 @@ public struct FloatMenu: View {
             withAnimation(.spring()) {
                 isOpen = false // close menu
             }
-            callback(index)
+            callback(option.menuType)
         }) {
             ZStack {
                 Circle()
@@ -114,11 +123,27 @@ public extension FloatMenu {
 #Preview {
     PreviewContainer {
         let options: [FloatMenu.Option] = [
-            .init(title: "One", image: .init(systemName: "person.crop.circle.badge.plus"), color: .purple),
-            .init(title: "Two", image: .init(systemName: "note.text.badge.plus"), color: .pink),
-            .init(title: "Three", image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
-            .init(title: "Four", image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
-            .init(title: "Five", image: .init(systemName: "questionmark.circle.dashed"), color: .gray)
+            .init(title: "One",
+                  image: .init(systemName: "person.crop.circle.badge.plus"),
+                  color: .purple,
+                  menuType: .members),
+            
+            
+            .init(title: "Two",
+                  image: .init(systemName: "note.text.badge.plus"),
+                  color: .pink,
+                  menuType: .tasks),
+            
+            .init(title: "Three",
+                  image: .init(systemName: "questionmark.circle.dashed"),
+                  color: .gray,
+                  menuType: .goals),
+            
+            
+            .init(title: "Four",
+                  image: .init(systemName: "questionmark.circle.dashed"),
+                  color: .gray,
+                  menuType: .rewards)
         ]
         VStack {
             FloatMenu(options: options, callback: { index in
