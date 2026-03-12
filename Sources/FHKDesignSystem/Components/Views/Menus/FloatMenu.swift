@@ -10,10 +10,12 @@ import Algorithms
 
 public struct FloatMenu: View {
     public struct Option {
+        var title: String
         var image: Image
         var color: Color
         
-        public init(image: Image, color: Color) {
+        public init(title: String, image: Image, color: Color) {
+            self.title = title
             self.image = image
             self.color = color
         }
@@ -64,9 +66,17 @@ public struct FloatMenu: View {
                 Circle()
                     .foregroundColor(option.color)
                     .frame(width: 55, height: 55)
-                option.image
-                    .font(.title)
-                    .foregroundColor(.white)
+                VStack {
+                    option.image
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding(.top, FHKSpace.space08)
+                    
+                    Text(option.title)
+                        .foregroundColor(.white)
+                        .font(.PangramSans.bold(FHKSize.size12))
+                        
+                }
             }
         }
         .offset(x: cos(angle) * radious, y: sin(angle) * radious)
@@ -102,16 +112,18 @@ public extension FloatMenu {
 }
 
 #Preview {
-    let options: [FloatMenu.Option] = [
-        .init(image: .init(systemName: "person.crop.circle.badge.plus"), color: .purple),
-        .init(image: .init(systemName: "note.text.badge.plus"), color: .pink),
-        .init(image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
-        .init(image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
-        .init(image: .init(systemName: "questionmark.circle.dashed"), color: .gray)
-    ]
-    VStack {
-        FloatMenu(options: options, callback: { index in
-            print(index)
-        })
+    PreviewContainer {
+        let options: [FloatMenu.Option] = [
+            .init(title: "One", image: .init(systemName: "person.crop.circle.badge.plus"), color: .purple),
+            .init(title: "Two", image: .init(systemName: "note.text.badge.plus"), color: .pink),
+            .init(title: "Three", image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
+            .init(title: "Four", image: .init(systemName: "questionmark.circle.dashed"), color: .gray),
+            .init(title: "Five", image: .init(systemName: "questionmark.circle.dashed"), color: .gray)
+        ]
+        VStack {
+            FloatMenu(options: options, callback: { index in
+                print(index)
+            })
+        }
     }
 }
