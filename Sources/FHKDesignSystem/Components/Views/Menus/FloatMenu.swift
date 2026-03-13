@@ -77,7 +77,7 @@ public struct FloatMenu: View {
                     .frame(width: 55, height: 55)
                 VStack {
                     option.image
-                        .font(.title)
+                        //.font(.title)
                         .foregroundColor(.white)
                         .padding(.top, FHKSpace.space08)
                     
