@@ -59,18 +59,25 @@ public struct FHKCardView<Content: View, T>: View {
         FHKCardView { _ in
             print("Navegando al perfil del usuario: ")
         } content: {
-            VStack(alignment: .leading, spacing: 15) {
-                // Título de la tarjeta
-                Text("Título de la Card")
-                    .font(.headline)
-                    .foregroundColor(.white)
+            HStack {
+                VStack(alignment: .leading, spacing: 15) {
+                    FHKDescriptionCardView(title: "Título de la Card",
+                                           description: "Este es un ejemplo de una tarjeta sfs")
+                }
                 
-                // Descripción o cuerpo
-                Text("Este es un ejemplo de una tarjeta básica en SwiftUI con el fondo degradado que pediste.")
-                    .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.8))
+                Spacer()
+                
+                VStack(alignment: .trailing, spacing: 15) {
+                    HStack {
+                        FHKRewardTypeView(value: "200", type: .coins)
+                        
+                    }
+                    
+                    HStack {
+                        FHKRewardTypeView(value: "3 Hours", type: .time)
+                    }
+                }
             }
         }
-        .padding()
     }
 }

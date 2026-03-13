@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FHKUtils
-import FHKDomain
 
 public struct FHKMemberItem: View {
     let id: UUID

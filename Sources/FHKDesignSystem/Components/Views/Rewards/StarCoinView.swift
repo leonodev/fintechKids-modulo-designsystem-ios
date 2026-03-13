@@ -5,7 +5,6 @@
 //  Created by Fredy Leon on 21/1/26.
 //
 import SwiftUI
-import FHKDomain
 
 public struct StarCoinView: View {
     var text: String
