@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct GradientBorderField: View {
+public struct FHKTextField: View {
     @Binding var text: String
     var placeholder: String
     var isSecure: Bool
@@ -88,7 +88,7 @@ public struct GradientBorderField: View {
 #Preview {
     VStack {
         Spacer()
-        GradientBorderField(
+        FHKTextField(
             text: .constant("password"),
             placeholder: "Introduce tu contraseña",
             isSecure: true
