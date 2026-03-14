@@ -54,7 +54,7 @@ public struct FHKRadioGroupField<T: Equatable>: View {
                     }
                 }
             }
-            .background(Color.purple.opacity(0.05))
+            .background(.clear)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
@@ -93,7 +93,7 @@ public struct FHKRadioGroupField<T: Equatable>: View {
                     }
                 
                     Text(option.label)
-                        .foregroundColor(isSelected ? .purple : .white)
+                        .foregroundColor(.white)
                     
                     Spacer()
                 }
