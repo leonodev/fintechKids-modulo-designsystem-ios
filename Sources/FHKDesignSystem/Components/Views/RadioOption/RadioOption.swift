@@ -97,7 +97,8 @@ public struct FHKRadioGroupField<T: Equatable>: View {
                     
                     Spacer()
                 }
-                .padding()
+                .padding(.vertical, 12)
+                .padding(.horizontal, 12)
                 .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
