@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct IntegerOnlyModifier: ViewModifier {
+public struct IntegerOnlyModifier: ViewModifier {
     @Binding var text: String
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
-            .keyboardType(.numberPad) // Configuramos el teclado automáticamente
+            .keyboardType(.numberPad)
             .onChange(of: text) { _, newValue in
                 let filtered = newValue.filter { "0123456789".contains($0) }
                 if filtered != newValue {
@@ -22,9 +22,9 @@ struct IntegerOnlyModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     /// Fuerza a que un TextField solo acepte números enteros.
-    func onlyIntegers(text: Binding<String>) -> some View {
+    public func onlyIntegers(text: Binding<String>) -> some View {
         self.modifier(IntegerOnlyModifier(text: text))
     }
 }
