@@ -39,8 +39,8 @@ public struct FHKRadioGroupField<T: Equatable>: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.headline)
-                .foregroundColor(FHKColor.lunarSand)
+                .font(.PangramSans.bold(FHKSize.size16))
+                .foregroundColor(FHKColor.basicWhite)
             
             VStack(spacing: 0) {
                 ForEach(options) { option in
