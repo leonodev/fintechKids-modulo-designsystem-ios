@@ -22,4 +22,6 @@ public enum Lotties {
     public static let operationsBoard: String = "operations_board"
     public static let progressBar: String = "progress_bar"
     public static let register: String = "register"
+    public static let coin: String = "coin"
+    public static let coinsBag: String = "coins_bag"
 }
