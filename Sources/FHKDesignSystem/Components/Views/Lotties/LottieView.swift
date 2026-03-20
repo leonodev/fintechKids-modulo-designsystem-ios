@@ -45,24 +45,54 @@ public struct LottieView: UIViewRepresentable {
         self.contentMode = contentMode
     }
     
+//    public func makeUIView(context: Context) -> UIView {
+//        let view = UIView()
+//        
+//        let animationView = LottieAnimationView()
+//        animationView.animation = LottieAnimation.named(animationName, bundle: .module)
+//        animationView.contentMode = contentMode
+//        animationView.loopMode = loopMode.mode()
+//        animationView.animationSpeed = 1.5
+//        animationView.play()
+//        
+//        animationView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(animationView)
+//        
+//        NSLayoutConstraint.activate([
+//            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
+//        ])
+//        
+//        return view
+//    }
+    
     public func makeUIView(context: Context) -> UIView {
         let view = UIView()
-        
+        // 1. Evitamos que la vista principal crezca de más
+        view.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
         let animationView = LottieAnimationView()
         animationView.animation = LottieAnimation.named(animationName, bundle: .module)
         animationView.contentMode = contentMode
         animationView.loopMode = loopMode.mode()
         animationView.animationSpeed = 1.5
         animationView.play()
-        
+
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
-        
+
         NSLayoutConstraint.activate([
-            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
+            // 2. Anclamos a los bordes
+            animationView.topAnchor.constraint(equalTo: view.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            // 3. Importante: Si quieres que el contenedor SwiftUI sepa cuánto mide Lottie
+            // podemos intentar sugerir un aspect ratio basado en la animación real
         ])
-        
+
         return view
     }
     
