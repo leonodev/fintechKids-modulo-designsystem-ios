@@ -22,9 +22,11 @@ public struct FHKDescriptionCardView: View {
                 .font(.PangramSans.bold(FHKSize.size16))
                 .foregroundColor(FHKColor.pastelPink.opacity(0.8))
             
-            Text(description)
-                .font(.Minimalist.simpleBold())
-                .foregroundColor(.white.opacity(0.8))
+            if !description.isEmpty {
+                Text(description)
+                    .font(.Minimalist.simpleBold())
+                    .foregroundColor(.white.opacity(0.8))
+            }   
         }
     }
 }
