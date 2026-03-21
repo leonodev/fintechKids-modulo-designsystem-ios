@@ -332,7 +332,7 @@ struct LottiesView: View {
     
     var body: some View {
         VStack {
-            LottieView(animationName: Lotties.register,
+            LottieView(animationName: Lotties.hours,
                         loopMode: .loop,
                         contentMode: .scaleAspectFit)
             .frame(height: 198)
@@ -346,3 +346,9 @@ struct LottiesView: View {
     }
     .applyBackgroundDemoModifier()
 }
+
+/*
+ public static let coin: String = "coin"
+ public static let coinsBag: String = "coins_bag"
+ public static let hours: String = "hours"
+ */
