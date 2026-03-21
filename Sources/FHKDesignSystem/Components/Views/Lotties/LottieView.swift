@@ -47,24 +47,47 @@ public struct LottieView: UIViewRepresentable {
     
     public func makeUIView(context: Context) -> UIView {
         let view = UIView()
-        
+        view.clipsToBounds = false
+
         let animationView = LottieAnimationView()
         animationView.animation = LottieAnimation.named(animationName, bundle: .module)
         animationView.contentMode = contentMode
         animationView.loopMode = loopMode.mode()
         animationView.animationSpeed = 1.5
+        animationView.clipsToBounds = false
         animationView.play()
-        
+
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
-        
+
         NSLayoutConstraint.activate([
             animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
             animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
-        
+
         return view
     }
+    
+//    public func makeUIView(context: Context) -> UIView {
+//        let view = UIView()
+//        
+//        let animationView = LottieAnimationView()
+//        animationView.animation = LottieAnimation.named(animationName, bundle: .module)
+//        animationView.contentMode = contentMode
+//        animationView.loopMode = loopMode.mode()
+//        animationView.animationSpeed = 1.5
+//        animationView.play()
+//        
+//        animationView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(animationView)
+//        
+//        NSLayoutConstraint.activate([
+//            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
+//        ])
+//        
+//        return view
+//    }
     
     public func updateUIView(_ uiView: UIView, context: Context) {}
 }
