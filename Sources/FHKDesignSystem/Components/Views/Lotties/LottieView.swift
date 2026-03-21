@@ -53,7 +53,7 @@ public struct LottieView: UIViewRepresentable {
         animationView.animationSpeed = 1.5
         animationView.clipsToBounds = false
         
-        // ✅ Esto hace que respete el frame de SwiftUI
+        // Esto hace que respete el frame de SwiftUI
         animationView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         animationView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
@@ -62,27 +62,4 @@ public struct LottieView: UIViewRepresentable {
     }
 
     public func updateUIView(_ uiView: LottieAnimationView, context: Context) {}
-    
-//    public func makeUIView(context: Context) -> UIView {
-//        let view = UIView()
-//        
-//        let animationView = LottieAnimationView()
-//        animationView.animation = LottieAnimation.named(animationName, bundle: .module)
-//        animationView.contentMode = contentMode
-//        animationView.loopMode = loopMode.mode()
-//        animationView.animationSpeed = 1.5
-//        animationView.play()
-//        
-//        animationView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(animationView)
-//        
-//        NSLayoutConstraint.activate([
-//            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
-//        ])
-//        
-//        return view
-//    }
-    
-    public func updateUIView(_ uiView: UIView, context: Context) {}
 }
