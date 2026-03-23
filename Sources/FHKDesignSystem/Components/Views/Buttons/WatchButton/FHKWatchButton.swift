@@ -12,16 +12,23 @@ public struct FHKWatchButton: View {
     public var stopTitle: String
     public var resetTitle: String
     
+    public var onStop: ((TimeInterval) -> Void)?
+    
     @State private var isRunning = false
     @State private var elapsedTime: TimeInterval = 0
     @State private var timer: Timer?
     @State private var startTime: Date?
     private let sizeButton: CGFloat = FHKSize.size152
     
-    public init(startTitle: String, stopTitle: String, resetTitle: String) {
+    public init(startTitle: String,
+                stopTitle: String,
+                resetTitle: String,
+                onStop: ((TimeInterval) -> Void)? = nil
+    ) {
         self.startTitle = startTitle
         self.stopTitle = stopTitle
         self.resetTitle = resetTitle
+        self.onStop = onStop
     }
 
     public var body: some View {
@@ -71,6 +78,7 @@ public struct FHKWatchButton: View {
             // STOP
             timer?.invalidate()
             timer = nil
+            onStop?(elapsedTime)
         } else {
             // START
             startTime = Date() - elapsedTime
