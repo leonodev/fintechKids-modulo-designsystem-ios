@@ -64,6 +64,7 @@ public struct FHKWatchButton: View {
             if !isRunning && elapsedTime > 0 {
                 Button(resetTitle.uppercased()) {
                     elapsedTime = 0
+                    onStop?(0)
                 }
                 .font(.PangramSans.bold(FHKSize.size28))
                 .foregroundColor(FHKColor.basicWhite)
