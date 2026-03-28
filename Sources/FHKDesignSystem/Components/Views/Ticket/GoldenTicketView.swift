@@ -15,7 +15,7 @@ public struct GoldenTicketView: View {
     var reward: String           = "100 KIDCOINS"
     var validUntil: String       = "DICIEMBRE 2026"
     var ticketCode: String       = "FHK-GTR-123456"
-    var appName: String          = "FINTECHKIDS"
+    private var appName: String  = "FINTECHKIDS"
 
     // MARK: Colores dorados (Tus definiciones)
     private let goldHighlight   = Color(hex: "FFF0A0")
@@ -31,15 +31,13 @@ public struct GoldenTicketView: View {
                 taskDescription: String,
                 reward: String,
                 validUntil: String,
-                ticketCode: String,
-                appName: String
+                ticketCode: String
     ) {
         self.recipientName = recipientName
         self.taskDescription = taskDescription
         self.reward = reward
         self.validUntil = validUntil
         self.ticketCode = ticketCode
-        self.appName = appName
     }
 
     // MARK: - Body
