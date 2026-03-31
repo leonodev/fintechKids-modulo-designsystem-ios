@@ -1,33 +1,38 @@
 //
-//  FHKCoinBadge.swift
+//  FHKTimeBadge.swift
 //  FHKDesignSystem
 //
-//  Created by Fredy Leon on 20/2/26.
+//  Created by Fredy Leon on 31/3/26.
 //
 
 import SwiftUI
 
-public struct FHKCoinBadge: View {
+public struct FHKTimeBadge: View {
     let amount: String
+    let description: String
     let size: CGFloat
     
-    public init(amount: String, size: CGFloat = FHKSize.size12) {
+    public init(amount: String,
+                description: String,
+                size: CGFloat = FHKSize.size12
+    ) {
         self.amount = amount
+        self.description = description
         self.size = size
     }
     
     public var body: some View {
         HStack(spacing: FHKSpace.space16) {
-            Image(systemName: ImageSystem.star_fill.name)
+            Image(systemName: "watch.analog")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: size, height: size)
             
             VStack(alignment: .leading) {
-                Text("KidsCoins: \(amount)")
+                Text("\(amount)")
                     .font(.PangramSans.bold(size))
                 
-                Text("Tu saldo actual")
+                Text(description)
                     .font(.PangramSans.bold(size / 2))
                     .foregroundStyle(FHKColor.stone)
             }
@@ -35,13 +40,15 @@ public struct FHKCoinBadge: View {
         .padding(.vertical, size / 2)
         .padding(.horizontal, size)
         .foregroundColor(FHKColor.yellow)
-        .background(Color.indigo)
+        .background(Color.blue)
         .clipShape(Capsule())
     }
 }
 
 #Preview {
     PreviewContainer {
-        FHKCoinBadge(amount: "200", size: 24)
+        FHKTimeBadge(amount: "2 hours",
+                     description: "Tu tiempo actual",
+                     size: 40)
     }
 }
