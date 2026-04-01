@@ -9,15 +9,12 @@ import SwiftUI
 
 public struct FHKTimeBadge: View {
     let amount: String
-    let description: String
     let size: CGFloat
     
     public init(amount: String,
-                description: String,
                 size: CGFloat = FHKSize.size12
     ) {
         self.amount = amount
-        self.description = description
         self.size = size
     }
     
@@ -32,7 +29,7 @@ public struct FHKTimeBadge: View {
                 Text("\(amount)")
                     .font(.PangramSans.bold(size))
                 
-                Text(description)
+                Text("Tu tiempo actual")
                     .font(.PangramSans.bold(size / 2))
                     .foregroundStyle(FHKColor.stone)
             }
@@ -48,7 +45,6 @@ public struct FHKTimeBadge: View {
 #Preview {
     PreviewContainer {
         FHKTimeBadge(amount: "2 hours",
-                     description: "Tu tiempo actual",
                      size: 40)
     }
 }
