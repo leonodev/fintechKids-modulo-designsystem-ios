@@ -25,4 +25,5 @@ public enum Lotties {
     public static let coin: String = "coin"
     public static let coinsBag: String = "coins_bag"
     public static let hours: String = "hours"
+    public static let party: String = "party"
 }
