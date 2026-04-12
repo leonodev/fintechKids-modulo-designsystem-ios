@@ -103,4 +103,16 @@ public struct FHKColor {
     public static var yellow: Color {
         Color("yellow", bundle: .designSystem)
     }
+    
+    public static var purpleBackground: Color {
+        Color("purpleBackground", bundle: .designSystem)
+    }
+    
+    public static var purpleCheckedBackground: Color {
+        Color("purpleCheckedBackground", bundle: .designSystem)
+    }
+    
+    public static var grayUncheckedBackground: Color {
+        Color("grayUncheckedBackground", bundle: .designSystem)
+    }
 }
