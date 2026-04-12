@@ -7,11 +7,16 @@
 
 import SwiftUI
 
-struct FHKCheckBoxGroup: View {
-    let title: String?
-    @Binding var items: [FHKCheckBoxItem]
+public struct FHKCheckBoxGroup: View {
+    public let title: String?
+    @Binding public var items: [FHKCheckBoxItem]
     
-    var body: some View {
+    public init(title: String?, items: Binding<[FHKCheckBoxItem]>) {
+        self.title = title
+        self._items = items
+    }
+    
+    public var body: some View {
         VStack(alignment: .leading, spacing: FHKSpace.space16) {
             if let title = title {
                 Text(title)

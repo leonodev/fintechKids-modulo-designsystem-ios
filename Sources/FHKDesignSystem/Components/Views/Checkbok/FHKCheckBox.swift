@@ -8,14 +8,19 @@
 import SwiftUI
 
 // MARK: - FHKCheckBox Component
-struct FHKCheckBox: View {
-    let label: String
-    @Binding var isChecked: Bool
+public struct FHKCheckBox: View {
+    public let label: String
+    @Binding public var isChecked: Bool
+    
+    public init(label: String, isChecked: Binding<Bool>) {
+        self.label = label
+        self._isChecked = isChecked
+    }
     
     private let checkBoxSize: CGFloat = 24
     private let cornerRadius: CGFloat = 8
     
-    var body: some View {
+    public var body: some View {
         Button {
             isChecked.toggle()
         } label: {

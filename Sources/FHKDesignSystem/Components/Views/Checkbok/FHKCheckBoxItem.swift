@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct FHKCheckBoxItem: Identifiable, Equatable {
-    let id = UUID()
-    let label: String
-    var isChecked: Bool
+public struct FHKCheckBoxItem: Identifiable, Equatable {
+    public let id = UUID()
+    public let label: String
+    public var isChecked: Bool
     
-    static func == (lhs: FHKCheckBoxItem, rhs: FHKCheckBoxItem) -> Bool {
+    public init(label: String, isChecked: Bool) {
+        self.label = label
+        self.isChecked = isChecked
+    }
+    
+    public static func == (lhs: FHKCheckBoxItem, rhs: FHKCheckBoxItem) -> Bool {
         lhs.id == rhs.id && lhs.isChecked == rhs.isChecked
     }
 }
