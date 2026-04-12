@@ -16,4 +16,6 @@ public extension Image {
     static let franceCircleFlag = Image("france-circle", bundle: .module)
     static let italyCircleFlag = Image("italy-circle", bundle: .module)
     static let spainCircleFlag = Image("spain-circle", bundle: .module)
+    static let fintechkidsTime = Image("fintechkids_time", bundle: .module)
+    static let fintechkidsCoins = Image("fintechkids_coins", bundle: .module)
 }
