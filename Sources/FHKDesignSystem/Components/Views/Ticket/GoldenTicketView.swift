@@ -249,3 +249,15 @@ public struct GoldenTicketView: View {
             .padding(.horizontal, 6)
     }
 }
+
+#Preview {
+    PreviewContainer {
+        GoldenTicketView(recipientName: "Isaac Leon",
+                         taskDescription: "Hacer sus deberes",
+                         reward: "Ir a Burger King",
+                         validUntil: "12/03/2006",
+                         ticketCode: "34534545345345")
+    }
+}
+
+
