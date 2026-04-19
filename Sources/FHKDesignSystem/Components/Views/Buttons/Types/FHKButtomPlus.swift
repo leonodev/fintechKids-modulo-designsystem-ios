@@ -8,6 +8,13 @@
 import SwiftUI
 
 public struct FHKButtomPlus: View {
+    private var hasRoration: Bool = false
+    @Binding private var isOpen: Bool
+    
+    public init (hasRoration: Bool, isOpen: Binding<Bool>) {
+        self.hasRoration = hasRoration
+        self._isOpen = isOpen
+    }
     
     public var body: some View {
         ZStack {
@@ -19,6 +26,12 @@ public struct FHKButtomPlus: View {
             Image(systemName: "plus")
                 .foregroundColor(.white)
                 .font(.title)
+                .if(hasRoration) { view in
+                    view.rotationEffect(isOpen
+                                        ? .degrees(45)
+                                        : .degrees(0))
+                }
+                
         }
     }
 }
