@@ -30,7 +30,6 @@ public struct FloatMenu: View {
         }
     }
     
-    let iconDiameter: Double = 70
     let menuDiameter: Double = 200
     let options: [FloatMenu.Option]
     @State var isOpen = false
@@ -57,7 +56,7 @@ public struct FloatMenu: View {
             }
             .disabled(!isOpen)
             
-            MainMenu(iconDiameter: iconDiameter, isOpen: $isOpen)
+            MainMenu(isOpen: $isOpen)
         }
     }
     
@@ -95,7 +94,6 @@ public struct FloatMenu: View {
 public extension FloatMenu {
     
     struct MainMenu: View {
-        let iconDiameter: Double
         @Binding var isOpen: Bool
         
         public var body: some View {
@@ -104,17 +102,7 @@ public extension FloatMenu {
                     isOpen.toggle()
                 }
             } label: {
-                ZStack {
-                    Circle()
-                        .foregroundColor(.indigo)
-                        .frame(width: iconDiameter, height: iconDiameter)
-                    Image(systemName: "plus")
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .rotationEffect(isOpen
-                                        ? .degrees(45)
-                                        : .degrees(0))
-                }
+                FHKButtomPlus(hasRoration: true, isOpen: $isOpen)
             }
         }
     }
