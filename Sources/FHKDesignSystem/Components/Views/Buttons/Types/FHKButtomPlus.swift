@@ -8,10 +8,12 @@
 import SwiftUI
 
 public struct FHKButtomPlus: View {
-    private var hasRoration: Bool = false
+    private var hasRoration: Bool
     @Binding private var isOpen: Bool
     
-    public init (hasRoration: Bool, isOpen: Binding<Bool>) {
+    public init (hasRoration: Bool = false,
+                 isOpen: Binding<Bool> = .constant(false)
+    ) {
         self.hasRoration = hasRoration
         self._isOpen = isOpen
     }
