@@ -8,14 +8,14 @@
 import SwiftUI
 
 public struct GoldenTicketView: View {
-
-    // MARK: Parámetros personalizables
-    var recipientName: String    = "ALEX LEON"
-    var taskDescription: String  = "LIMPIAR EL CUARTO\nCOMPLETAMENTE BIEN\nEL SÁBADO"
-    var reward: String           = "100 KIDCOINS"
-    var ticketCode: String       = "FHK-GTR-123456"
     private var appName: String  = "FINTECHKIDS"
-
+    
+    // MARK: Parámetros personalizables
+    var recipientName: String
+    var taskDescription: String
+    var reward: String
+    var ticketCode: String
+   
     // MARK: Colores dorados (Tus definiciones)
     private let goldHighlight   = Color(hex: "FFF0A0")
     private let goldLight       = Color(hex: "F5D050")
