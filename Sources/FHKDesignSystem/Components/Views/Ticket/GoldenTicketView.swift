@@ -13,7 +13,6 @@ public struct GoldenTicketView: View {
     var recipientName: String    = "ALEX LEON"
     var taskDescription: String  = "LIMPIAR EL CUARTO\nCOMPLETAMENTE BIEN\nEL SÁBADO"
     var reward: String           = "100 KIDCOINS"
-    var validUntil: String       = "DICIEMBRE 2026"
     var ticketCode: String       = "FHK-GTR-123456"
     private var appName: String  = "FINTECHKIDS"
 
@@ -30,13 +29,11 @@ public struct GoldenTicketView: View {
     public init(recipientName: String,
                 taskDescription: String,
                 reward: String,
-                validUntil: String,
                 ticketCode: String
     ) {
         self.recipientName = recipientName
         self.taskDescription = taskDescription
         self.reward = reward
-        self.validUntil = validUntil
         self.ticketCode = ticketCode
     }
 
@@ -143,7 +140,6 @@ public struct GoldenTicketView: View {
     }
 
     // MARK: - Tarjeta blanca con los campos (Tu versión)
-
     private var contentCard: some View {
         VStack(spacing: 0) {
             // PARA
@@ -182,15 +178,6 @@ public struct GoldenTicketView: View {
             })
 
             solidDivider
-
-            // VÁLIDO HASTA
-            Text("VALIDO HASTA: \(validUntil)")
-                .font(.system(size: 10, weight: .bold))
-                .kerning(0.8)
-                .foregroundColor(brown.opacity(0.75))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
 
             // Línea punteada de corte (Tu versión)
             DashedDivider()
@@ -255,7 +242,6 @@ public struct GoldenTicketView: View {
         GoldenTicketView(recipientName: "Isaac Leon",
                          taskDescription: "Hacer sus deberes",
                          reward: "Ir a Burger King",
-                         validUntil: "12/03/2006",
                          ticketCode: "34534545345345")
     }
 }
