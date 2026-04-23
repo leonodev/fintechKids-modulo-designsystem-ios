@@ -9,7 +9,7 @@ import SwiftUI
 import FHKUtils
 
 public struct FHKRewardCollectedItem: View {
-    let id: UUID
+    let id: Int
     let memberName: String
     let avatarName: String
     let taskName: String
@@ -20,7 +20,7 @@ public struct FHKRewardCollectedItem: View {
     
     @State private var isPulsing = false
     
-    public init(id: UUID = UUID(),
+    public init(id: Int,
                 memberName: String,
                 avatarName: String,
                 taskName: String,
@@ -157,6 +157,7 @@ public struct FHKRewardCollectedItem: View {
 #Preview {
     PreviewContainer {
         FHKRewardCollectedItem(
+            id: 1,
             memberName: "childName",
             avatarName: "boy_9",
             taskName: "task",

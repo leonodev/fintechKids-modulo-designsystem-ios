@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct RewardCollectPunchedItem: View {
+public struct FHKRewardCollectPunchedItem: View {
     let id: Int
     let memberName: String
     let avatarName: String
@@ -68,7 +68,7 @@ public struct RewardCollectPunchedItem: View {
                         .font(.PangramSans.bold(FHKSize.size12))
                         .foregroundColor(.white)
                         .padding(.horizontal, FHKSpace.space12)
-                        .padding(.vertical, FHKSpace.space08)
+                        .padding(.vertical, FHKSpace.space12)
                         .background(FHKColor.wine)
                         .cornerRadius(FHKSize.size08)
                 }
@@ -91,7 +91,7 @@ public struct RewardCollectPunchedItem: View {
 
 #Preview {
     PreviewContainer {
-        RewardCollectPunchedItem(id: 1,
+        FHKRewardCollectPunchedItem(id: 1,
                                  memberName: "memberName",
                                  avatarName: "avatarName",
                                  nameTask: "nameTask",
