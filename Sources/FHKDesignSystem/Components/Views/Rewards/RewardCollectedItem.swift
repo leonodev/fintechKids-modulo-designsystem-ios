@@ -20,14 +20,15 @@ public struct FHKRewardCollectedItem: View {
     
     @State private var isPulsing = false
     
-    public init(id: Int,
-                memberName: String,
-                avatarName: String,
-                taskName: String,
-                rewardName: String,
-                state: ComponentState,
-                msnDataError: String,
-                action: @escaping (UUID) -> Void
+    public init(
+        id: Int = 0,
+        memberName: String = "",
+        avatarName: String = "",
+        taskName: String = "",
+        rewardName: String = "",
+        state: ComponentState,
+        msnDataError: String = "",
+        action: @escaping (UUID) -> Void = { _ in }
     ) {
         self.id = id
         self.memberName = memberName
@@ -151,6 +152,67 @@ public struct FHKRewardCollectedItem: View {
         }
         .padding()
         .cardBackgroundGlassStyle()
+    }
+}
+
+
+//extension FHKRewardCollectedItem {
+//    /// Genera una vista con el número de esqueletos deseado.
+//    @ViewBuilder
+//    public static func skeletons(count: Int = 3) -> some View {
+//        HStack(spacing: FHKSpace.space16) {
+//            ForEach(0..<count, id: \.self) { _ in
+//                FHKRewardCollectedItem(
+//                    id: 0, memberName: "", avatarName: "", taskName: "", rewardName: "",
+//                    state: .skeleton,
+//                    msnDataError: "",
+//                    action: { _ in }
+//                )
+//            }
+//        }
+//    }
+//    
+//    static func errorItem(message: String) -> FHKRewardCollectedItem {
+//            FHKRewardCollectedItem(
+//                id: 0, memberName: "", avatarName: "", taskName: "", rewardName: "",
+//                state: .error,
+//                msnDataError: message,
+//                action: { _ in }
+//            )
+//        }
+//}
+
+// En FHKDesignSystem
+public struct FHKStateContainer<Content: View>: View {
+    let state: ComponentState
+    let skeletonCount: Int
+    let errorMsn: String
+    let content: () -> Content
+
+    public init(
+        state: ComponentState,
+        skeletonCount: Int = 3,
+        errorMsn: String = "",
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.state = state
+        self.skeletonCount = skeletonCount
+        self.errorMsn = errorMsn
+        self.content = content
+    }
+
+    public var body: some View {
+        switch state {
+        case .skeleton:
+            ForEach(0..<skeletonCount, id: \.self) { _ in
+                FHKRewardCollectedItem(state: .skeleton)
+            }
+        case .error:
+            FHKRewardCollectedItem(state: .error, msnDataError: errorMsn)
+            
+        case .loaded:
+            content()
+        }
     }
 }
 

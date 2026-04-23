@@ -121,33 +121,6 @@ extension FHKMemberItem {
     }
 }
 
-extension FHKRewardCollectedItem {
-    /// Genera una vista con el número de esqueletos deseado.
-    @ViewBuilder
-    public static func skeletons(count: Int = 3) -> some View {
-        HStack(spacing: FHKSpace.space16) {
-            ForEach(0..<count, id: \.self) { _ in
-                FHKRewardCollectedItem(
-                    id: 0, memberName: "", avatarName: "", taskName: "", rewardName: "",
-                    state: .skeleton,
-                    msnDataError: "",
-                    action: { _ in }
-                )
-            }
-        }
-    }
-    
-    static func errorItem(message: String) -> FHKRewardCollectedItem {
-            FHKRewardCollectedItem(
-                id: 0, memberName: "", avatarName: "", taskName: "", rewardName: "",
-                state: .error,
-                msnDataError: message,
-                action: { _ in }
-            )
-        }
-}
-
-
 #Preview {
     PreviewContainer {
         
