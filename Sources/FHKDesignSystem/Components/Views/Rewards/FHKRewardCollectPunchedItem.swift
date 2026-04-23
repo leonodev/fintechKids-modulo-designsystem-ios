@@ -65,6 +65,7 @@ public struct FHKRewardCollectPunchedItem: View {
     
                 Button(action: { action(id) }) {
                     Text(titleBtnPay)
+                        .multilineTextAlignment(.center)
                         .font(.PangramSans.bold(FHKSize.size12))
                         .foregroundColor(.white)
                         .padding(.horizontal, FHKSpace.space12)
@@ -75,7 +76,7 @@ public struct FHKRewardCollectPunchedItem: View {
             }
             .padding(.trailing, FHKSpace.space24)
         }
-        .frame(height: FHKSize.size132)
+        .frame(width: 270, height: FHKSize.size120)
         .background(
             RewardCollectedIPaperShape()
                 .colorDegradeStyle()
