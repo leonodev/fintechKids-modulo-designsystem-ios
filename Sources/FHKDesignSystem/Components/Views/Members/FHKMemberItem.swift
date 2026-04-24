@@ -21,7 +21,7 @@ public struct FHKMemberItem: View {
                 avatarName: String = "",
                 nameMember: String = "",
                 state: ComponentStateType = .skeleton,
-                action: @escaping (UUID) -> Void
+                action: @escaping (UUID) -> Void = { _ in }
     ) {
         self.id = id
         self.avatarName = avatarName
