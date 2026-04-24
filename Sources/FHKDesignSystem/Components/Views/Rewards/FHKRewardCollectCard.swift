@@ -8,7 +8,7 @@
 import SwiftUI
 import FHKUtils
 
-public struct RewardCollectCard: View {
+public struct FHKRewardCollectCard: View {
     let state: ComponentStateType
     let style: CollectCardStyleType
     let id: Int
@@ -61,7 +61,7 @@ public struct RewardCollectCard: View {
 }
 
 // MARK: View States
-private extension RewardCollectCard {
+private extension FHKRewardCollectCard {
     
     var loadedGlassView: some View {
         HStack(spacing: FHKSpace.space12) {
@@ -232,11 +232,11 @@ private extension RewardCollectCard {
     }
 }
 
-public extension RewardCollectCard {
+public extension FHKRewardCollectCard {
     @ViewBuilder
     public static func skeletons(count: Int, style: CollectCardStyleType) -> some View {
         ForEach(0..<count, id: \.self) { _ in
-            RewardCollectCard(state: .skeleton, style: style)
+            FHKRewardCollectCard(state: .skeleton, style: style)
         }
     }
 }
@@ -280,11 +280,11 @@ public extension RewardCollectCard {
                 switch rewardsState {
                     
                 case .skeleton:
-                    RewardCollectCard.skeletons(count: 3, style: .glass)
+                    FHKRewardCollectCard.skeletons(count: 3, style: .glass)
                     
                 case .loaded:
                     ForEach(rewardsCollected) { ticket in
-                        RewardCollectCard(state: .loaded,
+                        FHKRewardCollectCard(state: .loaded,
                                           style: .punched,
                                           id: 1,
                                           memberName: ticket.member.memberName,
@@ -295,7 +295,7 @@ public extension RewardCollectCard {
                     }
                     
                 case .error(let msn):
-                    RewardCollectCard(state: .error(msn), style: .glass)
+                    FHKRewardCollectCard(state: .error(msn), style: .glass)
                 }
             }
         }

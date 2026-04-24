@@ -12,8 +12,7 @@ public struct FHKMemberItem: View {
     let id: UUID
     let avatarName: String
     let nameMember: String
-    let nameMemberError: String
-    let state: ComponentState
+    let state: ComponentStateType
     var action: (UUID) -> Void
     
     @State private var isPulsing = false
@@ -21,14 +20,12 @@ public struct FHKMemberItem: View {
     public init(id: UUID = UUID(),
                 avatarName: String = "",
                 nameMember: String = "",
-                nameMemberError: String = "",
-                state: ComponentState = .loaded,
+                state: ComponentStateType = .skeleton,
                 action: @escaping (UUID) -> Void
     ) {
         self.id = id
         self.avatarName = avatarName
         self.nameMember = nameMember
-        self.nameMemberError = nameMemberError
         self.state = state
         self.action = action
     }
@@ -43,8 +40,10 @@ public struct FHKMemberItem: View {
         switch state {
         case .skeleton:
             skeletonView
-        case .error:
-            errorView
+            
+        case .error(let error):
+            errorView(msnError: error)
+            
         case .loaded:
             loadedView
         }
@@ -92,13 +91,14 @@ private extension FHKMemberItem {
         }
     }
     
-    var errorView: some View {
+    @ViewBuilder
+    func errorView(msnError: String) -> some View {
         VStack(spacing: FHKSpace.space12) {
             Image(systemName: "person.crop.circle.badge.exclam")
                 .font(.system(size: FHKSize.size48))
                 .foregroundColor(.gray.opacity(0.6))
 
-            Text(nameMemberError)
+            Text(msnError)
                 .font(.PangramSans.medium(FHKSize.size16))
                 .foregroundColor(.white.opacity(0.4))
         }
@@ -128,8 +128,7 @@ extension FHKMemberItem {
             FHKMemberItem(id: UUID(),
                           avatarName: AvatarType.boy_1.name,
                           nameMember: "Juan",
-                          nameMemberError: "Undefined",
-                          state: .loaded,
+                          state: .error("Unknown"),
                           action: { _ in })
         }
     }
