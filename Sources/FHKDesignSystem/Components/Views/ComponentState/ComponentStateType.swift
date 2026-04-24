@@ -6,7 +6,7 @@
 //
 
 public enum ComponentStateType {
-    case skeleton(Int)
+    case skeleton
     case error(String)
     case loaded
 }

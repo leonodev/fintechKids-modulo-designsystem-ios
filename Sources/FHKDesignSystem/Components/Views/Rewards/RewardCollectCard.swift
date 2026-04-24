@@ -236,7 +236,7 @@ public extension RewardCollectCard {
     @ViewBuilder
     public static func skeletons(count: Int, style: CollectCardStyleType) -> some View {
         ForEach(0..<count, id: \.self) { _ in
-            RewardCollectCard(state: .skeleton(count), style: style)
+            RewardCollectCard(state: .skeleton, style: style)
         }
     }
 }
@@ -279,8 +279,8 @@ public extension RewardCollectCard {
                 
                 switch rewardsState {
                     
-                case .skeleton(let count):
-                    RewardCollectCard.skeletons(count: count, style: .glass)
+                case .skeleton:
+                    RewardCollectCard.skeletons(count: 3, style: .glass)
                     
                 case .loaded:
                     ForEach(rewardsCollected) { ticket in
