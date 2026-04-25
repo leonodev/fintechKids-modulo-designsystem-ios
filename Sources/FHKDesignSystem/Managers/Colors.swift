@@ -115,4 +115,6 @@ public struct FHKColor {
     public static var grayUncheckedBackground: Color {
         Color("grayUncheckedBackground", bundle: .designSystem)
     }
+    
+    public static let purpleLightColor: Color = Color(red: 0.94, green: 0.93, blue: 0.99)
 }
