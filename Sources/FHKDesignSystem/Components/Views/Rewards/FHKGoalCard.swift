@@ -59,27 +59,7 @@ public struct FHKGoalCardView: View {
                 .foregroundColor(FHKColor.basicBlack.opacity(0.7))
             
             // Barra de progreso y Valor faltante
-            HStack(spacing: FHKSpace.space12) {
-                // Barra de progreso personalizada
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        Capsule()
-                            .fill(FHKColor.purpleBackground.opacity(0.15))
-                            .frame(height: FHKSize.size12)
-                        
-                        Capsule()
-                            .fill(FHKColor.purpleBackground)
-                            .frame(width: geo.size.width * CGFloat(min(current / total, 1.0)), height: FHKSize.size12)
-                    }
-                }
-                .frame(height: FHKSize.size12)
-                
-                // Cálculo de lo que falta
-                Text("+\(Int(total - current)) \(workType)")
-                    .font(.PangramSans.bold(FHKSize.size12))
-                    .foregroundColor(FHKColor.basicBlack.opacity(0.7))
-                    .fixedSize(horizontal: true, vertical: false)
-            }
+            FHKProgressBarView(current: current, total: total, workType: workType)
         }
         .padding(FHKSpace.space16)
         .background(FHKColor.purpleLightColor)
