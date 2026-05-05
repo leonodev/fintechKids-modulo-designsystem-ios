@@ -48,7 +48,7 @@ public struct FHKRewardCollectCard: View {
         case .error(let error):
             errorView(msnError: error)
             
-        case .loaded:
+        case .loaded, .disabled:
             switch style {
             case .glass:
                 loadedGlassView
@@ -70,18 +70,26 @@ private extension FHKRewardCollectCard {
             VStack(alignment: .leading, spacing: FHKSpace.space04) {
                 Text(memberName)
                     .font(.PangramSans.bold(FHKSize.size16))
-                    .foregroundColor(FHKColor.lunarSand)
+                    .foregroundColor(state == .disabled
+                                     ? FHKColor.silver.opacity(0.5)
+                                     : FHKColor.lunarSand)
                 
                 Group {
                     Text(taskName)
                         .font(.PangramSans.bold(FHKSize.size16))
-                        .foregroundColor(FHKColor.lunarSand)
+                        .foregroundColor(state == .disabled
+                                         ? FHKColor.silver.opacity(0.5)
+                                         : FHKColor.lunarSand)
                         .padding(.top, FHKSize.size12)
                     
-                    Text("🏅 \(rewardName)")
+                    Text("\(rewardName)")
                         .font(.PangramSans.bold(FHKSize.size16))
-                        .padding(.leading, -FHKSize.size04)
-                        .colorDegradeStyle()
+                        .if(state == .loaded, transform: { view in
+                            view.colorDegradeStyle()
+                        }, else: { view in
+                            view.foregroundStyle(FHKColor.silver.opacity(0.5))
+                        })
+                       
                 }
                 .font(.PangramSans.bold(FHKSize.size16))
                 .foregroundColor(FHKColor.lunarSand.opacity(0.8))
@@ -94,7 +102,11 @@ private extension FHKRewardCollectCard {
                 // Icono sutil del Golden Ticket
                 Image(systemName: "ticket.fill")
                     .font(.PangramSans.bold(FHKSize.size28))
-                    .colorDegradeStyle()
+                    .if(state == .loaded, transform: { view in
+                        view.colorDegradeStyle()
+                    }, else: { view in
+                        view.foregroundStyle(FHKColor.silver.opacity(0.5))
+                    })
                     .rotationEffect(.degrees(-25))
                     .padding(.bottom, FHKSpace.space08)
                 
@@ -102,44 +114,61 @@ private extension FHKRewardCollectCard {
                     Text(titleBtnPay)
                         .multilineTextAlignment(.center)
                         .font(.PangramSans.bold(FHKSize.size12))
-                        .foregroundColor(.white)
+                        .foregroundColor(state == .disabled
+                                         ? FHKColor.silver.opacity(0.5)
+                                         : FHKColor.basicWhite)
                         .padding(.horizontal, FHKSpace.space12)
                         .padding(.vertical, FHKSpace.space08)
-                        .background(FHKColor.wine)
+                        .background(state == .disabled ? FHKColor.gray : FHKColor.wine)
                         .cornerRadius(FHKSize.size08)
                 }
+                .disabled(state == .disabled)
             }
             
         }
         .padding()
         .frame(height: FHKSize.size112)
-        .cardBackgroundGlassStyle()
+        .if(state == .loaded, transform: { view in
+            view.cardBackgroundGlassStyle()
+        }, else: { view in
+            view
+                .background(FHKColor.gray.opacity(0.2))
+                .clipShape(RewardCollectedIPaperShape())
+                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 3)
+        })
     }
     
     var loadedPunchedView: some View {
         HStack(spacing: 0) {
-            
             AvatarView(name: avatarName, size: FHKSize.size52)
                 .padding(.leading)
             
             VStack(alignment: .leading, spacing: FHKSpace.space04) {
                 Text(memberName)
                     .font(.PangramSans.bold(FHKSize.size16))
-                    .foregroundColor(FHKColor.purpleCheckedBackground)
+                    .foregroundColor(state == .disabled
+                                     ? FHKColor.silver.opacity(0.5)
+                                     : FHKColor.purpleCheckedBackground)
                 
                 Text(taskName)
                     .font(.PangramSans.medium(FHKSize.size12))
-                    .foregroundColor(FHKColor.purpleCheckedBackground.opacity(0.8))
+                    .foregroundColor(state == .disabled
+                                     ? FHKColor.silver.opacity(0.5)
+                                     : FHKColor.purpleCheckedBackground.opacity(0.8))
                 
                 Text(rewardName)
                     .font(.PangramSans.medium(FHKSize.size16))
-                    .foregroundColor(FHKColor.purpleCheckedBackground.opacity(0.6))
+                    .foregroundColor(state == .disabled
+                                     ? FHKColor.silver.opacity(0.5)
+                                     : FHKColor.purpleCheckedBackground.opacity(0.6))
             }
             .padding(.leading, FHKSpace.space08)
             
             // Divisor Vertical
             Rectangle()
-                .fill(FHKColor.shadowColor)
+                .fill(state == .disabled
+                      ? FHKColor.silver.opacity(0.5)
+                      : FHKColor.shadowColor)
                 .frame(width: 1, height: FHKSize.size60)
                 .padding(.horizontal, FHKSpace.space12)
             
@@ -150,26 +179,38 @@ private extension FHKRewardCollectCard {
                     Text(titleBtnPay)
                         .multilineTextAlignment(.center)
                         .font(.PangramSans.bold(FHKSize.size12))
-                        .foregroundColor(.white)
+                        .foregroundColor(state == .disabled
+                                         ? FHKColor.silver.opacity(0.8)
+                                         : FHKColor.basicWhite)
                         .padding(.horizontal, FHKSpace.space12)
                         .padding(.vertical, FHKSpace.space12)
-                        .background(FHKColor.wine)
+                        .background(state == .disabled ? FHKColor.gray : FHKColor.wine)
                         .cornerRadius(FHKSize.size08)
                 }
+                .disabled(state == .disabled)
             }
             .padding(.trailing, FHKSpace.space24)
         }
         .frame(height: FHKSize.size120)
-        .background(
-            RewardCollectedIPaperShape()
-                .colorDegradeStyle()
-        )
-        .overlay(
-            RewardCollectedIPaperShape()
-                .stroke(FHKColor.shadowColor.opacity(0.4), style: StrokeStyle(lineWidth: 1, dash: [4, 2]))
-        )
-        .clipShape(RewardCollectedIPaperShape())
-        .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 3)
+        .if(state == .loaded, transform: { view in
+            view.background(
+                RewardCollectedIPaperShape()
+                    .colorDegradeStyle()
+            )
+            
+            .overlay(
+                RewardCollectedIPaperShape()
+                    .stroke(FHKColor.shadowColor.opacity(0.4), style: StrokeStyle(lineWidth: 1, dash: [4, 2]))
+            )
+            
+            .clipShape(RewardCollectedIPaperShape())
+            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 3)
+        }, else: { view in
+            view
+                .background(FHKColor.gray.opacity(0.2))
+                .clipShape(RewardCollectedIPaperShape())
+                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 3)
+        })
     }
     
     @ViewBuilder
@@ -242,7 +283,7 @@ public extension FHKRewardCollectCard {
 }
 
 #Preview {
-    var rewardsState: ComponentStateType = .loaded
+    var rewardsState: ComponentStateType = .disabled
     let rewardsCollected: [DummyCollectedEntity] = [
         DummyCollectedEntity(id: 0,
                               createdDate: "createdDate",
@@ -282,9 +323,9 @@ public extension FHKRewardCollectCard {
                 case .skeleton:
                     FHKRewardCollectCard.skeletons(count: 3, style: .glass)
                     
-                case .loaded:
+                case .loaded, .disabled:
                     ForEach(rewardsCollected) { ticket in
-                        FHKRewardCollectCard(state: .loaded,
+                        FHKRewardCollectCard(state: rewardsState,
                                           style: .punched,
                                           id: 1,
                                           memberName: ticket.member.memberName,

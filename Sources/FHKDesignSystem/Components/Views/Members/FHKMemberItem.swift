@@ -44,7 +44,7 @@ public struct FHKMemberItem: View {
         case .error(let error):
             errorView(msnError: error)
             
-        case .loaded:
+        case .loaded, .disabled:
             loadedView
         }
     }
@@ -55,17 +55,26 @@ private extension FHKMemberItem {
     
     var loadedView: some View {
         VStack(spacing: FHKSpace.space12) {
-            AvatarView(image: avatarName.getAvatar,
+            AvatarView(image: state == .loaded
+                       ? avatarName.getAvatar
+                       : AvatarType.boy_disabled.image,
                        size: FHKSize.size68)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.yellow.opacity(0.9), lineWidth: 2))
-                .onTapGesture {
-                    action(id)
-                }
+            .clipShape(Circle())
+            .if(state == .loaded, transform: { view in
+                view.overlay(Circle().stroke(Color.yellow.opacity(0.9), lineWidth: 2))
+                    .onTapGesture {
+                        action(id)
+                    }
+            }, else: { view in
+                view.overlay(Circle().stroke(FHKColor.gray.opacity(0.4), lineWidth: 1))
+            })
+                
 
             Text(nameMember.capitalizingFirstLetter())
                 .font(.PangramSans.medium(FHKSize.size16))
-                .foregroundColor(.white)
+                .foregroundColor(state == .loaded
+                                 ? FHKColor.basicWhite
+                                 : FHKColor.gray.opacity(0.4))
                 .padding(.leading, FHKSize.size04)
         }
     }
@@ -128,7 +137,7 @@ extension FHKMemberItem {
             FHKMemberItem(id: UUID(),
                           avatarName: AvatarType.boy_1.name,
                           nameMember: "Juan",
-                          state: .error("Unknown"),
+                          state: .disabled,
                           action: { _ in })
         }
     }

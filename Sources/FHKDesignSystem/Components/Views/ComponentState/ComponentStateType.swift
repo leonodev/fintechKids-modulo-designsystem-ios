@@ -9,4 +9,5 @@ public enum ComponentStateType: Equatable {
     case skeleton
     case error(String)
     case loaded
+    case disabled
 }

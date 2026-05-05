@@ -41,7 +41,7 @@ public struct FHKGoalCardView: View {
         case .error(let error):
             errorView(msnError: error)
             
-        case .loaded:
+        case .loaded, .disabled:
             loadedView
         }
     }
@@ -49,17 +49,23 @@ public struct FHKGoalCardView: View {
     var loadedView: some View {
         VStack(alignment: .leading, spacing: FHKSpace.space12) {
             HStack {
-                CircleIcon(systemName: "checkmark.circle.fill")
+                circleIcon(systemName: "checkmark.circle.fill")
                 Spacer()
-                CircleIcon(systemName: "trophy.fill")
+                circleIcon(systemName: "trophy.fill")
             }
  
             Text(title)
                 .font(.PangramSans.bold(FHKSize.size16))
-                .foregroundColor(FHKColor.basicBlack.opacity(0.7))
+                .foregroundColor(state == .loaded
+                                 ? FHKColor.basicBlack.opacity(0.7)
+                                 : FHKColor.gray.opacity(0.5)
+                )
             
             // Barra de progreso y Valor faltante
-            FHKProgressBarView(current: current, total: total, workType: workType)
+            FHKProgressBarView(current: current,
+                               total: total,
+                               workType: workType,
+                               isDisabled: state == .disabled)
         }
         .padding(FHKSpace.space16)
         .background(FHKColor.purpleLightColor)
@@ -141,14 +147,21 @@ public struct FHKGoalCardView: View {
     }
     
     @ViewBuilder
-    func CircleIcon(systemName: String) -> some View {
+    func circleIcon(systemName: String) -> some View {
         ZStack {
             Circle()
-                .fill(FHKColor.basicWhite.opacity(0.5))
+                .fill(state == .loaded
+                      ? FHKColor.basicWhite.opacity(0.5)
+                      : FHKColor.gray.opacity(0.5)
+                )
                 .frame(width: FHKSize.size32, height: FHKSize.size32)
+            
             Image(systemName: systemName)
                 .font(.PangramSans.bold(FHKSize.size20))
-                .foregroundColor(FHKColor.purpleBackground.opacity(0.7))
+                .foregroundColor(state == .loaded
+                                 ? FHKColor.purpleBackground.opacity(0.7)
+                                 : FHKColor.gray
+                )
         }
     }
 }
@@ -169,6 +182,15 @@ public struct FHKGoalCardView: View {
                 id: 2,
                 state: .loaded,
                 current: 2,
+                total: 5,
+                title: "Read a Book",
+                workType: "Hours"
+            )
+            
+            FHKGoalCardView(
+                id: 3,
+                state: .disabled,
+                current: 3,
                 total: 5,
                 title: "Read a Book",
                 workType: "Hours"

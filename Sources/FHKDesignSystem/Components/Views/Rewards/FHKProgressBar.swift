@@ -12,16 +12,19 @@ public struct FHKProgressBarView: View {
     let total: Double
     let workType: String
     let color: Color
+    let isDisabled: Bool
     
     public init(current: Double,
                 total: Double,
                 workType: String,
-                color: Color = FHKColor.basicBlack.opacity(0.7)
+                color: Color = FHKColor.basicBlack.opacity(0.7),
+                isDisabled: Bool = false
     ) {
         self.current = current
         self.total = total
         self.workType = workType
         self.color = color
+        self.isDisabled = isDisabled
     }
     
     public var body: some View {
@@ -31,11 +34,15 @@ public struct FHKProgressBarView: View {
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(FHKColor.purpleBackground.opacity(0.15))
+                        .fill(isDisabled
+                              ? FHKColor.gray.opacity(0.2)
+                              : FHKColor.purpleBackground.opacity(0.15))
                         .frame(height: FHKSize.size12)
 
                     Capsule()
-                        .fill(FHKColor.purpleBackground)
+                        .fill(isDisabled
+                              ? FHKColor.gray.opacity(0.4)
+                              : FHKColor.purpleBackground)
                         .frame(width: geo.size.width * CGFloat(min(current / total, 1.0)), height: FHKSize.size12)
                 }
             }
@@ -44,7 +51,9 @@ public struct FHKProgressBarView: View {
             // Cálculo de lo que falta
             Text("+\(Int(total - current)) \(workType)")
                 .font(.PangramSans.bold(FHKSize.size12))
-                .foregroundColor(color)
+                .foregroundColor(isDisabled
+                                 ? FHKColor.gray.opacity(0.4)
+                                 : color)
                 .fixedSize(horizontal: true, vertical: false)
         }
     }
@@ -52,9 +61,19 @@ public struct FHKProgressBarView: View {
 
 #Preview {
     PreviewContainer {
-        FHKProgressBarView(current: 20,
-                           total: 100,
-                           workType: "KidsCoins",
-                           color: FHKColor.lunarSand.opacity(0.8))
+        VStack(spacing: 50) {
+            FHKProgressBarView(current: 20,
+                               total: 100,
+                               workType: "KidsCoins",
+                               color: FHKColor.lunarSand.opacity(0.8))
+            
+            FHKProgressBarView(current: 20,
+                               total: 100,
+                               workType: "KidsCoins",
+                               color: FHKColor.lunarSand.opacity(0.8),
+                               isDisabled: true
+            )
+        }
+        
     }
 }
