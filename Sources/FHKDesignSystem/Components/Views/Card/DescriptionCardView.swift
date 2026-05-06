@@ -10,23 +10,44 @@ import SwiftUI
 public struct FHKDescriptionCardView: View {
     let title: String
     let description: String
+    let isEnable: Bool
     
-    public init(title: String, description: String) {
+    public init(title: String, description: String, isEnable: Bool = true) {
         self.title = title
         self.description = description
+        self.isEnable = isEnable
     }
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Text(title)
                 .font(.PangramSans.bold(FHKSize.size16))
-                .foregroundColor(FHKColor.pastelPink.opacity(0.8))
+                .foregroundColor(isEnable
+                                 ? FHKColor.pastelPink.opacity(0.8)
+                                 : FHKColor.gray.opacity(0.5)
+                )
             
             if !description.isEmpty {
                 Text(description)
-                    .font(.Minimalist.simpleBold())
-                    .foregroundColor(.white.opacity(0.8))
-            }   
+                    .font(.PangramSans.bold(FHKSize.size12))
+                    .foregroundColor(isEnable
+                                     ? FHKColor.basicWhite.opacity(0.8)
+                                     : FHKColor.gray.opacity(0.5)
+                    )
+            }
+        }
+    }
+}
+
+#Preview {
+    PreviewContainer {
+        VStack(spacing: 50) {
+            FHKDescriptionCardView(title: "Title enable",
+                                   description: "Description enable")
+            
+            FHKDescriptionCardView(title: "Title disabled",
+                                   description: "Description disabled",
+                                   isEnable: false)
         }
     }
 }

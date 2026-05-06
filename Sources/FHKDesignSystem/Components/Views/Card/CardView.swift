@@ -60,24 +60,9 @@ public struct FHKCardView<Content: View, T>: View {
             print("Navegando al perfil del usuario: ")
         } content: {
             HStack {
-                VStack(alignment: .leading, spacing: 15) {
-                    FHKDescriptionCardView(title: "Título de la Card",
-                                           description: "Este es un ejemplo de una tarjeta sfs")
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .trailing, spacing: 15) {
-                    HStack {
-                        FHKRewardTypeView(value: "200", type: .coins)
-                        
-                    }
-                    
-                    HStack {
-                        FHKRewardTypeView(value: "3 Hours", type: .time)
-                    }
-                }
+                // Content Here
             }
+            .frame(height: 100)
         }
     }
 }
