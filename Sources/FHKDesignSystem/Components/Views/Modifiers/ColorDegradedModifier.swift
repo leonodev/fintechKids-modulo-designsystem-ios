@@ -26,9 +26,9 @@ struct ColorDegradedModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     /// Aplica un estilo de degradado inclinado ideal para iconos de recompensas o tickets.
-    func colorDegradeStyle(
+    public func colorDegradeStyle(
         startColor: Color = FHKColor.yellow,
         endColor: Color = FHKColor.warning,
         rotation: Double = -25
