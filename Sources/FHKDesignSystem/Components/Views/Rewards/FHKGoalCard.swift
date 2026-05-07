@@ -70,7 +70,7 @@ public struct FHKGoalCardView: View {
         .padding(FHKSpace.space16)
         .background(FHKColor.purpleLightColor)
         .cornerRadius(FHKSize.size24)
-        .frame(maxWidth: 300)
+        .frame(width: 300)
         .onTapGesture {
             action(id)
         }
@@ -87,6 +87,7 @@ public struct FHKGoalCardView: View {
                 .font(.PangramSans.medium(FHKSize.size16))
                 .foregroundColor(.white.opacity(0.4))
         }
+        .frame(width: 268)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: FHKSize.size20)
@@ -97,6 +98,7 @@ public struct FHKGoalCardView: View {
                 )
         )
         .clipShape(RoundedRectangle(cornerRadius: FHKSize.size20))
+        
     }
     
     var skeletonView: some View {
@@ -143,7 +145,7 @@ public struct FHKGoalCardView: View {
         .padding(FHKSpace.space16)
         .cardBackgroundGlassStyle()
         .cornerRadius(FHKSize.size24)
-        .frame(maxWidth: 300)
+        .frame(width: 300)
     }
     
     @ViewBuilder
