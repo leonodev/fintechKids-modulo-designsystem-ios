@@ -166,17 +166,34 @@ public struct FHKGoalCardView: View {
     }
 }
 
+public extension FHKGoalCardView {
+    @ViewBuilder
+    public static func skeletons(count: Int) -> some View {
+        ForEach(0..<count, id: \.self) { _ in
+            FHKGoalCardView(id: 0,
+                            state: .skeleton,
+                            current: 0,
+                            total: 0,
+                            title: "",
+                            workType: "")
+        }
+    }
+    
+    @ViewBuilder
+    public static func error(msn: String) -> some View {
+        FHKGoalCardView(id: 0,
+                        state: .error(msn),
+                        current: 0,
+                        total: 0,
+                        title: "",
+                        workType: "")
+    }
+}
+
 #Preview {
     PreviewContainer {
         VStack(spacing: 20) {
-            FHKGoalCardView(
-                id: 1,
-                state: .skeleton,
-                current: 25,
-                total: 75,
-                title: "Finish Math Homework",
-                workType: "KidsCoins"
-            )
+            FHKGoalCardView.skeletons(count: 1)
         
             FHKGoalCardView(
                 id: 2,
@@ -195,6 +212,8 @@ public struct FHKGoalCardView: View {
                 title: "Read a Book",
                 workType: "Hours"
             )
+            
+            FHKGoalCardView.error(msn: "Don't have data for this goal yet.")
         }
         .padding()
     }
