@@ -15,6 +15,7 @@
 		5D8AC8962EDF9651003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8952EDF9651003F06C1 /* InlineSnapshotTesting */; };
 		5D8AC8982EDF9651003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8972EDF9651003F06C1 /* SnapshotTesting */; };
 		5D8AC89A2EDF9651003F06C1 /* SnapshotTestingCustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8992EDF9651003F06C1 /* SnapshotTestingCustomDump */; };
+		A3FE571A2FB607E5009876B5 /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A3FE57192FB607E5009876B5 /* FHKDesignSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D28A2102EC8EEA700AFF43A /* FHKDesignSystem in Frameworks */,
+				A3FE571A2FB607E5009876B5 /* FHKDesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +148,7 @@
 			name = FHKDesignSystemDemo;
 			packageProductDependencies = (
 				5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */,
+				A3FE57192FB607E5009876B5 /* FHKDesignSystem */,
 			);
 			productName = FHKDesignSystemDemo;
 			productReference = 5D28A1E42EC8EE7D00AFF43A /* FHKDesignSystemDemo.app */;
@@ -236,8 +239,8 @@
 			mainGroup = 5D28A1DB2EC8EE7D00AFF43A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5D28A20E2EC8EEA700AFF43A /* XCLocalSwiftPackageReference "../../../FHKDesignSystem" */,
 				5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				A3FE57182FB607E5009876B5 /* XCLocalSwiftPackageReference "../../../fintechKids-modulo-designsystem-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5D28A1E52EC8EE7D00AFF43A /* Products */;
@@ -627,9 +630,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5D28A20E2EC8EEA700AFF43A /* XCLocalSwiftPackageReference "../../../FHKDesignSystem" */ = {
+		A3FE57182FB607E5009876B5 /* XCLocalSwiftPackageReference "../../../fintechKids-modulo-designsystem-ios" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../FHKDesignSystem;
+			relativePath = "../../../fintechKids-modulo-designsystem-ios";
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -678,6 +681,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTestingCustomDump;
+		};
+		A3FE57192FB607E5009876B5 /* FHKDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FHKDesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
