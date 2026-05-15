@@ -47,7 +47,8 @@ public struct FHKMenuTabBar: View {
                             .renderingMode(.template)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: FHKSize.size24, height: FHKSize.size24)
+                            .frame(width: FHKSize.size28,
+                                   height: FHKSize.size28)
                         
                         Text(item.title)
                             .font(.PangramSans.medium(FHKSize.size12))
@@ -61,9 +62,8 @@ public struct FHKMenuTabBar: View {
                 .disabled(item.isDisabled)
             }
         }
-        .padding(.vertical, FHKSpace.space12)
-        .padding(.horizontal, FHKSpace.space08)
-        .background(FHKColor.wine)
+        .padding(.vertical, FHKSpace.space16)
+        .background(FHKColor.wine.opacity(0.3))
         .cornerRadius(FHKSize.size24)
         .shadow(color: FHKColor.shadowColor,
                 radius: FHKSize.size04,
@@ -77,20 +77,21 @@ struct FHKMenuTabBarPreview: View {
     let items: [FHKMenuTabBar.Item] = [
         .init(title: "Remes", icon: Image(systemName: "house.fill")),
         .init(title: "Bonus", icon: Image(systemName: "gift.fill")),
-        .init(title: "Portions", icon: Image(systemName: "arrow.triangle.2.circlepath")),
-        .init(title: "Agitet", icon: Image(systemName: "plus.circle.fill")),
+        .init(title: "Portions", icon: Image(systemName: "plus.circle.fill")),
+        .init(title: "Agitet", icon: Image(systemName: "pencil.tip.crop.circle.fill")),
         .init(title: "Disabled", icon: Image(systemName: "lock.fill"), isDisabled: true)
     ]
     
     var body: some View {
         PreviewContainer {
-            VStack {
-                Spacer()
-                FHKMenuTabBar(items: items, selectedIndex: $selectedIndex) { item in
-                    print("Selected \(item.title)")
+                Color.clear
+                .safeAreaInset(edge: .bottom) {
+                    FHKMenuTabBar(items: items, selectedIndex: $selectedIndex) { item in
+                        print("Selected \(item.title)")
+                    }
+                    .padding(.bottom, -FHKSpace.space32)
                 }
             }
-        }
     }
 }
 
