@@ -12,7 +12,7 @@ public struct GradientDivider: View {
     public let middleColor: Color
     public let endColor: Color
     
-    public init(initColor: Color, middleColor: Color, endColor: Color) {
+    public init(initColor: Color = .gray, middleColor: Color = .purple, endColor: Color = .gray) {
         self.initColor = initColor
         self.middleColor = middleColor
         self.endColor = endColor
