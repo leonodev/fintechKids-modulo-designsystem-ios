@@ -64,7 +64,7 @@ public struct FHKMenuTabBar: View {
         }
         .padding(.vertical, FHKSpace.space16)
         .background(FHKColor.wine.opacity(0.3))
-        .cornerRadius(FHKSize.size24)
+        .cornerRadius(FHKSize.size04)
         .shadow(color: FHKColor.shadowColor,
                 radius: FHKSize.size04,
                 x: 0,
