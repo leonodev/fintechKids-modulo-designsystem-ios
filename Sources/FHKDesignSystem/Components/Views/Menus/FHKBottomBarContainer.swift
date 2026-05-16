@@ -58,18 +58,18 @@ public struct FHKBottomBarContainer<Content: View>: View {
             }) {
                 VStack(spacing: FHKSpace.space04) {
                     item.icon
-                        .renderingMode(.template)
+                        .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: FHKSize.size24, height: FHKSize.size24)
                     
                     Text(item.title)
                         .font(.PangramSans.medium(FHKSize.size12))
+                        .foregroundColor(
+                            item.isDisabled ? FHKColor.gray :
+                            (selectedIndex == index ? FHKColor.basicWhite : FHKColor.lunarSand)
+                        )
                 }
-                .foregroundColor(
-                    item.isDisabled ? FHKColor.gray :
-                    (selectedIndex == index ? FHKColor.basicWhite : FHKColor.lunarSand)
-                )
                 .frame(maxWidth: .infinity)
             }
             .disabled(item.isDisabled)
@@ -81,25 +81,21 @@ struct FHKBottomBarContainerPreview: View {
     @State private var selectedIndex = 0
     @State var isOpen: Bool = false
     let items: [FHKMenuTabBar.Item] = [
-        .init(title: "Remes",
-              activeIcon: Image(systemName: "house.fill"),
-              lockedIcon: Image(systemName: "hand.raised")),
+        .init(title: "Payments",
+              activeIcon: .menuLoansEnable,
+              lockedIcon: .menuLoansDisabled),
         
-        .init(title: "Bonus",
-              activeIcon: Image(systemName: "gift.fill"),
-              lockedIcon: Image(systemName: "hand.raised")),
+        .init(title: "Transfer",
+              activeIcon: .menuTransferEnable,
+              lockedIcon: .menuTransferDisabled),
         
-        .init(title: "Portions",
-              activeIcon: Image(systemName: "plus.circle.fill"),
-              lockedIcon: Image(systemName: "hand.raised")),
+        .init(title: "Loans",
+              activeIcon: .menuLoansEnable,
+              lockedIcon: .menuLoansDisabled),
         
-        .init(title: "Agitet",
-              activeIcon: Image(systemName: "pencil.tip.crop.circle.fill"),
-              lockedIcon: Image(systemName: "hand.raised")),
-        
-        .init(title: "Disabled",
-              activeIcon: Image(systemName: "lock.fill"),
-              lockedIcon: Image(systemName: "hand.raised"),
+        .init(title: "Saving",
+              activeIcon: .menuSavingsEnable,
+              lockedIcon: .menuSavingsDisabled,
               isDisabled: true)
     ]
     
