@@ -76,3 +76,69 @@ public struct FHKBottomBarContainer<Content: View>: View {
         }
     }
 }
+
+struct FHKBottomBarContainerPreview: View {
+    @State private var selectedIndex = 0
+    @State var isOpen: Bool = false
+    let items: [FHKMenuTabBar.Item] = [
+        .init(title: "Remes", icon: Image(systemName: "house.fill")),
+        .init(title: "Bonus", icon: Image(systemName: "gift.fill")),
+        .init(title: "Portions", icon: Image(systemName: "plus.circle.fill")),
+        .init(title: "Agitet", icon: Image(systemName: "pencil.tip.crop.circle.fill")),
+        .init(title: "Disabled", icon: Image(systemName: "lock.fill"), isDisabled: true)
+    ]
+    
+    let options: [FloatMenu.Option] = [
+        .init(title: "members",
+              image: .init(systemName: "person.crop.circle.badge.plus"),
+              color: FHKColor.ultraPurple,
+              menuType: .members),
+        
+            .init(title: "tasks",
+                  image: .init(systemName: "house"),
+                  color: FHKColor.indigo,
+                  menuType: .tasks),
+        
+            .init(title: "goals",
+                  image: .init(systemName: "note.text.badge.plus"),
+                  color: FHKColor.fuchsiaPink,
+                  menuType: .goals),
+        
+            .init(title: "rewards",
+                  image: .init(systemName: "gamecontroller"),
+                  color: FHKColor.ultraPurple,
+                  menuType: .rewards)
+    ]
+    
+    var body: some View {
+        PreviewContainer {
+            Color.clear
+                .safeAreaInset(edge: .bottom) {
+                    ZStack {
+                        VStack {
+                            Spacer()
+                            
+                            FHKBottomBarContainer(items: items, selectedIndex: $selectedIndex) { item in
+                                print("Click en \(item.title)")
+                            } floatingButton: {
+                                HStack {
+                                    Spacer()
+                                    
+                                    FloatMenu(options: options, isOpen: $isOpen,
+                                              callback: { menu in
+                                    })
+                                    
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
+                    .padding(.bottom, -32)
+                }
+        }
+    }
+}
+
+#Preview {
+    FHKBottomBarContainerPreview()
+}

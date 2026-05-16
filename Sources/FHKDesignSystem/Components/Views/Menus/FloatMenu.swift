@@ -30,17 +30,17 @@ public struct FloatMenu: View {
         }
     }
     
-    let menuDiameter: Double = 200
+    let menuDiameter: Double = 180
     let options: [FloatMenu.Option]
-    @State var isOpen = false
+    @Binding var isOpen: Bool
     let callback: (OptionType) -> Void
     
     public init(options: [FloatMenu.Option],
-                isOpen: Bool = false,
+                isOpen: Binding<Bool>, // Cambiado a Binding para sincronizar con el contenedor si es necesario
                 callback: @escaping (OptionType) -> Void
     ) {
         self.options = options
-        self.isOpen = isOpen
+        self._isOpen = isOpen
         self.callback = callback
     }
     
@@ -49,56 +49,68 @@ public struct FloatMenu: View {
             Circle()
                 .foregroundColor(.indigo).opacity(0.1)
                 .frame(width: isOpen ? menuDiameter : 0)
+                .offset(y: isOpen ? -FHKSpace.space12 : 0) 
             
             ForEach(options.indexed(), id: \.index) { index, option in
                 button(option: option, atIndex: index)
-                    .scaleEffect(isOpen ? 1 : 0.1)
+                    .scaleEffect(isOpen ? 1 : 0.01)
+                    .opacity(isOpen ? 1 : 0)
             }
-            .disabled(!isOpen)
             
             MainMenu(isOpen: $isOpen)
         }
     }
     
     func button(option: Option, atIndex index: Int) -> some View {
-        let angle = .pi / 4 * Double(index) - .pi * (isOpen ? 0.6 : 1)
-        let radious = menuDiameter / 2
+        let totalOptions = Double(options.count)
+        
+        // Dividimos 180 grados (π radianes) entre el número de espacios disponibles
+        let step = totalOptions > 1 ? (.pi / (totalOptions - 1)) : 0
+        
+        // Forzamos a que empiece en -π (Izquierda exacta) y termine en 0 (Derecha exacta)
+        let baseAngle = -.pi + (Double(index) * step)
+        
+        // Añadimos un pequeño efecto de torsión/rotación al abrir/cerrar para que sea dinámico
+        let angle = baseAngle + (isOpen ? 0 : .pi * 0.15)
+        
+        // Hacemos que colapse al centro exacto (radio 0) cuando esté cerrado
+        let radius = isOpen ? (menuDiameter / 2) : 0
         
         return Button(action: {
-            withAnimation(.spring()) {
-                isOpen = false // close menu
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                isOpen = false
             }
             callback(option.menuType)
         }) {
             ZStack {
                 Circle()
                     .foregroundColor(option.color)
-                    .frame(width: 55, height: 55)
-                VStack {
+                    .frame(width: 58, height: 58)
+                    .shadow(color: FHKColor.shadowColor.opacity(0.3), radius: 4, x: 0, y: 2)
+                
+                VStack(spacing: 2) {
                     option.image
-                        //.font(.title)
                         .foregroundColor(.white)
-                        .padding(.top, FHKSpace.space08)
+                        .font(.system(size: 18, weight: .medium))
                     
                     Text(option.title)
                         .foregroundColor(.white)
                         .font(.PangramSans.bold(FHKSize.size12))
-                        
                 }
             }
         }
-        .offset(x: cos(angle) * radious, y: sin(angle) * radious)
+        .offset(x: cos(angle) * radius, y: sin(angle) * radius)
+        .animation(.spring(response: 0.4, dampingFraction: 0.65), value: isOpen)
     }
 }
 
 public extension FloatMenu {
-    
     struct MainMenu: View {
         @Binding var isOpen: Bool
         
         public var body: some View {
             Button {
-                withAnimation {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                     isOpen.toggle()
                 }
             } label: {
@@ -109,6 +121,7 @@ public extension FloatMenu {
 }
 
 #Preview {
+    @Previewable @State var isOpen: Bool = false
     PreviewContainer {
         let options: [FloatMenu.Option] = [
             .init(title: "One",
@@ -117,24 +130,27 @@ public extension FloatMenu {
                   menuType: .members),
             
             
-            .init(title: "Two",
-                  image: .init(systemName: "note.text.badge.plus"),
-                  color: .pink,
-                  menuType: .tasks),
+                .init(title: "Two",
+                      image: .init(systemName: "note.text.badge.plus"),
+                      color: .pink,
+                      menuType: .tasks),
             
-            .init(title: "Three",
-                  image: .init(systemName: "questionmark.circle.dashed"),
-                  color: .gray,
-                  menuType: .goals),
+                .init(title: "Three",
+                      image: .init(systemName: "questionmark.circle.dashed"),
+                      color: .gray,
+                      menuType: .goals),
             
             
-            .init(title: "Four",
-                  image: .init(systemName: "questionmark.circle.dashed"),
-                  color: .gray,
-                  menuType: .rewards)
+                .init(title: "Four",
+                      image: .init(systemName: "questionmark.circle.dashed"),
+                      color: .gray,
+                      menuType: .rewards)
         ]
+        
         VStack {
-            FloatMenu(options: options, callback: { index in
+            FloatMenu(options: options,
+                      isOpen: $isOpen,
+                      callback: { index in
                 print(index)
             })
         }
