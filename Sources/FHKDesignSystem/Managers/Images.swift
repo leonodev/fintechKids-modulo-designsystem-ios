@@ -9,6 +9,7 @@ import SwiftUI
 
 public extension Image {
     static let background = Image("bg", bundle: .module)
+    static let background2 = Image("bg2", bundle: .module)
     static let backgroundDemo = Image("bg_demo", bundle: .module)
     
     // Flags
