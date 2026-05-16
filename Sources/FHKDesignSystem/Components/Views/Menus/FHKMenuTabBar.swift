@@ -10,13 +10,19 @@ import SwiftUI
 public struct FHKMenuTabBar: View {
     public struct Item: Identifiable {
         public let id = UUID()
-        public var title: String
-        public var icon: Image
+        public let title: String
+        private let activeIcon: Image
+        private let lockedIcon: Image
         public var isDisabled: Bool
         
-        public init(title: String, icon: Image, isDisabled: Bool = false) {
+        public var icon: Image {
+            isDisabled ? lockedIcon : activeIcon
+        }
+        
+        public init(title: String, activeIcon: Image, lockedIcon: Image, isDisabled: Bool = false) {
             self.title = title
-            self.icon = icon
+            self.activeIcon = activeIcon
+            self.lockedIcon = lockedIcon
             self.isDisabled = isDisabled
         }
     }
@@ -44,19 +50,19 @@ public struct FHKMenuTabBar: View {
                 }) {
                     VStack(spacing: FHKSpace.space04) {
                         item.icon
-                            .renderingMode(.template)
+                            .renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: FHKSize.size28,
-                                   height: FHKSize.size28)
+                            .frame(width: FHKSize.size36,
+                                   height: FHKSize.size36)
                         
                         Text(item.title)
                             .font(.PangramSans.medium(FHKSize.size12))
+                            .foregroundColor(
+                                item.isDisabled ? FHKColor.gray :
+                                    (selectedIndex == index ? FHKColor.basicWhite : FHKColor.lunarSand)
+                            )
                     }
-                    .foregroundColor(
-                        item.isDisabled ? FHKColor.gray :
-                            (selectedIndex == index ? FHKColor.basicWhite : FHKColor.lunarSand)
-                    )
                     .frame(maxWidth: .infinity)
                 }
                 .disabled(item.isDisabled)
@@ -75,11 +81,22 @@ public struct FHKMenuTabBar: View {
 struct FHKMenuTabBarPreview: View {
     @State private var selectedIndex = 0
     let items: [FHKMenuTabBar.Item] = [
-        .init(title: "Remes", icon: Image(systemName: "house.fill")),
-        .init(title: "Bonus", icon: Image(systemName: "gift.fill")),
-        .init(title: "Portions", icon: Image(systemName: "plus.circle.fill")),
-        .init(title: "Agitet", icon: Image(systemName: "pencil.tip.crop.circle.fill")),
-        .init(title: "Disabled", icon: Image(systemName: "lock.fill"), isDisabled: true)
+        .init(title: "Payments",
+              activeIcon: .menuLoansEnable,
+              lockedIcon: .menuLoansDisabled),
+        
+        .init(title: "Transfer",
+              activeIcon: .menuTransferEnable,
+              lockedIcon: .menuTransferDisabled),
+        
+        .init(title: "Loans",
+              activeIcon: .menuLoansEnable,
+              lockedIcon: .menuLoansDisabled),
+        
+        .init(title: "Saving",
+              activeIcon: .menuSavingsEnable,
+              lockedIcon: .menuSavingsDisabled,
+              isDisabled: true)
     ]
     
     var body: some View {

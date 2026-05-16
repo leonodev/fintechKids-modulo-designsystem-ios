@@ -81,11 +81,26 @@ struct FHKBottomBarContainerPreview: View {
     @State private var selectedIndex = 0
     @State var isOpen: Bool = false
     let items: [FHKMenuTabBar.Item] = [
-        .init(title: "Remes", icon: Image(systemName: "house.fill")),
-        .init(title: "Bonus", icon: Image(systemName: "gift.fill")),
-        .init(title: "Portions", icon: Image(systemName: "plus.circle.fill")),
-        .init(title: "Agitet", icon: Image(systemName: "pencil.tip.crop.circle.fill")),
-        .init(title: "Disabled", icon: Image(systemName: "lock.fill"), isDisabled: true)
+        .init(title: "Remes",
+              activeIcon: Image(systemName: "house.fill"),
+              lockedIcon: Image(systemName: "hand.raised")),
+        
+        .init(title: "Bonus",
+              activeIcon: Image(systemName: "gift.fill"),
+              lockedIcon: Image(systemName: "hand.raised")),
+        
+        .init(title: "Portions",
+              activeIcon: Image(systemName: "plus.circle.fill"),
+              lockedIcon: Image(systemName: "hand.raised")),
+        
+        .init(title: "Agitet",
+              activeIcon: Image(systemName: "pencil.tip.crop.circle.fill"),
+              lockedIcon: Image(systemName: "hand.raised")),
+        
+        .init(title: "Disabled",
+              activeIcon: Image(systemName: "lock.fill"),
+              lockedIcon: Image(systemName: "hand.raised"),
+              isDisabled: true)
     ]
     
     let options: [FloatMenu.Option] = [
