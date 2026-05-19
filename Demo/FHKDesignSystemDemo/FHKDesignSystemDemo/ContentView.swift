@@ -20,7 +20,7 @@ import FHKDesignSystem
 
 
 struct ContentView: View {
-    let items = ["Glass Style", "Solid Styles", "Lotties"]
+    let items = ["Glass Style", "Solid Styles", "Lotties", "Components"]
     
     var body: some View {
         
@@ -57,6 +57,15 @@ struct ContentView: View {
                         
                     case items[2]:
                         NavigationLink(destination: LottiesView()) {
+                            Text(item)
+                                .font(.body)
+                                .foregroundColor(FHKColor.textColorEnabled)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        
+                    case items[3]:
+                        NavigationLink(destination: ComponentsView()) {
                             Text(item)
                                 .font(.body)
                                 .foregroundColor(FHKColor.textColorEnabled)
