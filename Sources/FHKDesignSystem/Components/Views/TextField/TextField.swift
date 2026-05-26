@@ -11,13 +11,20 @@ public struct FHKTextField: View {
     @Binding var text: String
     var placeholder: String
     var isSecure: Bool
+    var keyboardType: UIKeyboardType
     
     @State private var isTextVisible: Bool = false
+    @FocusState private var isFocused: Bool
     
-    public init(text: Binding<String>, placeholder: String, isSecure: Bool = false) {
+    public init(text: Binding<String>,
+                placeholder: String,
+                isSecure: Bool = false,
+                keyboardType: UIKeyboardType = .default
+    ) {
         self._text = text
         self.placeholder = placeholder
         self.isSecure = isSecure
+        self.keyboardType = keyboardType
         self._isTextVisible = State(initialValue: !isSecure)
     }
     
@@ -55,21 +62,23 @@ public struct FHKTextField: View {
                 .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isFloating)
                 .allowsHitTesting(false)
             
-            // Campo de texto e icono
             HStack(spacing: 12) {
                 Group {
                     if isTextVisible {
                         TextField("", text: $text)
+                            .keyboardType(keyboardType)
+                            .focused($isFocused)
                             .autocapitalization(.none)
                             .font(.PangramSans.bold(FHKSize.size20))
                             .foregroundColor(FHKColor.lunarSand)
                     } else {
                         SecureField("", text: $text)
+                            .focused($isFocused)
                             .font(.PangramSans.bold(FHKSize.size20))
                             .foregroundColor(FHKColor.lunarSand)
                     }
                 }
-                .padding(.top, isFloating ? 8 : 0) // Baja un poco el texto si el label flota
+                .padding(.top, isFloating ? 8 : 0)
                 
                 if isSecure {
                     Button(action: { isTextVisible.toggle() }) {
@@ -82,6 +91,26 @@ public struct FHKTextField: View {
             .padding(.horizontal, FHKSize.size16)
         }
         .frame(height: FHKSize.size56)
+        .onChange(of: text) { oldvalue, newValue in
+            if keyboardType == .numberPad {
+                let filtered = newValue.filter { $0.isNumber }
+                if filtered != newValue {
+                    text = filtered
+                }
+            }
+        }
+        .toolbar {
+            if isFocused && keyboardType == .numberPad {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("OK") {
+                        isFocused = false
+                    }
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.blue)
+                }
+            }
+        }
     }
 }
 
@@ -91,7 +120,8 @@ public struct FHKTextField: View {
         FHKTextField(
             text: .constant("password"),
             placeholder: "Introduce tu contraseña",
-            isSecure: true
+            isSecure: true,
+            keyboardType: .numberPad
         )
         Spacer()
     }
