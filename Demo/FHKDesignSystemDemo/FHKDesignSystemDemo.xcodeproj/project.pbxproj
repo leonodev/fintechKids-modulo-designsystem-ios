@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5D03F59A2EE9E72B001FB7F9 /* FHKDesignSystem .icon in Resources */ = {isa = PBXBuildFile; fileRef = 5D03F5992EE9E72B001FB7F9 /* FHKDesignSystem .icon */; };
-		5D1CA18E2FC6376C006FA2E6 /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 5D1CA18D2FC6376C006FA2E6 /* FHKDesignSystem */; };
 		5D28A2102EC8EEA700AFF43A /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */; };
 		5D8AC88D2EDF2281003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88C2EDF2281003F06C1 /* InlineSnapshotTesting */; };
 		5D8AC88F2EDF2281003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC88E2EDF2281003F06C1 /* SnapshotTesting */; };
@@ -16,6 +15,7 @@
 		5D8AC8962EDF9651003F06C1 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8952EDF9651003F06C1 /* InlineSnapshotTesting */; };
 		5D8AC8982EDF9651003F06C1 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8972EDF9651003F06C1 /* SnapshotTesting */; };
 		5D8AC89A2EDF9651003F06C1 /* SnapshotTestingCustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8AC8992EDF9651003F06C1 /* SnapshotTestingCustomDump */; };
+		A36F317C2FD0461800EE6CD2 /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A36F317B2FD0461800EE6CD2 /* FHKDesignSystem */; };
 		A3FE571A2FB607E5009876B5 /* FHKDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A3FE57192FB607E5009876B5 /* FHKDesignSystem */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +81,7 @@
 			files = (
 				5D28A2102EC8EEA700AFF43A /* FHKDesignSystem in Frameworks */,
 				A3FE571A2FB607E5009876B5 /* FHKDesignSystem in Frameworks */,
-				5D1CA18E2FC6376C006FA2E6 /* FHKDesignSystem in Frameworks */,
+				A36F317C2FD0461800EE6CD2 /* FHKDesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			packageProductDependencies = (
 				5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */,
 				A3FE57192FB607E5009876B5 /* FHKDesignSystem */,
-				5D1CA18D2FC6376C006FA2E6 /* FHKDesignSystem */,
+				A36F317B2FD0461800EE6CD2 /* FHKDesignSystem */,
 			);
 			productName = FHKDesignSystemDemo;
 			productReference = 5D28A1E42EC8EE7D00AFF43A /* FHKDesignSystemDemo.app */;
@@ -243,7 +243,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				5D1CA18C2FC6376C006FA2E6 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */,
+				A36F317A2FD0461800EE6CD2 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5D28A1E52EC8EE7D00AFF43A /* Products */;
@@ -633,14 +633,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5D1CA18C2FC6376C006FA2E6 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/leonodev/fintechKids-modulo-designsystem-ios";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
@@ -649,14 +641,17 @@
 				minimumVersion = 1.18.7;
 			};
 		};
+		A36F317A2FD0461800EE6CD2 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leonodev/fintechKids-modulo-designsystem-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5D1CA18D2FC6376C006FA2E6 /* FHKDesignSystem */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5D1CA18C2FC6376C006FA2E6 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */;
-			productName = FHKDesignSystem;
-		};
 		5D28A20F2EC8EEA700AFF43A /* FHKDesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FHKDesignSystem;
@@ -690,6 +685,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5D8AC88B2EDF2281003F06C1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTestingCustomDump;
+		};
+		A36F317B2FD0461800EE6CD2 /* FHKDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A36F317A2FD0461800EE6CD2 /* XCRemoteSwiftPackageReference "fintechKids-modulo-designsystem-ios" */;
+			productName = FHKDesignSystem;
 		};
 		A3FE57192FB607E5009876B5 /* FHKDesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;

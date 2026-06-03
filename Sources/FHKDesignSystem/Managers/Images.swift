@@ -32,4 +32,7 @@ public extension Image {
     static let menuSavingsDisabled = Image("savings_gray", bundle: .module)
     static let menuTransferEnable = Image("transfer_gold", bundle: .module)
     static let menuTransferDisabled = Image("transfer_gray", bundle: .module)
+    
+    // Images
+    static let coinSingle = Image("coin", bundle: .module)
 }
