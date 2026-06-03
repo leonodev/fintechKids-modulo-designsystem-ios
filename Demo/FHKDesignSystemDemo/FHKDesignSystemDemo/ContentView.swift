@@ -340,11 +340,293 @@ struct ContainersView: View {
 struct LottiesView: View {
     
     var body: some View {
-        VStack {
-            LottieView(animationName: Lotties.party,
-                        loopMode: .loop,
-                        contentMode: .scaleAspectFit)
-            .frame(height: 198)
+        ScrollView {
+            VStack(spacing: 44) {
+                Text("camera")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.camera,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                Text("carShopping")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.carShopping,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("cinema")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.cinema,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("coin")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.coin,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("coinsBag")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.coinsBag,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("emptySearch")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.emptySearch,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("errorUser")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.errorUser,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("gaming")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.gaming,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("gifcardPurple")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.gifcardPurple,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("gifcardYellow")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.gifcardYellow,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("gifts")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.gifts,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("hours")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.hours,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("language")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.language,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("loading")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.loading,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("loadingWear")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.loadingWear,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("location")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.location,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("login")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.login,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("loadingWear")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.loadingWear,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("operationsBoard")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.operationsBoard,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+   
+                Text("party")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                LottieView(animationName: Lotties.party,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                
+                // ----------------------------
+                
+                Text("partyCheck")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.partyCheck,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("paySuccess")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.paySuccess,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                
+                // ----------------------------
+                
+                Text("progressBar")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.progressBar,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                
+                // ----------------------------
+                
+                Text("register")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.register,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("toys")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.toys,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+                
+                // ----------------------------
+                
+                Text("verticalCoins")
+                    .font(.PangramSans.bold(FHKSize.size28))
+                    .foregroundColor(FHKColor.basicWhite)
+                
+                LottieView(animationName: Lotties.verticalCoins,
+                           loopMode: .loop,
+                           contentMode: .scaleAspectFit)
+                .frame(height: 200)
+            }
         }
     }
 }
