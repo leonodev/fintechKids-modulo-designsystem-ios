@@ -103,22 +103,26 @@ struct FHKBottomBarContainerPreview: View {
         .init(title: "members",
               image: .init(systemName: "person.crop.circle.badge.plus"),
               color: FHKColor.ultraPurple,
-              menuType: .members),
+              menuType: .members,
+              identifier: "btn_add_member_id"),
         
             .init(title: "tasks",
                   image: .init(systemName: "house"),
                   color: FHKColor.indigo,
-                  menuType: .tasks),
+                  menuType: .tasks,
+                  identifier: "btn_task_id"),
         
             .init(title: "goals",
                   image: .init(systemName: "note.text.badge.plus"),
                   color: FHKColor.fuchsiaPink,
-                  menuType: .goals),
+                  menuType: .goals,
+                  identifier: "btn_goals_id"),
         
             .init(title: "rewards",
                   image: .init(systemName: "gamecontroller"),
                   color: FHKColor.ultraPurple,
-                  menuType: .rewards)
+                  menuType: .rewards,
+                  identifier: "btn_rewards_id")
     ]
     
     var body: some View {

@@ -21,12 +21,19 @@ public struct FloatMenu: View {
         var image: Image
         var color: Color
         var menuType: OptionType
+        var identifier: String
         
-        public init(title: String, image: Image, color: Color, menuType: OptionType) {
+        public init(title: String,
+                    image: Image,
+                    color: Color,
+                    menuType: OptionType,
+                    identifier: String
+        ) {
             self.title = title
             self.image = image
             self.color = color
             self.menuType = menuType
+            self.identifier = identifier
         }
     }
     
@@ -55,6 +62,7 @@ public struct FloatMenu: View {
                 button(option: option, atIndex: index)
                     .scaleEffect(isOpen ? 1 : 0.01)
                     .opacity(isOpen ? 1 : 0)
+                    .accessibilityIdentifier(option.identifier)
             }
             
             MainMenu(isOpen: $isOpen)
@@ -127,24 +135,28 @@ public extension FloatMenu {
             .init(title: "One",
                   image: .init(systemName: "person.crop.circle.badge.plus"),
                   color: .purple,
-                  menuType: .members),
+                  menuType: .members,
+                  identifier: "One"),
             
             
                 .init(title: "Two",
                       image: .init(systemName: "note.text.badge.plus"),
                       color: .pink,
-                      menuType: .tasks),
+                      menuType: .tasks,
+                      identifier: "Two"),
             
                 .init(title: "Three",
                       image: .init(systemName: "questionmark.circle.dashed"),
                       color: .gray,
-                      menuType: .goals),
+                      menuType: .goals,
+                      identifier: "Three"),
             
             
                 .init(title: "Four",
                       image: .init(systemName: "questionmark.circle.dashed"),
                       color: .gray,
-                      menuType: .rewards)
+                      menuType: .rewards,
+                      identifier: "Four")
         ]
         
         VStack {
