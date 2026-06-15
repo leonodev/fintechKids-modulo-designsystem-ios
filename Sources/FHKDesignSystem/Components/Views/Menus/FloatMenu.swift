@@ -62,7 +62,6 @@ public struct FloatMenu: View {
                 button(option: option, atIndex: index)
                     .scaleEffect(isOpen ? 1 : 0.01)
                     .opacity(isOpen ? 1 : 0)
-                    .accessibilityIdentifier(option.identifier)
             }
             
             MainMenu(isOpen: $isOpen)
@@ -107,6 +106,7 @@ public struct FloatMenu: View {
                 }
             }
         }
+        .accessibilityIdentifier(option.identifier)
         .offset(x: cos(angle) * radius, y: sin(angle) * radius)
         .animation(.spring(response: 0.4, dampingFraction: 0.65), value: isOpen)
     }
