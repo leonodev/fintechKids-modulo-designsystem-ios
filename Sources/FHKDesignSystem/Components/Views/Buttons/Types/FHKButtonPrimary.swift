@@ -11,6 +11,7 @@ public struct FHKButtonPrimary: View {
     public let title: String
     public var textColor: Color?
     public var appearance: FHKButtonAppearance
+    public var identifier: String
     public var action: () -> Void
     
     public init(title: String,
@@ -20,6 +21,7 @@ public struct FHKButtonPrimary: View {
                 variant: FHKButtonComponent.Variant = .simple,
                 position: FHKButtonComponent.Position = .none,
                 mode: FHKButtonComponent.Mode = .glass(.clear),
+                identifier: String = "",
                 action: @escaping () -> Void = {}) {
         self.title = title
         self.textColor = textColor
@@ -31,6 +33,7 @@ public struct FHKButtonPrimary: View {
             position: position,
             mode: mode
         )
+        self.identifier = identifier
         self.action = action
     }
 
@@ -47,6 +50,7 @@ public struct FHKButtonPrimary: View {
         }
         .disabled(appearance.state != .enabled)
         .buttonStyle(.plain)
+        .accessibilityIdentifier(identifier)
     }
 
     @ViewBuilder
