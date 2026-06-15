@@ -12,6 +12,7 @@ public struct FHKTextField: View {
     var placeholder: String
     var isSecure: Bool
     var keyboardType: UIKeyboardType
+    var identifier: String
     
     @State private var isTextVisible: Bool = false
     @FocusState private var isFocused: Bool
@@ -19,12 +20,14 @@ public struct FHKTextField: View {
     public init(text: Binding<String>,
                 placeholder: String,
                 isSecure: Bool = false,
-                keyboardType: UIKeyboardType = .default
+                keyboardType: UIKeyboardType = .default,
+                identifier: String = ""
     ) {
         self._text = text
         self.placeholder = placeholder
         self.isSecure = isSecure
         self.keyboardType = keyboardType
+        self.identifier = identifier
         self._isTextVisible = State(initialValue: !isSecure)
     }
     
@@ -71,11 +74,13 @@ public struct FHKTextField: View {
                             .autocapitalization(.none)
                             .font(.PangramSans.bold(FHKSize.size20))
                             .foregroundColor(FHKColor.lunarSand)
+                            .accessibilityIdentifier(identifier)
                     } else {
                         SecureField("", text: $text)
                             .focused($isFocused)
                             .font(.PangramSans.bold(FHKSize.size20))
                             .foregroundColor(FHKColor.lunarSand)
+                            .accessibilityIdentifier(identifier)
                     }
                 }
                 .padding(.top, isFloating ? 8 : 0)
