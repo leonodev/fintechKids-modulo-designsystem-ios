@@ -105,6 +105,8 @@ public struct FloatMenu: View {
                         .font(.PangramSans.bold(FHKSize.size12))
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier(option.identifier)
         }
         .accessibilityIdentifier(option.identifier)
         .offset(x: cos(angle) * radius, y: sin(angle) * radius)
