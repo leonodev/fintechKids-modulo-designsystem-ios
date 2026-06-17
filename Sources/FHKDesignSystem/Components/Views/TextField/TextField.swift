@@ -81,6 +81,8 @@ public struct FHKTextField: View {
                             .font(.PangramSans.bold(FHKSize.size20))
                             .foregroundColor(FHKColor.lunarSand)
                             .accessibilityIdentifier(identifier)
+                            .textContentType(ProcessInfo.processInfo.environment["IS_E2E_TESTING"]
+                                             == "true" ? .oneTimeCode : .password)
                     }
                 }
                 .padding(.top, isFloating ? 8 : 0)
