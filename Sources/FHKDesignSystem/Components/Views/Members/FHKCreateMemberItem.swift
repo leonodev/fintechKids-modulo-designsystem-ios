@@ -12,17 +12,20 @@ public struct FHKCreateMemberItem: View {
     let amount: String
     let avatarName: String
     let iconName: String
+    let identifier: String
     var action: () -> Void
     
     public init(name: String,
                 amount: String = "0,00",
                 avatarName: String,
                 iconName: String,
+                identifier: String = "",
                 action: @escaping () -> Void) {
         self.name = name
         self.amount = amount
         self.avatarName = avatarName
         self.iconName = iconName
+        self.identifier = identifier
         self.action = action
     }
 
@@ -52,6 +55,7 @@ public struct FHKCreateMemberItem: View {
                     .frame(width: FHKSize.size24, height: FHKSize.size24)
             }
         }
+        .accessibilityIdentifier(identifier)
         .padding()
         .background(Color.white.opacity(0.05))
         .cornerRadius(12)
