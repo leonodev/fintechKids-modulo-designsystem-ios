@@ -87,6 +87,7 @@ public struct FHKInformationView: View {
             }
         }
         .padding(FHKSpace.space24)
+        .accessibilityIdentifier(type == .success ? "view_result_success_id" : "view_result_fail_id")
     }
 }
 
