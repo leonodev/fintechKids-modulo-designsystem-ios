@@ -156,7 +156,6 @@ struct BottonsView: View {
                 .frame(width: 180, height: 80)
                 }
                 .buttonStyle(.plain)
-                .glassEffect(.clear.interactive())
                 
                 
             }
@@ -192,13 +191,11 @@ struct ImagesView: View {
                 Image(systemName: "applelogo")
                 .font(.system(size: 36))
                 .frame(width: 80, height: 80)
-                .glassEffect(.clear)
                 
                 
                 Image(systemName: "applelogo")
                 .font(.system(size: 36))
                 .frame(width: 80, height: 80)
-                .glassEffect(.regular.interactive())
             }
             .applyBackgroundDemoModifier()
             .navigationTitle("Images")
@@ -219,90 +216,65 @@ struct ContainersView: View {
     var body: some View {
         VStack {
             ScrollView {
-                //Image Glass
-                GlassEffectContainer {
+    
+                VStack {
                     
-                    VStack {
-                        
-                        HStack {
+                    HStack {
                         Image(systemName: "cloud.bolt.rain.fill")
                             .font(.system(size: 36))
                             .frame(width: 80, height: 80)
-                            .glassEffect()
-                            .glassEffectUnion(id: 1, namespace: nameSpace)
                         
                         Image(systemName: "sun.rain.fill")
                             .font(.system(size: 36))
                             .frame(width: 80, height: 80)
-                            .glassEffect()
-                            .glassEffectUnion(id: 1, namespace: nameSpace)
                         
                         Image(systemName: "cloud.bolt.rain.fill")
                             .font(.system(size: 36))
                             .frame(width: 80, height: 80)
-                            .glassEffect()
-                            .glassEffectUnion(id: 2, namespace: nameSpace)
                         
                         Image(systemName: "sun.rain.fill")
                             .font(.system(size: 36))
                             .frame(width: 80, height: 80)
-                            .glassEffect()
-                            .glassEffectUnion(id: 2, namespace: nameSpace)
-                        }
-                        
-                        HStack {
-                            Group {
-                                Image(systemName: "cloud.bolt.rain.fill")
-                                    .font(.system(size: 36))
-                                    .frame(width: 80, height: 80)
-                                    .glassEffect()
-                                    .glassEffectUnion(id: 3, namespace: nameSpace2)
-                                
-                                
-                                Image(systemName: "sun.rain.fill")
-                                    .font(.system(size: 36))
-                                    .frame(width: 80, height: 80)
-                                    .glassEffect()
-                                    .glassEffectUnion(id: 3, namespace: nameSpace2)
-                                
-                            }
+                    }
+                    
+                    HStack {
+                        Group {
+                            Image(systemName: "cloud.bolt.rain.fill")
+                                .font(.system(size: 36))
+                                .frame(width: 80, height: 80)
+                            
+                            
+                            Image(systemName: "sun.rain.fill")
+                                .font(.system(size: 36))
+                                .frame(width: 80, height: 80)
                             
                         }
                     }
                 }
                 
-                
-                GlassEffectContainer {
-                    HStack {
-                        Image(systemName: "photo")
-                            .font(.system(size: 36))
-                            .frame(width: 80, height: 80)
-                            .glassEffect(.regular.tint(.teal.opacity(0.4)).interactive())
-                            .glassEffectID("photo", in: nameSpaceMenu)
-                            .onTapGesture {
-                                withAnimation(.linear(duration: 0.5)) {
-                                    isExpanded .toggle()
-                                }
+                HStack {
+                    Image(systemName: "photo")
+                        .font(.system(size: 36))
+                        .frame(width: 80, height: 80)
+                        .onTapGesture {
+                            withAnimation(.linear(duration: 0.5)) {
+                                isExpanded .toggle()
                             }
-                        
-                        if isExpanded {
-                            Group {
-                                Image(systemName: "building.2")
-                                    .font(.system(size: 36))
-                                    .frame(width: 80, height: 80)
-                                    .glassEffectID("building", in: nameSpaceMenu)
-                                
-                                Image(systemName: "fish")
-                                    .font(.system(size: 36))
-                                    .frame(width: 80, height: 80)
-                                    .glassEffectID("fish", in: nameSpaceMenu)
-                                
-                            }
-                            .glassEffect()
-                            .glassEffectUnion(id: 1, namespace: nameSpaceMenu)
-                            .glassEffectTransition(.matchedGeometry)
+                        }
+                    
+                    if isExpanded {
+                        Group {
+                            Image(systemName: "building.2")
+                                .font(.system(size: 36))
+                                .frame(width: 80, height: 80)
+                            
+                            Image(systemName: "fish")
+                                .font(.system(size: 36))
+                                .frame(width: 80, height: 80)
+                            
                         }
                     }
+                }
                     
                     // TextField
                     HStack {
@@ -310,18 +282,12 @@ struct ContainersView: View {
                         if isExpanded {
                             TextField("Name", text: $name)
                                 .padding()
-                                .glassEffect()
-                                .glassEffectID("text", in: nameSpaceMenu)
-                                .glassEffectTransition(.matchedGeometry)
                         }
                         
                         
                         Image(systemName: isExpanded ? "checkmark" : "plus")
                             .font(.system(size: 36))
                             .frame(width: 70, height: 70)
-                            .glassEffect(.regular.interactive())
-                            .glassEffectID("plus", in: nameSpaceMenu)
-                            .contentTransition(.symbolEffect(.replace.magic(fallback: .replace))) // Efecto de animacion del icono
                             .onTapGesture {
                                 withAnimation {
                                     isExpanded.toggle()
@@ -329,7 +295,6 @@ struct ContainersView: View {
                             }
                     }
                     .padding()
-                }
             }
             .applyBackgroundDemoModifier()
             .navigationTitle("Images")
