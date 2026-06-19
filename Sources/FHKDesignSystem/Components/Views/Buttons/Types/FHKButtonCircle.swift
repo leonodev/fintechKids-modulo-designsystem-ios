@@ -77,23 +77,6 @@ extension FFHKButtonCircleAppearance {
             return FHKSize.size60
         }
     }
-    
-    @available(iOS 26.0, *)
-    func modeGlass(variant: FHKButtonComponent.Mode.Style) -> Glass {
-        switch variant {
-        case .clear:
-                .clear
-            
-        case .clearWithInteractive:
-                .clear.interactive()
-            
-        case .regular:
-                .regular
-            
-        case .regularWithInteractive:
-                .regular.interactive()
-        }
-    }
 }
 
 #Preview {
