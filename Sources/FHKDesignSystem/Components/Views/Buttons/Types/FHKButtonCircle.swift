@@ -35,25 +35,13 @@ public struct FHKButtonCircle: FHKButtonCircleProtocol {
     
     public var body: some View {
         if case .glass(let glassVariant) = appearance.mode {
-            if #available(iOS 26.0, *) {
-                logoImage
-                    .resizable()
-                    .font(.system(size: 36))
-                    .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
-                    .glassEffect(appearance.modeGlass(variant: glassVariant))
-                    .onTapGesture {
-                        action()
-                    }
-            } else {
-                // Fallback on earlier versions
-                logoImage
-                    .resizable()
-                    .font(.system(size: 36))
-                    .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
-                    .onTapGesture {
-                        action()
-                    }
-            }
+            logoImage
+                .resizable()
+                .font(.system(size: 36))
+                .frame(width: appearance.sizeIcon, height: appearance.sizeIcon)
+                .onTapGesture {
+                    action()
+                }
         }
         else {
             logoImage

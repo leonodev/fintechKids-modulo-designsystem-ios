@@ -56,13 +56,8 @@ public struct FHKButtonPrimary: View {
     @ViewBuilder
     private var backgroundView: some View {
         if case .glass(let glassVariant) = appearance.mode {
-            if #available(iOS 26.0, *) {
-                 Color.clear
-                    .glassEffect(appearance.modeGlass(variant: glassVariant))
-            } else {
-                Color.white.opacity(0.2)
-                    .background(.ultraThinMaterial)
-            }
+            Color.white.opacity(0.2)
+                .background(.ultraThinMaterial)
         } else {
             appearance.solidBackgroundColor()
         }
