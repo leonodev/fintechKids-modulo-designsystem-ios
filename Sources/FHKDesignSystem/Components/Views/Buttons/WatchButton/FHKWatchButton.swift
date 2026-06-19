@@ -84,8 +84,10 @@ public struct FHKWatchButton: View {
             // START
             startTime = Date() - elapsedTime
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                if let start = startTime {
-                    elapsedTime = Date().timeIntervalSince(start)
+                Task { @MainActor in
+                    if let start = startTime {
+                        elapsedTime = Date().timeIntervalSince(start)
+                    }
                 }
             }
         }
