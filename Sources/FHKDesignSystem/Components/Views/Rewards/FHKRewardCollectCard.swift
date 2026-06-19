@@ -275,7 +275,7 @@ private extension FHKRewardCollectCard {
 
 public extension FHKRewardCollectCard {
     @ViewBuilder
-    public static func skeletons(count: Int, style: CollectCardStyleType) -> some View {
+    static func skeletons(count: Int, style: CollectCardStyleType) -> some View {
         ForEach(0..<count, id: \.self) { _ in
             FHKRewardCollectCard(state: .skeleton, style: style)
         }

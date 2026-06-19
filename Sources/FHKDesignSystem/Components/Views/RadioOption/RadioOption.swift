@@ -107,15 +107,14 @@ public struct FHKRadioGroupField<T: Equatable>: View {
 }
 
 #Preview {
+    @Previewable @State var selectedDuration: String? = nil
     PreviewContainer {
         
-        @State var selectedDuration: String? = nil
-            
-            let durationOptions = [
-                FHKRadioOption(value: "days", label: "Días"),
-                FHKRadioOption(value: "weeks", label: "Semanas"),
-                FHKRadioOption(value: "months", label: "Meses")
-            ]
+        let durationOptions = [
+            FHKRadioOption(value: "days", label: "Días"),
+            FHKRadioOption(value: "weeks", label: "Semanas"),
+            FHKRadioOption(value: "months", label: "Meses")
+        ]
         
         FHKRadioGroupField(
             title: "Tipo de Duración",

@@ -170,7 +170,7 @@ public struct FHKGoalCardView: View {
 
 public extension FHKGoalCardView {
     @ViewBuilder
-    public static func skeletons(count: Int) -> some View {
+    static func skeletons(count: Int) -> some View {
         ForEach(0..<count, id: \.self) { _ in
             FHKGoalCardView(id: 0,
                             state: .skeleton,
@@ -182,7 +182,7 @@ public extension FHKGoalCardView {
     }
     
     @ViewBuilder
-    public static func error(msn: String) -> some View {
+    static func error(msn: String) -> some View {
         FHKGoalCardView(id: 0,
                         state: .error(msn),
                         current: 0,

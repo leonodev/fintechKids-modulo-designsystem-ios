@@ -24,7 +24,7 @@ public struct IntegerOnlyModifier: ViewModifier {
 
 public extension View {
     /// Fuerza a que un TextField solo acepte números enteros.
-    public func onlyIntegers(text: Binding<String>) -> some View {
+    func onlyIntegers(text: Binding<String>) -> some View {
         self.modifier(IntegerOnlyModifier(text: text))
     }
 }

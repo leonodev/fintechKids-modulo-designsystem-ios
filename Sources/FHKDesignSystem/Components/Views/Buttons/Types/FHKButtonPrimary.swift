@@ -55,7 +55,7 @@ public struct FHKButtonPrimary: View {
 
     @ViewBuilder
     private var backgroundView: some View {
-        if case .glass(let glassVariant) = appearance.mode {
+        if case .glass(_) = appearance.mode {
             Color.white.opacity(0.2)
                 .background(.ultraThinMaterial)
         } else {

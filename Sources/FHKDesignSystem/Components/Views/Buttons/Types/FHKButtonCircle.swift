@@ -34,7 +34,7 @@ public struct FHKButtonCircle: FHKButtonCircleProtocol {
     }
     
     public var body: some View {
-        if case .glass(let glassVariant) = appearance.mode {
+        if case .glass(_) = appearance.mode {
             logoImage
                 .resizable()
                 .font(.system(size: 36))
