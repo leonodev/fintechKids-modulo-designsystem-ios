@@ -35,14 +35,17 @@ public struct LottieView: UIViewRepresentable {
     let animationName: String
     var loopMode: LottieLoop
     var contentMode: UIView.ContentMode
+    var identifier: String?
     
     public init(animationName: String,
                 loopMode: LottieLoop = .loop,
-                contentMode: UIView.ContentMode = .scaleAspectFit
+                contentMode: UIView.ContentMode = .scaleAspectFit,
+                identifier: String? = nil
     ) {
         self.animationName = animationName
         self.loopMode = loopMode
         self.contentMode = contentMode
+        self.identifier = identifier
     }
     
     public func makeUIView(context: Context) -> LottieAnimationView {
@@ -52,6 +55,11 @@ public struct LottieView: UIViewRepresentable {
         animationView.loopMode = loopMode.mode()
         animationView.animationSpeed = 1.5
         animationView.clipsToBounds = false
+        
+    
+        if let accessibilityIdentifier = identifier {
+            animationView.accessibilityIdentifier = accessibilityIdentifier
+        }
         
         // Esto hace que respete el frame de SwiftUI
         animationView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
