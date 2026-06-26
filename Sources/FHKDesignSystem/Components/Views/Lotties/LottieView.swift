@@ -57,6 +57,9 @@ public struct LottieView: UIViewRepresentable {
         animationView.clipsToBounds = false
         
     
+        // Asegurar que la vista sea accesible
+        animationView.isAccessibilityElement = true
+        
         if let accessibilityIdentifier = identifier {
             animationView.accessibilityIdentifier = accessibilityIdentifier
         }
@@ -69,5 +72,10 @@ public struct LottieView: UIViewRepresentable {
         return animationView
     }
 
-    public func updateUIView(_ uiView: LottieAnimationView, context: Context) {}
+    public func updateUIView(_ uiView: LottieAnimationView, context: Context) {
+        // Re-aplicar el identificador en updates
+        if let accessibilityIdentifier = identifier {
+            uiView.accessibilityIdentifier = accessibilityIdentifier
+        }
+    }
 }
